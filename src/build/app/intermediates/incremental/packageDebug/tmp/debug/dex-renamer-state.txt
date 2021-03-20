@@ -1,4 +1,0 @@
-#Sat Mar 20 00:32:27 KST 2021
-base.0=E\:\\Projects\\Keep\\my_school\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
-path.0=classes.dex
-renamed.0=classes.dex

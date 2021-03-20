@@ -1,6 +1,6 @@
 # my_school
 
-A classmate in your hand.
+A new Flutter application.
 
 ## Getting Started
 
