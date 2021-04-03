@@ -1,3 +1,4 @@
+/// 학원교습소 관련 정보를 저장하는 클래스입니다.
 class AcademyInfo {
   /// 시도교육청코드
   String officeCode;
