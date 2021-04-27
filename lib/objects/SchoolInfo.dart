@@ -19,9 +19,6 @@ class SchoolInfo {
   /// 관할조직명
   String districtOfficeName;
 
-  /// 설립명
-  String foundationName;
-
   /// 도로명우편번호
   String postalCode;
   /// 도로명주소
@@ -34,24 +31,10 @@ class SchoolInfo {
   /// 홈페이지주소
   String homepageAddress;
   /// 남녀공학구분명
-  String codeSchoolName;
+  String isCoeduSchool;
 
   /// 팩스번호
   String faxNumber;
-
-  /// 고등학교구분명
-  String highSchoolTypeName;
-  /// 산업체특별학급존재여부
-  bool hasIndustrialClass;
-  /// 고등학교일반실업구분명
-  String highSchoolNormalAndIndustrialName;
-  /// 특수목적고등학교계열명
-  String specialPurposeHighSchoolTypeName;
-
-  /// 입시전후기구분명
-  String entrancePeriod;
-  /// 주야과정명
-  String dayOrNight;
 
   /// 설립일자
   DateTime foundedDate;

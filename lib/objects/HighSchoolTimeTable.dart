@@ -1,7 +1,7 @@
-import 'package:my_school/objects/TimeTable.dart';
+import 'package:my_school/objects/GeneralTimeTable.dart';
 
 /// 고등학교 시간표 자료를 저장하는 클래스입니다.
-class MiddleSchoolTimeTable extends TimeTable {
+class MiddleSchoolTimeTable extends GeneralTimeTable {
   /// 주야과정명
   String dayOrNight;
   /// 계열명

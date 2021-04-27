@@ -1,5 +1,5 @@
 /// 시간표 개별 객체의 기초 클래스이자, 초등학교 시간표 자료를 저장하는 클래스입니다.
-class TimeTable {
+class GeneralTimeTable {
   /// 시도교육청코드
   String officeCode;
   /// 시도교육청명
