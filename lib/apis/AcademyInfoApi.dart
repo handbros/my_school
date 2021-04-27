@@ -64,20 +64,19 @@ class AcademyInfoApi {
         resultCode = ResultCode.SqlQueryError;
       }
 
-
       // 데이터를 필요한 형태로 재가공.
-      var resultData = json["acaInsTiInfo"][1]["row"];
+      List<dynamic> items = json["acaInsTiInfo"][1]["row"];
 
-      weather = Weather(
-          temp: data1["main"]["temp"],
-          tempMax: data1["main"]["temp_max"],
-          tempMin: data1["main"]["temp_min"],
-          weatherMain: data1["weather"][0]["main"],//weather부분의 경우 리스트로 json에 들어가고 있기 때문에 첫번째것을 쓴다고 표시를 해준다.
-          code: data1["weather"][0]["id"]);//weather부분의 경우 리스트로 json에 들어가고 있기 때문에 첫번째것을 쓴다고 표시를 해준다.
+      items.forEach((item) {
+        AcademyInfo temp = new AcademyInfo();
+        temp.officeCode = item["ATPT_OFCDC_SC_CODE"];
+
+        result.add(temp);
+      });
 
       resultCode = ResultCode.Okay;
     } catch (e) {
-      result = null//
+      result = null;
       print(e);
     }
 
