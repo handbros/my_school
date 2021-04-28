@@ -1,5 +1,5 @@
 /// 식단 정보를 저장하는 클래스입니다.
-class DietInfo {
+class MealInfo {
   /// 시도교육청코드
   String officeCode;
   /// 시도교육청명

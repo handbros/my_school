@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_school/widgets/BottomNavigationDotBar.dart';
 import 'package:my_school/pages/HomePage.dart';
-import 'package:my_school/pages/TimetablePage.dart';
+import 'package:my_school/pages/TimeTablePage.dart';
 import 'package:my_school/pages/MealPage.dart';
 import 'package:my_school/pages/ListPage.dart';
 import 'package:my_school/pages/SettingsPage.dart';
@@ -14,7 +14,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int currentIndex = 0;
 
-  final List<Widget> pages = [HomePage(), TimetablePage(), MealPage(), ListPage(), SettingsPage()];
+  final List<Widget> pages = [HomePage(), TimeTablePage(), MealPage(), ListPage(), SettingsPage()];
 
   void changePageIndex(int index) {
     setState(() {

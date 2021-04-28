@@ -1,5 +1,11 @@
 /// Open API의 호출 결과를 나타냅니다.
 enum ResultCode {
+  /// NONE. 호출 결과가 없습니다.
+  None,
+
+  /// EXCEPTION. 예외가 발생하였습니다.
+  Exception,
+
   /// INFO_000. 요청이 정상 처리되었습니다.
   Okay,
 
