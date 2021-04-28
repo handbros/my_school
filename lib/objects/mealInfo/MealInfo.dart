@@ -14,12 +14,12 @@ class MealInfo {
 
   /// 식사코드
   int mealCode;
+  /// 요리명
+  String menuList;
   /// 식사명
   String mealName;
   /// 칼로리정보
   String calorie;
-  /// 요리명
-  List<String> menuList;
   /// 원산지정보
   String origins;
   /// 영양정보

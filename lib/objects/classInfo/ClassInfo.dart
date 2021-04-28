@@ -1,4 +1,4 @@
-/// 식단 정보를 저장하는 클래스입니다.
+/// 반 정보를 저장하는 클래스입니다.
 class ClassInfo {
   /// 시도교육청코드
   String officeCode;
@@ -19,12 +19,12 @@ class ClassInfo {
   /// 학교과정명
   String schoolType;
 
-  /// 반명
-  String className;
   /// 계열명
   String fieldName;
   /// 학과명
   String departmentName;
+  /// 반명
+  String className;
 
   /// 적재일시
   DateTime uploadTime;

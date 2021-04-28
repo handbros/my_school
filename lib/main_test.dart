@@ -1,17 +1,20 @@
 import 'package:my_school/apis/SchoolInfoApi.dart';
 import 'package:my_school/objects/ResultCode.dart';
+import 'package:my_school/objects/classInfo/ClassInfo.dart';
+import 'package:my_school/objects/classInfo/ClassInfoApiResult.dart';
+import 'package:my_school/apis/ClassInfoApi.dart';
 import 'package:my_school/objects/schoolInfo/SchoolInfo.dart';
 import 'package:my_school/objects/schoolInfo/SchoolInfoApiResult.dart';
 import 'package:my_school/SharedAssets.dart';
 
 import 'package:my_school/objects/schoolSchedule/SchoolSchedule.dart';
 import 'package:my_school/objects/schoolSchedule/SchoolScheduleApiResult.dart';
-
 import 'package:my_school/apis/SchoolScheduleApi.dart';
 
 void main() async {
   //schoolInfoApiTest();
-  schoolScheduleApiTest();
+  //schoolScheduleApiTest();
+  classInfoApiTest();
 }
 
 void schoolInfoApiTest() async {
@@ -55,6 +58,29 @@ void schoolScheduleApiTest() async {
       print("DATE : " + (resultList[i] as SchoolSchedule).date.toIso8601String());
       print("FEATURE : " + (resultList[i] as SchoolSchedule).feature);
       print("EVENT NAME : " + (resultList[i] as SchoolSchedule).eventName);
+    }
+  }
+}
+
+void classInfoApiTest() async {
+  Future<ClassInfoApiResult> futureResult = new ClassInfoApi().getClassInfo("D10", 7261033, targetYear: 2021, grade: 2);
+  ClassInfoApiResult result = await futureResult;
+
+  print("KEY : " + SharedAssets().API_KEY);
+  print("RESULT CODE : " + result.resultCode.toString());
+  print("RESULT MESSAGE : " + result.resultMessage);
+
+  if (result.resultCode == ResultCode.Okay) {
+    print("ITEMS TOTAL COUNT : " + result.itemsTotalCount.toString());
+
+    List resultList = result.items;
+
+    for (int i=0; i<resultList.length; i++) {
+      print("------------------------------");
+      print("SCHOOL NAME : " + (resultList[i] as ClassInfo).schoolName);
+      print("YEAR : " + (resultList[i] as ClassInfo).targetYear.toString());
+      print("GRADE : " + (resultList[i] as ClassInfo).grade.toString());
+      print("CLASS NAME : " + (resultList[i] as ClassInfo).className);
     }
   }
 }
