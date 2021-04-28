@@ -5,7 +5,7 @@ import 'package:my_school/objects/schoolInfo/SchoolInfoApiResult.dart';
 import 'package:my_school/SharedAssets.dart';
 
 void main() async {
-  Future<SchoolInfoApiResult> futureResult = new SchoolInfoApi().getSchoolInfo("A10", "강북", "");
+  Future<SchoolInfoApiResult> futureResult = new SchoolInfoApi().getSchoolInfo("D10", "강북", "");
   SchoolInfoApiResult result = await futureResult;
 
   print("KEY : " + SharedAssets().API_KEY);
