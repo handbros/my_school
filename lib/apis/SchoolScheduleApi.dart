@@ -30,13 +30,13 @@ class SchoolScheduleApi {
       // API 호출 결과 코드를 가져옴.
       try {
         String resultCodeString = json["SchoolSchedule"][0]["head"][1]["RESULT"]["CODE"].toString();
-        result.resultCode = StringFormatter.formatToResultCode(resultCodeString);
+        result.resultCode = StringFormatter.stringToResultCode(resultCodeString);
         result.resultMessage = json["SchoolSchedule"][0]["head"][1]["RESULT"]["MESSAGE"].toString();
       }
       catch(e) {
         // 오류 발생 시에는 다른 구조의 JSON이 반환됨. 예외 발생 시 이를 처리함.
         String resultCodeString = json["RESULT"]["CODE"].toString();
-        result.resultCode = StringFormatter.formatToResultCode(resultCodeString);
+        result.resultCode = StringFormatter.stringToResultCode(resultCodeString);
         result.resultMessage = json["RESULT"]["MESSAGE"].toString();
       }
 
@@ -63,14 +63,14 @@ class SchoolScheduleApi {
 
           temp.eventName = item["EVENT_NM"];
           temp.eventDetails = item["EVENT_CNTNT"];
-          temp.isFirstGradeEvent = StringFormatter.formatToBool(item["ONE_GRADE_EVENT_YN"]);
-          temp.isSecondGradeEvent = StringFormatter.formatToBool(item["TW_GRADE_EVENT_YN"]);
-          temp.isThirdGradeEvent = StringFormatter.formatToBool(item["THREE_GRADE_EVENT_YN"]);
-          temp.isFourthGradeEvent = StringFormatter.formatToBool(item["FR_GRADE_EVENT_YN"]);
-          temp.isFifthGradeEvent = StringFormatter.formatToBool(item["FIV_GRADE_EVENT_YN"]);
-          temp.isSixthGradeEvent = StringFormatter.formatToBool(item["SIX_GRADE_EVENT_YN"]);
+          temp.isFirstGradeEvent = StringFormatter.stringToBool(item["ONE_GRADE_EVENT_YN"]);
+          temp.isSecondGradeEvent = StringFormatter.stringToBool(item["TW_GRADE_EVENT_YN"]);
+          temp.isThirdGradeEvent = StringFormatter.stringToBool(item["THREE_GRADE_EVENT_YN"]);
+          temp.isFourthGradeEvent = StringFormatter.stringToBool(item["FR_GRADE_EVENT_YN"]);
+          temp.isFifthGradeEvent = StringFormatter.stringToBool(item["FIV_GRADE_EVENT_YN"]);
+          temp.isSixthGradeEvent = StringFormatter.stringToBool(item["SIX_GRADE_EVENT_YN"]);
 
-          temp.uploadTime = DateTime.parse(StringFormatter.formatToParsableDateTime(item["LOAD_DTM"]));
+          temp.uploadTime = DateTime.parse(StringFormatter.stringToParsableDateTimeString(item["LOAD_DTM"]));
 
           result.items.add(temp);
         });

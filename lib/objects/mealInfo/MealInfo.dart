@@ -9,15 +9,16 @@ class MealInfo {
   /// 학교명
   String schoolName;
 
+  /// 식사코드
+  int mealCode;
+  /// 식사명
+  String mealName;
+
   /// 급식일자
   DateTime date;
 
-  /// 식사코드
-  int mealCode;
   /// 요리명
-  String menuList;
-  /// 식사명
-  String mealName;
+  String menu;
   /// 칼로리정보
   String calorie;
   /// 원산지정보

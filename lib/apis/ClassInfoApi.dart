@@ -29,13 +29,13 @@ class ClassInfoApi {
       // API 호출 결과 코드를 가져옴.
       try {
         String resultCodeString = json["classInfo"][0]["head"][1]["RESULT"]["CODE"].toString();
-        result.resultCode = StringFormatter.formatToResultCode(resultCodeString);
+        result.resultCode = StringFormatter.stringToResultCode(resultCodeString);
         result.resultMessage = json["classInfo"][0]["head"][1]["RESULT"]["MESSAGE"].toString();
       }
       catch(e) {
         // 오류 발생 시에는 다른 구조의 JSON이 반환됨. 예외 발생 시 이를 처리함.
         String resultCodeString = json["RESULT"]["CODE"].toString();
-        result.resultCode = StringFormatter.formatToResultCode(resultCodeString);
+        result.resultCode = StringFormatter.stringToResultCode(resultCodeString);
         result.resultMessage = json["RESULT"]["MESSAGE"].toString();
       }
 
@@ -65,7 +65,7 @@ class ClassInfoApi {
           temp.departmentName = item["DDDEP_NM"];
           temp.className = item["CLASS_NM"];
 
-          temp.uploadTime = DateTime.parse(StringFormatter.formatToParsableDateTime(item["LOAD_DTM"]));
+          temp.uploadTime = DateTime.parse(StringFormatter.stringToParsableDateTimeString(item["LOAD_DTM"]));
 
           result.items.add(temp);
         });

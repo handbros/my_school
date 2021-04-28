@@ -16,4 +16,5 @@ class SharedAssets {
   String SCHOOL_INFO_API_PATH = "/hub/schoolInfo";
   String SCHOOL_SCHEDULE_API_PATH = "/hub/SchoolSchedule";
   String CLASS_INFO_API_PATH = "/hub/classInfo";
+  String MEAL_INFO_API_PATH = "/hub/mealServiceDietInfo";
 }

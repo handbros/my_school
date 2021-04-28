@@ -2,8 +2,7 @@ import 'package:my_school/objects/ResultCode.dart';
 
 class StringFormatter {
   /// 문자열을 ResultCode로 변환합니다.
-  static ResultCode formatToResultCode(String text)
-  {
+  static ResultCode stringToResultCode(String text) {
     ResultCode result;
 
     if (text == "INFO-000") {
@@ -50,7 +49,7 @@ class StringFormatter {
   }
 
   /// 'YYYYMMDDHHmmss'와 같은 문자열을 'YYYYMMDDTHHmmss로 변환합니다.
-  static String formatToParsableDateTime(String text) {
+  static String stringToParsableDateTimeString(String text) {
     if (text.length >= 14) {
       var result = text.substring(0, 8) + "T" + text.substring(8, 14);
       return result;
@@ -61,13 +60,17 @@ class StringFormatter {
   }
 
   /// 'Y', 'N', '*'을 bool 자료형으로 변환합니다.
-  static bool formatToBool(String text)
-  {
+  static bool stringToBool(String text) {
     if (text == "Y") {
       return true;
     }
     else {
       return false;
     }
+  }
+
+  /// HTML <br> 태그를 이스케이프 시퀀스를 이용한 줄 바꿈으로 변환합니다.
+  static String lineBreakToEscapeSequence(String text) {
+    return text.replaceAll(RegExp("<br/>"), "\n");
   }
 }
