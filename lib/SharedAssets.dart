@@ -14,4 +14,5 @@ class SharedAssets {
   String API_KEY = "d3907f38622249d18ac04d71b9b30640";
   String API_DOMAIN = "open.neis.go.kr";
   String SCHOOL_INFO_API_PATH = "/hub/schoolInfo";
+  String SCHOOL_SCHEDULE_API_PATH = "/hub/SchoolSchedule";
 }

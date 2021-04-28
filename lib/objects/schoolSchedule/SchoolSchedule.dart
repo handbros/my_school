@@ -10,15 +10,11 @@ class SchoolSchedule {
 
   /// 학년도
   int targetYear;
-  /// 주야과정명
-  String dayOrNight;
-  /// 학교과정명
-  String schoolType;
 
   /// 수업공제일명
   String feature;
   /// 학사일자
-  String date;
+  DateTime date;
 
   /// 행사명
   String eventName;

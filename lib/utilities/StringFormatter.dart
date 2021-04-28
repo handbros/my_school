@@ -1,6 +1,7 @@
 import 'package:my_school/objects/ResultCode.dart';
 
 class StringFormatter {
+  /// 문자열을 ResultCode로 변환합니다.
   static ResultCode formatToResultCode(String text)
   {
     ResultCode result;
@@ -48,7 +49,7 @@ class StringFormatter {
     return result;
   }
 
-  /// 'YYYYMMDDHHmmss'와 같은 문자열을 'YYYYMMDDTHHmmss로 변환해줍니다.
+  /// 'YYYYMMDDHHmmss'와 같은 문자열을 'YYYYMMDDTHHmmss로 변환합니다.
   static String formatToParsableDateTime(String text) {
     if (text.length >= 14) {
       var result = text.substring(0, 8) + "T" + text.substring(8, 14);
@@ -56,6 +57,17 @@ class StringFormatter {
     }
     else {
       return text;
+    }
+  }
+
+  /// 'Y', 'N', '*'을 bool 자료형으로 변환합니다.
+  static bool formatToBool(String text)
+  {
+    if (text == "Y") {
+      return true;
+    }
+    else {
+      return false;
     }
   }
 }
