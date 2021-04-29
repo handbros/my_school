@@ -1,7 +1,6 @@
 /*
- * Reference Code
+ * Original Code
  * https://github.com/sooxt98/google_nav_bar/blob/master/example/lib/main.dart
- * https://github.com/lohanidamodar/flutter_ui_challenges/blob/master/lib/src/pages/settings/settings2.dart
  * modified by my_school
  */
 

@@ -1,3 +1,9 @@
+/*
+ * Code Referenced
+ * https://github.com/lohanidamodar/flutter_ui_challenges/blob/master/lib/src/pages/settings/settings2.dart
+ * modified by my_school
+ */
+
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatefulWidget {
