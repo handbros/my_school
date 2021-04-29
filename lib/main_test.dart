@@ -1,5 +1,7 @@
 import 'package:my_school/apis/SchoolInfoApi.dart';
+import 'package:my_school/apis/TimeTableApi.dart';
 import 'package:my_school/objects/ResultCode.dart';
+import 'package:my_school/objects/SchoolType.dart';
 import 'package:my_school/objects/classInfo/ClassInfo.dart';
 import 'package:my_school/objects/classInfo/ClassInfoApiResult.dart';
 import 'package:my_school/apis/ClassInfoApi.dart';
@@ -11,15 +13,18 @@ import 'package:my_school/SharedAssets.dart';
 import 'package:my_school/objects/schoolSchedule/SchoolSchedule.dart';
 import 'package:my_school/objects/schoolSchedule/SchoolScheduleApiResult.dart';
 import 'package:my_school/apis/SchoolScheduleApi.dart';
+import 'package:my_school/objects/timeTable/GeneralTimeTable.dart';
 
 import 'apis/MealInfoApi.dart';
 import 'objects/mealInfo/MealInfoApiResult.dart';
+import 'objects/timeTable/TimeTableApiResult.dart';
 
 void main() async {
   //schoolInfoApiTest();
   //schoolScheduleApiTest();
   //classInfoApiTest();
-  mealInfoApiTest();
+  //mealInfoApiTest();
+  elementarySchoolTimeTableApiTest();
 }
 
 void schoolInfoApiTest() async {
@@ -111,6 +116,31 @@ void mealInfoApiTest() async {
       print("CALORIE : " + (resultList[i] as MealInfo).calorie);
       print("ORIGINS : \n" + (resultList[i] as MealInfo).origins);
       print("NUTRIENTS : \n" + (resultList[i] as MealInfo).nutrients);
+    }
+  }
+}
+
+void elementarySchoolTimeTableApiTest() async {
+  Future<TimeTableApiResult> futureResult = new TimeTableApi().getGeneralTimeTable("D10", 7240068, SchoolType.High, targetYear: 2021, semester: 1, grade: 2, className: "10", from: "20210430", to: "20210430");
+  TimeTableApiResult result = await futureResult;
+
+  print("KEY : " + SharedAssets().API_KEY);
+  print("RESULT CODE : " + result.resultCode.toString());
+  print("RESULT MESSAGE : " + result.resultMessage);
+
+  if (result.resultCode == ResultCode.Okay) {
+    print("SCHOOL TYPE : " + result.schoolType.toString());
+    print("ITEMS TOTAL COUNT : " + result.itemsTotalCount.toString());
+
+    List resultList = result.items;
+
+    for (int i=0; i<resultList.length; i++) {
+      print("------------------------------");
+      print("DATE : " + (resultList[i] as GeneralTimeTable).date.toIso8601String());
+      print("GRADE : " + (resultList[i] as GeneralTimeTable).grade.toString());
+      print("CLASS : " + (resultList[i] as GeneralTimeTable).className);
+      print("PERIOD : " + (resultList[i] as GeneralTimeTable).period.toString());
+      print("CONTENT : " + (resultList[i] as GeneralTimeTable).content);
     }
   }
 }

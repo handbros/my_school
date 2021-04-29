@@ -26,6 +26,11 @@ class GeneralTimeTable {
   /// 수업내용
   String content;
 
+  /// 학교과정명(고등학교 및 특수학교 시간표에서만 사용됨)
+  String curriculum;
+  /// 강의실명(고등학교 및 특수학교 시간표에서만 사용됨)
+  String classroomName;
+
   /// 적재일시
   DateTime uploadTime;
 }

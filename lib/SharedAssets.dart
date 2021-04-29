@@ -17,4 +17,8 @@ class SharedAssets {
   String SCHOOL_SCHEDULE_API_PATH = "/hub/SchoolSchedule";
   String CLASS_INFO_API_PATH = "/hub/classInfo";
   String MEAL_INFO_API_PATH = "/hub/mealServiceDietInfo";
+  String ELEMENTARY_SCHOOL_TIME_TABLE_API_PATH = "/hub/elsTimetable";
+  String MIDDLE_SCHOOL_TIME_TABLE_API_PATH = "/hub/misTimetable";
+  String HIGH_SCHOOL_TIME_TABLE_API_PATH = "/hub/hisTimetable";
+  String SPECIAL_SCHOOL_TIME_TABLE = "/hub/spsTimetable";
 }
