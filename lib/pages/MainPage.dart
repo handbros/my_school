@@ -1,3 +1,10 @@
+/*
+ * Reference Code
+ * https://github.com/sooxt98/google_nav_bar/blob/master/example/lib/main.dart
+ * https://github.com/lohanidamodar/flutter_ui_challenges/blob/master/lib/src/pages/settings/settings2.dart
+ * modified by my_school
+ */
+
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
@@ -85,5 +92,4 @@ class _MainPageState extends State<MainPage> {
       ),
     );
   }
-
 }

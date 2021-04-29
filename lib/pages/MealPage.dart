@@ -10,7 +10,7 @@ class _MealPageState extends State<MealPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("학교 목록", style: TextStyle(
+        title: Text("식단표", style: TextStyle(
             color: Theme.of(context).hintColor,
             fontSize: 18,
             fontWeight: FontWeight.w200
