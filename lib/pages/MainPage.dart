@@ -7,13 +7,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:my_school/pages/HomePage.dart';
-import 'package:my_school/pages/TimeTablePage.dart';
-import 'package:my_school/pages/MealPage.dart';
-import 'package:my_school/pages/ListPage.dart';
-import 'package:my_school/pages/SettingsPage.dart';
+import 'package:my_school/pages/tabs/HomePage.dart';
+import 'package:my_school/pages/tabs/TimeTablePage.dart';
+import 'package:my_school/pages/tabs/MealPage.dart';
+import 'package:my_school/pages/tabs/ListPage.dart';
+import 'package:my_school/pages/tabs/SettingsPage.dart';
 
 class MainPage extends StatefulWidget {
+  final List<Widget> pages = [HomePage(), ListPage(), TimeTablePage(), MealPage(), SettingsPage()];
+
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -21,19 +23,12 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages = [HomePage(), ListPage(), TimeTablePage(), MealPage(), SettingsPage()];
-
-  void changePageIndex(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: _pages.elementAt(_currentIndex),
+      body: IndexedStack(
+        index: _currentIndex,
+        children: widget.pages,
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -50,10 +45,11 @@ class _MainPageState extends State<MainPage> {
             padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
             child: GNav(
               tabActiveBorder: Border.all(color: Theme.of(context).hintColor, width: 1), // tab button border
-              gap: 8,
+              gap: 4,
+              tabMargin: EdgeInsets.zero,
               activeColor: Theme.of(context).hintColor,
               iconSize: 22,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
               duration: Duration(milliseconds: 400),
               tabBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
               color: Theme.of(context).hintColor,
@@ -61,22 +57,37 @@ class _MainPageState extends State<MainPage> {
                 GButton(
                   icon: LineIcons.home,
                   text: '홈',
+                  textStyle: TextStyle(
+                    fontSize: 14
+                  ),
                 ),
                 GButton(
                   icon: LineIcons.thList,
                   text: '목록',
+                  textStyle: TextStyle(
+                      fontSize: 14
+                  ),
                 ),
                 GButton(
                   icon: LineIcons.calendar,
                   text: '시간표',
+                  textStyle: TextStyle(
+                      fontSize: 14
+                  ),
                 ),
                 GButton(
                   icon: LineIcons.utensils,
                   text: '식단표',
+                  textStyle: TextStyle(
+                      fontSize: 14
+                  ),
                 ),
                 GButton(
                   icon: LineIcons.cog,
                   text: '설정',
+                  textStyle: TextStyle(
+                      fontSize: 14
+                  ),
                 ),
               ],
               selectedIndex: _currentIndex,

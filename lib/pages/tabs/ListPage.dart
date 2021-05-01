@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icons.dart';
+import 'package:my_school/pages/tools/SearchPage.dart';
 
 class ListPage extends StatefulWidget {
   @override
@@ -18,6 +20,13 @@ class _ListPageState extends State<ListPage> {
         elevation: 2,
         backgroundColor: Theme.of(context).bottomAppBarColor,
         centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(LineIcons.search),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPage()));
+            }),
+        ],
       ),
     );
   }
