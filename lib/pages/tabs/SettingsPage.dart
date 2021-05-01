@@ -114,11 +114,11 @@ class _SettingsPageState extends State<SettingsPage> {
                 onPressed: (BuildContext context) {},
               ),
               SettingsTile(
-                title: '개인정보처리방침',
+                title: '개인정보 처리방침',
                 onPressed: (BuildContext context) {},
               ),
               SettingsTile(
-                title: '오픈소스 라이선스',
+                title: '오픈소스 라이센스',
                 onPressed: (BuildContext context) {},
               ),
             ],
