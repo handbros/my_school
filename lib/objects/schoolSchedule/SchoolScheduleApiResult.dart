@@ -2,6 +2,7 @@ import 'package:my_school/objects/schoolSchedule/SchoolSchedule.dart';
 import 'package:my_school/objects/ResultCode.dart';
 
 class SchoolScheduleApiResult {
+  String requestUrl = "";
   ResultCode resultCode = ResultCode.None;
   String resultMessage = "";
   int itemsTotalCount = 0;

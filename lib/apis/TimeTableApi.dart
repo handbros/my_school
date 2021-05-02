@@ -11,7 +11,7 @@ class TimeTableApi {
   Future<TimeTableApiResult> getGeneralTimeTable(String officeCode, int standardSchoolCode, SchoolType schoolType, {int index = 1, int size = 100, int targetYear, int semester, int grade, String className, String date, String from, String to} ) async {
     // API 호출을 위한 쿼리 값들을 초기화.
     var queryParameters = {
-      'KEY': SharedAssets().API_KEY,
+      'KEY': SharedAssets().apiKey,
       'Type': 'json',
       'pIndex': index.toString(),
       'pSize': size.toString(),
@@ -36,19 +36,19 @@ class TimeTableApi {
       result.schoolType = schoolType;
 
       if (schoolType == SchoolType.Elementary) {
-        apiPath = SharedAssets().ELEMENTARY_SCHOOL_TIME_TABLE_API_PATH;
+        apiPath = SharedAssets().elementarySchoolTimeTableApiPath;
         apiRootName = "elsTimetable";
       }
       else if (schoolType == SchoolType.Middle) {
-        apiPath = SharedAssets().MIDDLE_SCHOOL_TIME_TABLE_API_PATH;
+        apiPath = SharedAssets().middleSchoolTimeTableApiPath;
         apiRootName = "misTimetable";
       }
       else if (schoolType == SchoolType.High) {
-        apiPath = SharedAssets().HIGH_SCHOOL_TIME_TABLE_API_PATH;
+        apiPath = SharedAssets().highSchoolTimeTableApiPath;
         apiRootName = "hisTimetable";
       }
       else if (schoolType == SchoolType.Special) {
-        apiPath = SharedAssets().SPECIAL_SCHOOL_TIME_TABLE;
+        apiPath = SharedAssets().specialSchoolTimeTableApiPath;
         apiRootName = "spsTimetable";
       }
       else {
@@ -59,7 +59,7 @@ class TimeTableApi {
 
 
 
-      var response = await http.get(Uri.https(SharedAssets().API_DOMAIN, apiPath, queryParameters)); // API 호출 후 데이터 저장.
+      var response = await http.get(Uri.https(SharedAssets().apiDomain, apiPath, queryParameters)); // API 호출 후 데이터 저장.
       final json = jsonDecode(response.body); // 응답 받은 정보를 JSON 포맷으로 변환.
 
       // API 호출 결과 코드를 가져옴.

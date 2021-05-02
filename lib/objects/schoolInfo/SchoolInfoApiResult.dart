@@ -2,6 +2,7 @@ import 'package:my_school/objects/schoolInfo/SchoolInfo.dart';
 import 'package:my_school/objects/ResultCode.dart';
 
 class SchoolInfoApiResult {
+  String requestUrl = "";
   ResultCode resultCode = ResultCode.None;
   String resultMessage = "";
   int itemsTotalCount = 0;

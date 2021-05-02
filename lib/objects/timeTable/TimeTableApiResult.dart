@@ -3,6 +3,7 @@ import 'package:my_school/objects/ResultCode.dart';
 import 'package:my_school/objects/SchoolType.dart';
 
 class TimeTableApiResult {
+  String requestUrl = "";
   ResultCode resultCode = ResultCode.None;
   String resultMessage = "";
   int itemsTotalCount = 0;

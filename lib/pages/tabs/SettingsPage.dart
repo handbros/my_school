@@ -110,7 +110,7 @@ class _SettingsPageState extends State<SettingsPage> {
             tiles: [
               SettingsTile(
                 title: '애플리케이션 버전',
-                subtitle: 'Version 0.69.74(dev)',
+                subtitle: 'Version 0.64.5(dev)',
                 onPressed: (BuildContext context) {},
               ),
               SettingsTile(

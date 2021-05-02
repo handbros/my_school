@@ -10,7 +10,7 @@ class SchoolScheduleApi {
   Future<SchoolScheduleApiResult> getSchoolSchedule(String officeCode, int standardSchoolCode, {int index = 1, int size = 100, String date, String from, String to} ) async {
     // API 호출을 위한 쿼리 값들을 초기화.
     var queryParameters = {
-      'KEY': SharedAssets().API_KEY,
+      'KEY': SharedAssets().apiKey,
       'Type': 'json',
       'pIndex': index.toString(),
       'pSize': size.toString(),
@@ -24,7 +24,7 @@ class SchoolScheduleApi {
     SchoolScheduleApiResult result = new SchoolScheduleApiResult();
 
     try {
-      var response = await http.get(Uri.https(SharedAssets().API_DOMAIN, SharedAssets().SCHOOL_SCHEDULE_API_PATH, queryParameters)); // API 호출 후 데이터 저장.
+      var response = await http.get(Uri.https(SharedAssets().apiDomain, SharedAssets().schoolScheduleApiPath, queryParameters)); // API 호출 후 데이터 저장.
       final json = jsonDecode(response.body); // 응답 받은 정보를 JSON 포맷으로 변환.
 
       // API 호출 결과 코드를 가져옴.

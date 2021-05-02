@@ -2,6 +2,7 @@ import 'package:my_school/objects/mealInfo/MealInfo.dart';
 import 'package:my_school/objects/ResultCode.dart';
 
 class MealInfoApiResult {
+  String requestUrl = "";
   ResultCode resultCode = ResultCode.None;
   String resultMessage = "";
   int itemsTotalCount = 0;

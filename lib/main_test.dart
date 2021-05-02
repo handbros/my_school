@@ -28,10 +28,10 @@ void main() async {
 }
 
 void schoolInfoApiTest() async {
-  Future<SchoolInfoApiResult> futureResult = new SchoolInfoApi().getSchoolInfo("D10", "강북", "");
+  Future<SchoolInfoApiResult> futureResult = new SchoolInfoApi().getSchoolInfo("강북", officeCode: "D10");
   SchoolInfoApiResult result = await futureResult;
 
-  print("KEY : " + SharedAssets().API_KEY);
+  print("KEY : " + SharedAssets().apiKey);
   print("RESULT CODE : " + result.resultCode.toString());
   print("RESULT MESSAGE : " + result.resultMessage);
 
@@ -54,7 +54,7 @@ void schoolScheduleApiTest() async {
   Future<SchoolScheduleApiResult> futureResult = new SchoolScheduleApi().getSchoolSchedule("D10", 7261033, from: "20200401", to: "20200430");
   SchoolScheduleApiResult result = await futureResult;
 
-  print("KEY : " + SharedAssets().API_KEY);
+  print("KEY : " + SharedAssets().apiKey);
   print("RESULT CODE : " + result.resultCode.toString());
   print("RESULT MESSAGE : " + result.resultMessage);
 
@@ -76,7 +76,7 @@ void classInfoApiTest() async {
   Future<ClassInfoApiResult> futureResult = new ClassInfoApi().getClassInfo("D10", 7261033, targetYear: 2021, grade: 2);
   ClassInfoApiResult result = await futureResult;
 
-  print("KEY : " + SharedAssets().API_KEY);
+  print("KEY : " + SharedAssets().apiKey);
   print("RESULT CODE : " + result.resultCode.toString());
   print("RESULT MESSAGE : " + result.resultMessage);
 
@@ -99,7 +99,7 @@ void mealInfoApiTest() async {
   Future<MealInfoApiResult> futureResult = new MealInfoApi().getMealInfo("D10", 7240068, date: "20210430", mealCode: 2);
   MealInfoApiResult result = await futureResult;
 
-  print("KEY : " + SharedAssets().API_KEY);
+  print("KEY : " + SharedAssets().apiKey);
   print("RESULT CODE : " + result.resultCode.toString());
   print("RESULT MESSAGE : " + result.resultMessage);
 
@@ -124,7 +124,7 @@ void elementarySchoolTimeTableApiTest() async {
   Future<TimeTableApiResult> futureResult = new TimeTableApi().getGeneralTimeTable("D10", 7240068, SchoolType.High, targetYear: 2021, semester: 1, grade: 2, className: "10", from: "20210430", to: "20210430");
   TimeTableApiResult result = await futureResult;
 
-  print("KEY : " + SharedAssets().API_KEY);
+  print("KEY : " + SharedAssets().apiKey);
   print("RESULT CODE : " + result.resultCode.toString());
   print("RESULT MESSAGE : " + result.resultMessage);
 

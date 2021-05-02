@@ -11,14 +11,57 @@ class SharedAssets {
     // 클래스 초기화 코드
   }
 
-  final String API_KEY = "d3907f38622249d18ac04d71b9b30640";
-  final String API_DOMAIN = "open.neis.go.kr";
-  final String SCHOOL_INFO_API_PATH = "/hub/schoolInfo";
-  final String SCHOOL_SCHEDULE_API_PATH = "/hub/SchoolSchedule";
-  final String CLASS_INFO_API_PATH = "/hub/classInfo";
-  final String MEAL_INFO_API_PATH = "/hub/mealServiceDietInfo";
-  final String ELEMENTARY_SCHOOL_TIME_TABLE_API_PATH = "/hub/elsTimetable";
-  final String MIDDLE_SCHOOL_TIME_TABLE_API_PATH = "/hub/misTimetable";
-  final String HIGH_SCHOOL_TIME_TABLE_API_PATH = "/hub/hisTimetable";
-  final String SPECIAL_SCHOOL_TIME_TABLE = "/hub/spsTimetable";
+  // API 관련 변수
+  final String apiKey = "d3907f38622249d18ac04d71b9b30640";
+  final String apiDomain = "open.neis.go.kr";
+  final String schoolInfoApiPath = "/hub/schoolInfo";
+  final String schoolScheduleApiPath = "/hub/SchoolSchedule";
+  final String classInfoApiPath = "/hub/classInfo";
+  final String mealInfoApiPath = "/hub/mealServiceDietInfo";
+  final String elementarySchoolTimeTableApiPath = "/hub/elsTimetable";
+  final String middleSchoolTimeTableApiPath = "/hub/misTimetable";
+  final String highSchoolTimeTableApiPath = "/hub/hisTimetable";
+  final String specialSchoolTimeTableApiPath = "/hub/spsTimetable";
+
+  // 공통 변수
+  final List<String> officeNameList = List<String>.from([
+    '서울특별시교육청',
+    '부산광역시교육청',
+    '대구광역시교육청',
+    '인천광역시교육청',
+    '광주광역시교육청',
+    '대전광역시교육청',
+    '울산광역시교육청',
+    '세종특별자치시교육청',
+    '경기도교육청',
+    '강원도교육청',
+    '충청북도교육청',
+    '충청남도교육청',
+    '전라북도교육청',
+    '전라남도교육청',
+    '경상북도교육청',
+    '경상남도교육청',
+    '제주특별자치도교육청',
+    '재외한국학교교육청'
+  ]);
+  final List<String> officeCodeList = List<String>.from([
+    'B10',
+    'C10',
+    'D10',
+    'E10',
+    'F10',
+    'G10',
+    'H10',
+    'I10',
+    'J10',
+    'K10',
+    'M10',
+    'N10',
+    'P10',
+    'Q10',
+    'R10',
+    'S10',
+    'T10',
+    'V10'
+  ]);
 }
