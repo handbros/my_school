@@ -100,6 +100,26 @@ class _SettingsPageState extends State<SettingsPage> {
                   });
                 },
               ),
+              SettingsTile(
+                title: '개인 설정 초기화',
+                subtitle: '개인 설정을 초기화합니다.',
+                leading: Icon(LineIcons.userCog),
+                onPressed: (BuildContext context) {},
+              ),
+            ],
+          ),
+          SettingsSection(
+            title: '고객지원',
+            titleTextStyle: TextStyle(
+                color: Theme.of(context).hintColor
+            ),
+            tiles: [
+              SettingsTile(
+                title: '개선사항 및 오류 제보',
+                subtitle: '이용 시 겪은 불편한 점을 제보합니다.',
+                leading: Icon(LineIcons.envelopeOpenText),
+                onPressed: (BuildContext context) {},
+              ),
             ],
           ),
           SettingsSection(
