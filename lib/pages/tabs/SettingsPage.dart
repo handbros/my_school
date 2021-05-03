@@ -27,6 +27,22 @@ class _SettingsPageState extends State<SettingsPage> {
     _acceptTransferringDeviceInformation = prefs.getBool("ACCEPT_TRANSFERRING_DEVICE_INFORMATION") ?? false;
   }
 
+  void resetPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    // 이전 설정을 임시 변수에 저장.
+    bool acceptUsingDeviceStorageTemp = prefs.getBool("ACCEPT_USING_DEVICE_STORAGE") ?? false;
+    bool useOfflineModeTemp = prefs.getBool("USE_OFFLINE_MODE") ?? false;
+    bool acceptTransferringDeviceInformationTemp = prefs.getBool("ACCEPT_TRANSFERRING_DEVICE_INFORMATION") ?? false;
+
+    prefs.clear(); // SharedPreferences 초기화.
+
+    // 설정 동기화.
+    prefs.setBool("ACCEPT_USING_DEVICE_STORAGE", acceptUsingDeviceStorageTemp);
+    prefs.setBool("USE_OFFLINE_MODE", useOfflineModeTemp);
+    prefs.setBool("ACCEPT_TRANSFERRING_DEVICE_INFORMATION", acceptTransferringDeviceInformationTemp);
+}
+
   @override
   Widget build(BuildContext context) {
     initialize();
@@ -104,7 +120,32 @@ class _SettingsPageState extends State<SettingsPage> {
                 title: '개인 설정 초기화',
                 subtitle: '개인 설정을 초기화합니다.',
                 leading: Icon(LineIcons.userCog),
-                onPressed: (BuildContext context) {},
+                onPressed: (BuildContext context) {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text("개인 설정", style: Theme.of(context).textTheme.headline6.copyWith(color: Theme.of(context).hintColor)),
+                        content: Text("모든 개인 설정을 초기화하시겠습니까? 초기화 이후에는 다시 복구할 수 없습니다."),
+                        actions: <Widget>[
+                          TextButton(
+                            child: Text('확인'),
+                            onPressed: () {
+                              resetPreferences();
+                              Navigator.pop(context);
+                            },
+                          ),
+                          TextButton(
+                            child: Text('취소'),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
               ),
             ],
           ),
