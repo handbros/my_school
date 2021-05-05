@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_school/SharedAssets.dart';
+
 
 class TimeTablePage extends StatefulWidget {
   @override
@@ -19,6 +21,7 @@ class _TimeTablePageState extends State<TimeTablePage> {
         backgroundColor: Theme.of(context).bottomAppBarColor,
         centerTitle: true,
       ),
+      body: Column(),
     );
   }
 }

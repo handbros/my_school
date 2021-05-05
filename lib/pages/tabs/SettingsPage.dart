@@ -1,11 +1,6 @@
-/*
- * Code Referenced
- * https://github.com/lohanidamodar/flutter_ui_challenges/blob/master/lib/src/pages/settings/settings2.dart
- * modified by my_school
- */
-
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:my_school/pages/tools/TextViewerPage.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -41,10 +36,11 @@ class _SettingsPageState extends State<SettingsPage> {
     prefs.setBool("ACCEPT_USING_DEVICE_STORAGE", acceptUsingDeviceStorageTemp);
     prefs.setBool("USE_OFFLINE_MODE", useOfflineModeTemp);
     prefs.setBool("ACCEPT_TRANSFERRING_DEVICE_INFORMATION", acceptTransferringDeviceInformationTemp);
-}
+  }
 
   @override
   Widget build(BuildContext context) {
+    // TODO: 설정 저장 방식을 SharedPreferences에서 SharedAssets을 사용한 방식으로 변경하기.
     initialize();
 
     return Scaffold(
@@ -159,7 +155,9 @@ class _SettingsPageState extends State<SettingsPage> {
                 title: '개선사항 및 오류 제보',
                 subtitle: '이용 시 겪은 불편한 점을 제보합니다.',
                 leading: Icon(LineIcons.envelopeOpenText),
-                onPressed: (BuildContext context) {},
+                onPressed: (BuildContext context) {
+                  // TODO: FireBase를 이용한 오류 제보 시스템 구축하기.
+                },
               ),
             ],
           ),
@@ -176,11 +174,17 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               SettingsTile(
                 title: '개인정보 처리방침',
-                onPressed: (BuildContext context) {},
+                onPressed: (BuildContext context) {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => TextViewerPage("개인정보 처리방침", "assets/privacy_policy.txt")));
+                  // TODO: 배포 전에 개인정보 처리방침 시행 일자 변경하기.
+                },
               ),
               SettingsTile(
                 title: '오픈소스 라이센스',
-                onPressed: (BuildContext context) {},
+                onPressed: (BuildContext context) {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => TextViewerPage("오픈소스 라이센스", "assets/open_source_licenses.txt")));
+                  // TODO: 배포 전에 오픈소스 라이센스 누락된 것 없나 확인하기.
+                },
               ),
             ],
           ),

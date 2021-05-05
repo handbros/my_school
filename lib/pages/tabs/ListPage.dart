@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:my_school/SharedAssets.dart';
 import 'package:my_school/apis/SchoolInfoApi.dart';
 import 'package:my_school/objects/schoolInfo/SchoolInfoApiResult.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,6 +31,9 @@ class _ListPageState extends State<ListPage> {
               showSearch(context: context, delegate: SchoolSearchDelegate()); // SchoolSearch SearchDelegate 을(를) 호출.
             }),
         ],
+      ),
+      body: Column(
+        // TODO: School-Class List 구현 및 셀렉터 구현하기.
       ),
     );
   }
@@ -88,6 +92,7 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
 
   @override
   ThemeData appBarTheme(BuildContext context) {
+    // appBarTheme를 오버라이딩함.
     final ThemeData theme = Theme.of(context);
 
     return theme.copyWith(
@@ -118,12 +123,14 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
         icon: Icon(LineIcons.arrowLeft),
         onPressed: () {
           close(context, null);
-        });
+        }
+    );
   }
 
   @override
   Widget buildResults(BuildContext context) {
     if (query.length < 2) {
+      // 만약 검색어가 두 글자 미만인 경우.
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -176,6 +183,7 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
                 var result = results.items[index];
                 return ListTile(
                   onTap: () {
+                    // TODO: Class Selector 구현하기.
                     print(result.schoolName);
                   },
                   title: Text(result.schoolName),

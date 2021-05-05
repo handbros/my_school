@@ -9,9 +9,10 @@ class SharedAssets {
 
   SharedAssets._internal() {
     // 클래스 초기화 코드
+    // TODO: SharedAssets 공통 변수 초기화 코드 작성하기.
   }
 
-  // API 관련 변수
+  // API 관련 상수
   final String apiKey = "d3907f38622249d18ac04d71b9b30640";
   final String apiDomain = "open.neis.go.kr";
   final String schoolInfoApiPath = "/hub/schoolInfo";
@@ -23,7 +24,7 @@ class SharedAssets {
   final String highSchoolTimeTableApiPath = "/hub/hisTimetable";
   final String specialSchoolTimeTableApiPath = "/hub/spsTimetable";
 
-  // 공통 변수
+  // 공통 상수
   final List<String> officeNameList = List<String>.from([
     '서울특별시교육청',
     '부산광역시교육청',
@@ -64,4 +65,7 @@ class SharedAssets {
     'T10',
     'V10'
   ]);
+
+  // 공통 변수
+  // TODO: 공통 변수 추가하기
 }

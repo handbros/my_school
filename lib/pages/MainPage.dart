@@ -24,7 +24,23 @@ class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
 
   @override
+  void initState() {
+    // 애플리케이션 구성 요소를 초기화합니다.
+    // TODO: initState 구현하기.
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // 애플리케이션 구성 요소를 저장, 제거합니다.
+    // TODO: Disposer 구현하기.
+    super.dispose();
+  }
+
+
+  @override
   Widget build(BuildContext context) {
+    // TODO: ChangeNotifierProvider 구현하기.
     return Scaffold(
       body: IndexedStack(
         index: _currentIndex,
