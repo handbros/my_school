@@ -12,6 +12,7 @@ import 'package:my_school/pages/tabs/TimeTablePage.dart';
 import 'package:my_school/pages/tabs/MealPage.dart';
 import 'package:my_school/pages/tabs/ListPage.dart';
 import 'package:my_school/pages/tabs/SettingsPage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MainPage extends StatefulWidget {
   final List<Widget> pages = [HomePage(), ListPage(), TimeTablePage(), MealPage(), SettingsPage()];
@@ -22,6 +23,14 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
+
+  void readSharedAssets() async {
+
+  }
+
+  void writeSharedAssets() async {
+
+  }
 
   @override
   void initState() {

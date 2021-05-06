@@ -1,4 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+part 'ClassInfo.g.dart';
+
 /// 반 정보를 저장하는 클래스입니다.
+@JsonSerializable()
 class ClassInfo {
   /// 시도교육청코드
   String officeCode;
@@ -28,4 +32,10 @@ class ClassInfo {
 
   /// 적재일시
   DateTime uploadTime;
+
+  // JSON Serializer/Deserializer
+  ClassInfo({this.officeCode, this.officeName, this.standardSchoolCode, this.schoolName, this.targetYear, this.grade, this.dayOrNight, this.schoolType, this.fieldName, this.departmentName, this.className, this.uploadTime});
+
+  factory ClassInfo.fromJson(Map<String, dynamic> json) => _$ClassInfoFromJson(json);
+  Map<String, dynamic> toJson() => _$ClassInfoToJson(this);
 }

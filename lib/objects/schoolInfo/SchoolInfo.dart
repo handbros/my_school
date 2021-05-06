@@ -1,4 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+part 'SchoolInfo.g.dart';
+
 /// 학교 정보를 저장하는 클래스입니다.
+@JsonSerializable()
 class SchoolInfo {
   /// 시도교육청코드
   String officeCode;
@@ -43,4 +47,10 @@ class SchoolInfo {
 
   /// 적재일시
   DateTime uploadTime;
+
+  // JSON Serializer/Deserializer
+  SchoolInfo({this.officeCode, this.officeName, this.standardSchoolCode, this.schoolName, this.schoolEnglishName, this.schoolKind, this.location, this.districtOfficeName, this.postalCode, this.address, this.detailedAddress, this.telephoneNumber, this.homepageAddress, this.isCoeduSchool, this.faxNumber, this.foundedDate, this.anniversary, this.uploadTime});
+
+  factory SchoolInfo.fromJson(Map<String, dynamic> json) => _$SchoolInfoFromJson(json);
+  Map<String, dynamic> toJson() => _$SchoolInfoToJson(this);
 }

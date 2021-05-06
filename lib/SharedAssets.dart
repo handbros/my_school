@@ -1,3 +1,5 @@
+import 'package:my_school/objects/classInfo/ClassInfo.dart';
+
 /// 공유 자원 관리를 위한 클래스입니다.
 class SharedAssets {
   // 싱글톤 패턴 구현을 위한 정적 클래스.
@@ -67,5 +69,12 @@ class SharedAssets {
   ]);
 
   // 공통 변수
-  // TODO: 공통 변수 추가하기
+  bool acceptUsingDeviceStorage = false;
+  bool useOfflineMode = false;
+  bool acceptTransferringDeviceInformation = false;
+  List<ClassInfo> classList = List<ClassInfo>.empty(growable: true);
+  ClassInfo selectedClass = new ClassInfo();
+
+  // IO 관련 함수.
+  // TODO: SharedAssets IO 함수 작성하기.
 }
