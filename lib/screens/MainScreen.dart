@@ -4,66 +4,23 @@
  * modified by my_school
  */
 
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:my_school/SharedAssets.dart';
 import 'package:my_school/pages/tabs/HomePage.dart';
 import 'package:my_school/pages/tabs/TimeTablePage.dart';
 import 'package:my_school/pages/tabs/MealPage.dart';
 import 'package:my_school/pages/tabs/ListPage.dart';
 import 'package:my_school/pages/tabs/SettingsPage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class MainPage extends StatefulWidget {
-  final List<Widget> pages = [HomePage(), ListPage(), TimeTablePage(), MealPage(), SettingsPage()];
-
+class MainScreen extends StatefulWidget {
   @override
-  _MainPageState createState() => _MainPageState();
+  _MainScreenState createState() => _MainScreenState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _MainScreenState extends State<MainScreen> {
+  List<Widget> pages = [HomePage(), ListPage(), TimeTablePage(), MealPage(), SettingsPage()];
   int _currentIndex = 0;
-
-  void readSharedAssets() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    String sharedAssetsJson = prefs.getString("SHARED_ASSETS") ?? null;
-    
-    if (sharedAssetsJson == null) {
-      SharedAssets.setInstance(new SharedAssets()); 
-    }
-    else {
-      Map sharedAssetsMap = jsonDecode(sharedAssetsJson);
-      SharedAssets.setInstance(SharedAssets.fromJson(sharedAssetsMap));
-    }
-  }
-
-  void writeSharedAssets() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    Map<String, dynamic> json = SharedAssets.getInstance().toJson();
-    String jsonString = jsonEncode(json);
-
-    prefs.setString("SHARED_ASSETS", jsonString);
-  }
-
-  @override
-  void initState() {
-    // 애플리케이션 구성 요소를 초기화합니다.
-    super.initState();
-    readSharedAssets();
-  }
-
-  @override
-  void dispose() {
-    // 애플리케이션 구성 요소를 저장, 제거합니다.
-    writeSharedAssets();
-    super.dispose();
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +28,7 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       body: IndexedStack(
         index: _currentIndex,
-        children: widget.pages,
+        children: pages,
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(

@@ -3,7 +3,6 @@ import 'package:line_icons/line_icons.dart';
 import 'package:my_school/SharedAssets.dart';
 import 'package:my_school/apis/SchoolInfoApi.dart';
 import 'package:my_school/objects/schoolInfo/SchoolInfoApiResult.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ListPage extends StatefulWidget {
   @override
@@ -40,51 +39,23 @@ class _ListPageState extends State<ListPage> {
 }
 
 class SchoolSearchDelegate extends SearchDelegate<String> {
-  List<String> _recentSearches = List<String>.empty();
-
-  /// 최근 검색 목록을 불러옵니다.
-  void getRecentSearches() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    _recentSearches = prefs.getStringList("RECENT_SCHOOL_SEARCHES") ?? List<String>.empty(growable: true); // 최근 검색 목록 불러오기.
-  }
+  SharedAssets assets = SharedAssets.getInstance();
 
   /// 최근 검색 목록에 아이템을 추가합니다.
   void addRecentSearch(String query) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
     // 최근 검색 목록 불러온 후 아이템 추가하기.
-    List<String> temp = prefs.getStringList("RECENT_SCHOOL_SEARCHES") ?? List<String>.empty(growable: true);
-
-    if (temp.contains(query)) {
-      temp.remove(query);
+    if (assets.classSearchHistory.contains(query)) {
+      assets.classSearchHistory.remove(query);
     }
 
-    temp.insert(0, query);
-
-    // 최근 검색 목록 다시 저장 후 변수 초기화.
-    prefs.setStringList("RECENT_SCHOOL_SEARCHES", temp);
-    _recentSearches = temp;
+    assets.classSearchHistory.insert(0, query);
   }
 
   /// 최근 검색 목록에서 아이템을 제거합니다.
   void popRecentSearch(int index) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    // 최근 검색 목록 불러온 후 아이템 추가하기.
-    List<String> temp = prefs.getStringList("RECENT_SCHOOL_SEARCHES") ?? List<String>.empty(growable: true);
-
-    if (temp.length > index) {
-      temp.removeAt(index);
+    if (assets.classSearchHistory.length > index) {
+      assets.classSearchHistory.removeAt(index);
     }
-
-    // 최근 검색 목록 다시 저장 후 변수 초기화.
-    prefs.setStringList("RECENT_SCHOOL_SEARCHES", temp);
-    _recentSearches = temp;
-  }
-
-  /// 클래스 생성자
-  SchoolSearchDelegate() {
-    getRecentSearches(); // 클래스 초기화.
   }
 
   @override
@@ -199,7 +170,7 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final suggestionList = query.isEmpty ? _recentSearches : _recentSearches.where((p) => p.startsWith(query)).toList();
+    final suggestionList = query.isEmpty ? assets.classSearchHistory : assets.classSearchHistory.where((p) => p.startsWith(query)).toList();
 
     return ListView.builder(
       itemBuilder: (context, index) => ListTile(

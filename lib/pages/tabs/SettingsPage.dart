@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:my_school/SharedAssets.dart';
 import 'package:my_school/pages/tools/TextViewerPage.dart';
 import 'package:settings_ui/settings_ui.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -15,34 +15,21 @@ class _SettingsPageState extends State<SettingsPage> {
   bool _acceptTransferringDeviceInformation = false;
 
   void initialize() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    SharedAssets assets = SharedAssets.getInstance();
 
-    _acceptUsingDeviceStorage = prefs.getBool("ACCEPT_USING_DEVICE_STORAGE") ?? false;
-    _useOfflineMode = prefs.getBool("USE_OFFLINE_MODE") ?? false;
-    _acceptTransferringDeviceInformation = prefs.getBool("ACCEPT_TRANSFERRING_DEVICE_INFORMATION") ?? false;
+    _acceptUsingDeviceStorage = assets.acceptUsingDeviceStorage ?? false;
+    _useOfflineMode = assets.useOfflineMode ?? false;
+    _acceptTransferringDeviceInformation = assets.acceptTransferringDeviceInformation ?? false;
   }
 
-  void resetPreferences() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    // 이전 설정을 임시 변수에 저장.
-    bool acceptUsingDeviceStorageTemp = prefs.getBool("ACCEPT_USING_DEVICE_STORAGE") ?? false;
-    bool useOfflineModeTemp = prefs.getBool("USE_OFFLINE_MODE") ?? false;
-    bool acceptTransferringDeviceInformationTemp = prefs.getBool("ACCEPT_TRANSFERRING_DEVICE_INFORMATION") ?? false;
-
-    prefs.clear(); // SharedPreferences 초기화.
-
-    // 설정 동기화.
-    prefs.setBool("ACCEPT_USING_DEVICE_STORAGE", acceptUsingDeviceStorageTemp);
-    prefs.setBool("USE_OFFLINE_MODE", useOfflineModeTemp);
-    prefs.setBool("ACCEPT_TRANSFERRING_DEVICE_INFORMATION", acceptTransferringDeviceInformationTemp);
+  @override
+  void initState() {
+    super.initState();
+    initialize();
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: 설정 저장 방식을 SharedPreferences에서 SharedAssets을 사용한 방식으로 변경하기.
-    initialize();
-
     return Scaffold(
       appBar: AppBar(
         title: Text("설정", style: TextStyle(
@@ -69,8 +56,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 leading: Icon(LineIcons.download),
                 switchValue: _acceptUsingDeviceStorage,
                 onToggle: (bool value) async {
-                  SharedPreferences prefs = await SharedPreferences.getInstance();
-                  prefs.setBool("ACCEPT_USING_DEVICE_STORAGE", value);
+                  SharedAssets.getInstance().acceptUsingDeviceStorage = value;
+                  SharedAssets.writeSharedAssets();
 
                   setState(() {
                     _acceptUsingDeviceStorage = value;
@@ -83,8 +70,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 switchValue: _useOfflineMode,
                 enabled: _acceptUsingDeviceStorage,
                 onToggle: (bool value) async {
-                  SharedPreferences prefs = await SharedPreferences.getInstance();
-                  prefs.setBool("USE_OFFLINE_MODE", value);
+                  SharedAssets.getInstance().useOfflineMode = value;
+                  SharedAssets.writeSharedAssets();
 
                   setState(() {
                     _useOfflineMode = value;
@@ -104,8 +91,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 leading: Icon(LineIcons.flag),
                 switchValue: _acceptTransferringDeviceInformation,
                 onToggle: (bool value) async {
-                  SharedPreferences prefs = await SharedPreferences.getInstance();
-                  prefs.setBool("ACCEPT_TRANSFERRING_DEVICE_INFORMATION", value);
+                  SharedAssets.getInstance().acceptTransferringDeviceInformation = value;
+                  SharedAssets.writeSharedAssets();
 
                   setState(() {
                     _acceptTransferringDeviceInformation = value;
@@ -127,7 +114,10 @@ class _SettingsPageState extends State<SettingsPage> {
                           TextButton(
                             child: Text('확인'),
                             onPressed: () {
-                              resetPreferences();
+                              // 개인 설정 초기화.
+                              SharedAssets.getInstance().resetPreferences();
+                              SharedAssets.writeSharedAssets();
+
                               Navigator.pop(context);
                             },
                           ),
@@ -164,7 +154,7 @@ class _SettingsPageState extends State<SettingsPage> {
           SettingsSection(
             title: '정보',
             titleTextStyle: TextStyle(
-              color: Theme.of(context).hintColor
+                color: Theme.of(context).hintColor
             ),
             tiles: [
               SettingsTile(

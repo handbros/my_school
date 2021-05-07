@@ -52,7 +52,7 @@ class _TextViewerPageState extends State<TextViewerPage> {
             var result = snapshot.data;
             return SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.only(left: 10, right: 10),
+                padding: EdgeInsets.all(10),
                 child: Column(
                   children: [
                     Text(result, textAlign: TextAlign.left)
