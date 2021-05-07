@@ -1,30 +1,37 @@
 import 'package:my_school/objects/classInfo/ClassInfo.dart';
+import 'package:json_annotation/json_annotation.dart';
+part 'SharedAssets.g.dart';
 
 /// 공유 자원 관리를 위한 클래스입니다.
+@JsonSerializable(explicitToJson: true)
 class SharedAssets {
   // 싱글톤 패턴 구현을 위한 정적 클래스.
-  static final SharedAssets _instance = new SharedAssets._internal();
+  static SharedAssets _instance = new SharedAssets._internal();
 
-  factory SharedAssets() {
+  factory SharedAssets.getInstance() {
     return _instance;
+  }
+
+  // 싱글톤 인스턴스 초기화 코드.
+  static void setInstance(SharedAssets instance) {
+    _instance = instance;
   }
 
   SharedAssets._internal() {
     // 클래스 초기화 코드
-    // TODO: SharedAssets 공통 변수 초기화 코드 작성하기.
   }
 
   // API 관련 상수
-  final String apiKey = "d3907f38622249d18ac04d71b9b30640";
-  final String apiDomain = "open.neis.go.kr";
-  final String schoolInfoApiPath = "/hub/schoolInfo";
-  final String schoolScheduleApiPath = "/hub/SchoolSchedule";
-  final String classInfoApiPath = "/hub/classInfo";
-  final String mealInfoApiPath = "/hub/mealServiceDietInfo";
-  final String elementarySchoolTimeTableApiPath = "/hub/elsTimetable";
-  final String middleSchoolTimeTableApiPath = "/hub/misTimetable";
-  final String highSchoolTimeTableApiPath = "/hub/hisTimetable";
-  final String specialSchoolTimeTableApiPath = "/hub/spsTimetable";
+  static const String apiKey = "d3907f38622249d18ac04d71b9b30640";
+  static const String apiDomain = "open.neis.go.kr";
+  static const String schoolInfoApiPath = "/hub/schoolInfo";
+  static const String schoolScheduleApiPath = "/hub/SchoolSchedule";
+  static const String classInfoApiPath = "/hub/classInfo";
+  static const String mealInfoApiPath = "/hub/mealServiceDietInfo";
+  static const String elementarySchoolTimeTableApiPath = "/hub/elsTimetable";
+  static const String middleSchoolTimeTableApiPath = "/hub/misTimetable";
+  static const String highSchoolTimeTableApiPath = "/hub/hisTimetable";
+  static const String specialSchoolTimeTableApiPath = "/hub/spsTimetable";
 
   // 공통 상수
   final List<String> officeNameList = List<String>.from([
@@ -76,5 +83,8 @@ class SharedAssets {
   ClassInfo selectedClass = new ClassInfo();
 
   // IO 관련 함수.
-  // TODO: SharedAssets IO 함수 작성하기.
+  SharedAssets({this.acceptUsingDeviceStorage, this.useOfflineMode, this.acceptTransferringDeviceInformation, this.classList, this.selectedClass});
+
+  factory SharedAssets.fromJson(Map<String, dynamic> json) => _$SharedAssetsFromJson(json);
+  Map<String, dynamic> toJson() => _$SharedAssetsToJson(this);
 }

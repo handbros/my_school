@@ -10,7 +10,7 @@ class ClassInfoApi {
   Future<ClassInfoApiResult> getClassInfo(String officeCode, int standardSchoolCode, {int index = 1, int size = 100, int targetYear, int grade} ) async {
     // API 호출을 위한 쿼리 값들을 초기화.
     var queryParameters = {
-      'KEY': SharedAssets().apiKey,
+      'KEY': SharedAssets.apiKey,
       'Type': 'json',
       'pIndex': index.toString(),
       'pSize': size.toString(),
@@ -23,7 +23,7 @@ class ClassInfoApi {
     ClassInfoApiResult result = new ClassInfoApiResult();
 
     try {
-      var response = await http.get(Uri.https(SharedAssets().apiDomain, SharedAssets().classInfoApiPath, queryParameters)); // API 호출 후 데이터 저장.
+      var response = await http.get(Uri.https(SharedAssets.apiDomain, SharedAssets.classInfoApiPath, queryParameters)); // API 호출 후 데이터 저장.
       final json = jsonDecode(response.body); // 응답 받은 정보를 JSON 포맷으로 변환.
 
       // API 호출 결과 코드를 가져옴.
