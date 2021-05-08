@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 0.70.2+1
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -32,6 +32,7 @@ dependencies:
   table_calendar: ^3.0.0
   provider: ^5.0.0
   json_annotation: 3.1.1
+  package_info: ^2.0.0
 
 
 
@@ -44,6 +45,7 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^1.0.0
   json_serializable: 3.5.1
+  flutter_native_splash: ^1.1.8+4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -85,3 +87,19 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_native_splash:
+  # Build Native Splash : flutter pub pub run flutter_native_splash:create
+
+  # Set image and colors.
+  image: assets/images/my_school_logo.png
+  color: "fafafa"
+  color_dark: "303030"
+
+  # Disable generating a splash screen on a given platform.
+  ios: false
+  web: false
+
+  # To hide the notification bar, use the fullscreen parameter. Has no affect in web since web
+  # has no notification bar. Defaults to false.
+  fullscreen: false

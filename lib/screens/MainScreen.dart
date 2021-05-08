@@ -44,49 +44,54 @@ class _MainScreenState extends State<MainScreen> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
             child: GNav(
-              tabActiveBorder: Border.all(color: Theme.of(context).hintColor, width: 1), // tab button border
               gap: 4,
               tabMargin: EdgeInsets.zero,
-              activeColor: Theme.of(context).hintColor,
               iconSize: 22,
               padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
               duration: Duration(milliseconds: 400),
-              tabBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
               color: Theme.of(context).hintColor,
+              activeColor: Theme.of(context).hintColor,
+              tabActiveBorder: Border.all(color: Theme.of(context).hintColor, width: 1), // tab button border
+              tabBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
               tabs: [
                 GButton(
                   icon: LineIcons.home,
                   text: '홈',
                   textStyle: TextStyle(
-                    fontSize: 14
+                    fontSize: 14,
+                    color: Theme.of(context).hintColor
                   ),
                 ),
                 GButton(
                   icon: LineIcons.thList,
                   text: '목록',
                   textStyle: TextStyle(
-                      fontSize: 14
+                      fontSize: 14,
+                      color: Theme.of(context).hintColor
                   ),
                 ),
                 GButton(
                   icon: LineIcons.calendar,
                   text: '시간표',
                   textStyle: TextStyle(
-                      fontSize: 14
+                      fontSize: 14,
+                      color: Theme.of(context).hintColor
                   ),
                 ),
                 GButton(
                   icon: LineIcons.utensils,
                   text: '식단표',
                   textStyle: TextStyle(
-                      fontSize: 14
+                      fontSize: 14,
+                      color: Theme.of(context).hintColor
                   ),
                 ),
                 GButton(
                   icon: LineIcons.cog,
                   text: '설정',
                   textStyle: TextStyle(
-                      fontSize: 14
+                      fontSize: 14,
+                      color: Theme.of(context).hintColor
                   ),
                 ),
               ],

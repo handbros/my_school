@@ -33,27 +33,11 @@ class _SplashScreenState extends State<SplashScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Icon(
-                    LineIcons.graduationCap,
-                    size: 32,
-                    color: Theme.of(context).hintColor,
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "My School",
-                    style: TextStyle(
-                        color: Theme.of(context).hintColor,
-                        fontSize: 24,
-                        fontWeight: FontWeight.w300
-                    ),
-                  ),
+                  SizedBox(
+                    child: CircularProgressIndicator(),
+                    width: 24,
+                    height: 24,
+                  )
                 ],
               ),
             ],

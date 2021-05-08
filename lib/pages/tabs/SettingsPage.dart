@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:my_school/SharedAssets.dart';
 import 'package:my_school/pages/tools/TextViewerPage.dart';
+import 'package:package_info/package_info.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -14,12 +15,22 @@ class _SettingsPageState extends State<SettingsPage> {
   bool _useOfflineMode = false;
   bool _acceptTransferringDeviceInformation = false;
 
+  String version = "1.0.0";
+  String buildNumber = "1";
+
   void initialize() async {
+    // Initialize shared assets.
     SharedAssets assets = SharedAssets.getInstance();
 
     _acceptUsingDeviceStorage = assets.acceptUsingDeviceStorage ?? false;
     _useOfflineMode = assets.useOfflineMode ?? false;
     _acceptTransferringDeviceInformation = assets.acceptTransferringDeviceInformation ?? false;
+
+    // Initialize package info.
+    PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
+      version = packageInfo.version;
+      buildNumber = packageInfo.buildNumber;
+    });
   }
 
   @override
@@ -159,7 +170,7 @@ class _SettingsPageState extends State<SettingsPage> {
             tiles: [
               SettingsTile(
                 title: '애플리케이션 버전',
-                subtitle: 'Version 0.64.5(dev)',
+                subtitle: 'version ${version} build ${buildNumber} (dev)',
                 onPressed: (BuildContext context) {},
               ),
               SettingsTile(
