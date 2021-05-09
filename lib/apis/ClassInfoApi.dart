@@ -16,15 +16,32 @@ class ClassInfoApi {
       'pSize': size.toString(),
       'ATPT_OFCDC_SC_CODE': officeCode,
       'SD_SCHUL_CODE': standardSchoolCode.toString(),
-      'AY': targetYear.toString(),
-      'GRADE': grade.toString(),
     };
+
+    // Null Reference Exception 체크.
+    if (targetYear != null) {
+      var queryParamTemp = {
+        'AY': targetYear.toString()
+      };
+
+      queryParameters.addAll(queryParamTemp);
+    }
+
+    if (grade != null) {
+      var queryParamTemp = {
+        'GRADE': grade.toString()
+      };
+
+      queryParameters.addAll(queryParamTemp);
+    }
 
     ClassInfoApiResult result = new ClassInfoApiResult();
 
     try {
       var response = await http.get(Uri.https(SharedAssets.apiDomain, SharedAssets.classInfoApiPath, queryParameters)); // API 호출 후 데이터 저장.
       final json = jsonDecode(response.body); // 응답 받은 정보를 JSON 포맷으로 변환.
+
+      result.requestUrl = response.request.url.toString();
 
       // API 호출 결과 코드를 가져옴.
       try {

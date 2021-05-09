@@ -26,6 +26,8 @@ class MealInfoApi {
       var response = await http.get(Uri.https(SharedAssets.apiDomain, SharedAssets.mealInfoApiPath, queryParameters)); // API 호출 후 데이터 저장.
       final json = jsonDecode(response.body); // 응답 받은 정보를 JSON 포맷으로 변환.
 
+      result.requestUrl = response.request.url.toString();
+
       // API 호출 결과 코드를 가져옴.
       try {
         String resultCodeString = json["mealServiceDietInfo"][0]["head"][1]["RESULT"]["CODE"].toString();

@@ -115,33 +115,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 subtitle: '개인 설정을 초기화합니다.',
                 leading: Icon(LineIcons.userCog),
                 onPressed: (BuildContext context) {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text("개인 설정", style: Theme.of(context).textTheme.headline6.copyWith(color: Theme.of(context).hintColor)),
-                        content: Text("모든 개인 설정을 초기화하시겠습니까? 초기화 이후에는 다시 복구할 수 없습니다."),
-                        actions: <Widget>[
-                          TextButton(
-                            child: Text('확인'),
-                            onPressed: () {
-                              // 개인 설정 초기화.
-                              SharedAssets.getInstance().resetPreferences();
-                              SharedAssets.writeSharedAssets();
-
-                              Navigator.pop(context);
-                            },
-                          ),
-                          TextButton(
-                            child: Text('취소'),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ],
-                      );
-                    },
-                  );
+                  showResetPreferencesDialog(context); // 다이얼로그 호출.
                 },
               ),
             ],
@@ -191,6 +165,36 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
         ],
       ),
+    );
+  }
+
+  void showResetPreferencesDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("개인 설정", style: Theme.of(context).textTheme.headline6.copyWith(color: Theme.of(context).hintColor)),
+          content: Text("모든 개인 설정을 초기화하시겠습니까? 초기화 이후에는 다시 복구할 수 없습니다."),
+          actions: <Widget>[
+            TextButton(
+              child: Text('확인'),
+              onPressed: () {
+                // 개인 설정 초기화.
+                SharedAssets.getInstance().resetPreferences();
+                SharedAssets.writeSharedAssets();
+
+                Navigator.pop(context);
+              },
+            ),
+            TextButton(
+              child: Text('취소'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
