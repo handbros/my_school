@@ -101,6 +101,8 @@ class SharedAssets{
       classList.insert(0, classInfo);
       selectedClass = classInfo;
 
+      writeSharedAssets();
+
       return true;
     }
     else {
@@ -119,6 +121,8 @@ class SharedAssets{
       else {
         selectedClass = null;
       }
+
+      writeSharedAssets();
     }
   }
 
@@ -129,6 +133,8 @@ class SharedAssets{
       classList.insert(0, temp);
 
       selectedClass = classList[0];
+
+      writeSharedAssets();
     }
   }
 
@@ -195,5 +201,7 @@ class SharedAssets{
     classSearchHistory = List<String>.empty(growable: true);
     classList = List<ClassInfo>.empty(growable: true);
     selectedClass = new ClassInfo();
+
+    writeSharedAssets();
   }
 }
