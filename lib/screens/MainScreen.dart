@@ -19,16 +19,22 @@ class MainScreen extends StatefulWidget {
 }
 
 class MainScreenState extends State<MainScreen> {
-  List<Widget> pages = [HomePage(), ExplorerPage(), TimeTablePage(), MealPage(), SettingsPage()];
+  final _pageViewController = PageController();
+  final List<Widget> _pages = [HomePage(), TimeTablePage(), MealPage(), ExplorerPage(), SettingsPage()];
   int _tabIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     // 반 정보 변경을 알리기 위한 ChangeNotifierProvider.
     return Scaffold(
-      body: IndexedStack(
-        index: _tabIndex,
-        children: pages,
+      body: PageView(
+        controller: _pageViewController,
+        children: _pages,
+        onPageChanged: (index) {
+          setState(() {
+            _tabIndex = index;
+          });
+        },
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -63,14 +69,6 @@ class MainScreenState extends State<MainScreen> {
                   ),
                 ),
                 GButton(
-                  icon: LineIcons.thList,
-                  text: '탐색',
-                  textStyle: TextStyle(
-                      fontSize: 14,
-                      color: Theme.of(context).hintColor
-                  ),
-                ),
-                GButton(
                   icon: LineIcons.calendar,
                   text: '시간표',
                   textStyle: TextStyle(
@@ -81,6 +79,14 @@ class MainScreenState extends State<MainScreen> {
                 GButton(
                   icon: LineIcons.utensils,
                   text: '식단표',
+                  textStyle: TextStyle(
+                      fontSize: 14,
+                      color: Theme.of(context).hintColor
+                  ),
+                ),
+                GButton(
+                  icon: LineIcons.thList,
+                  text: '탐색',
                   textStyle: TextStyle(
                       fontSize: 14,
                       color: Theme.of(context).hintColor
@@ -98,7 +104,7 @@ class MainScreenState extends State<MainScreen> {
               selectedIndex: _tabIndex,
               onTabChange: (index) {
                 setState(() {
-                  _tabIndex = index;
+                  _pageViewController.animateToPage(index, duration: Duration(milliseconds: 200), curve: Curves.bounceOut);
                 });
               },
             ),
