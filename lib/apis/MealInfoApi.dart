@@ -17,7 +17,7 @@ class MealInfoApi {
       'ATPT_OFCDC_SC_CODE': officeCode,
       'SD_SCHUL_CODE': standardSchoolCode.toString(),
       'MLSV_YMD': date,
-      'MMEAL_SC_CODE': mealCode.toString(),
+      'MMEAL_SC_CODE': mealCode?.toString(),
     };
 
     MealInfoApiResult result = new MealInfoApiResult();

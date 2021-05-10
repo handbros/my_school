@@ -16,24 +16,9 @@ class ClassInfoApi {
       'pSize': size.toString(),
       'ATPT_OFCDC_SC_CODE': officeCode,
       'SD_SCHUL_CODE': standardSchoolCode.toString(),
+      'AY': targetYear?.toString(),
+      'GRADE': grade?.toString()
     };
-
-    // Null Reference Exception 체크.
-    if (targetYear != null) {
-      var queryParamTemp = {
-        'AY': targetYear.toString()
-      };
-
-      queryParameters.addAll(queryParamTemp);
-    }
-
-    if (grade != null) {
-      var queryParamTemp = {
-        'GRADE': grade.toString()
-      };
-
-      queryParameters.addAll(queryParamTemp);
-    }
 
     ClassInfoApiResult result = new ClassInfoApiResult();
 
