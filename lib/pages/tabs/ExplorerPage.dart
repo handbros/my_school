@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:my_school/SharedAssets.dart';
 import 'package:my_school/apis/ClassInfoApi.dart';
@@ -40,7 +41,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
             }),
         ],
       ),
-      body: notifier.getClassList().isEmpty
+      body: notifier.getClassList().isEmpty // 반 목록이 비어있는지 확인.
           ? Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -61,10 +62,28 @@ class _ExplorerPageState extends State<ExplorerPage> {
 
           return ListTile(
             onTap: () {
-              print(result.schoolName);
+              if (SharedAssets.getInstance().selectedClass != SharedAssets.getInstance().classList[index]) {
+                SharedAssets.getInstance().selectClass(index);
+                notifier.notifyClassChanged();
+
+                // Toast 메시지 호출.
+                ClassInfo classInfo = SharedAssets.getInstance().classList[0];
+
+                Fluttertoast.showToast(
+                  msg: "${classInfo.schoolName} ${classInfo.grade}학년 ${classInfo.className}반으로 변경되었습니다.",
+                  toastLength: Toast.LENGTH_SHORT,
+                );
+              }
+              else {
+                Fluttertoast.showToast(
+                  msg: "이미 선택되어 있는 반입니다.",
+                  toastLength: Toast.LENGTH_SHORT,
+                );
+              }
             },
-            title: Text(result.schoolName),
+            title: index == 0 ? Text("${result.schoolName} (현재)") : Text(result.schoolName),
             subtitle: Text("${result.grade}학년 ${result.className}반"),
+            tileColor: index == 0 ? Theme.of(context).hoverColor : null,
           );
         },
       ),
@@ -257,7 +276,7 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
     return classList;
   }
 
-  /// ClassInfoApiResult 지정된 반 정보를 불러옵니다.
+  /// ClassInfoApiResult에서 지정된 반 정보를 불러옵니다.
   ClassInfo getSelectedClassInfo(ClassInfoApiResult apiResult, int grade, String className) {
     // 학년 추가.
     for (ClassInfo classInfo in apiResult.items) {
@@ -287,7 +306,7 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
             builder: (BuildContext context, StateSetter setState) {
               // 반 정보를 받아오기 위한 Future Builder.
               return FutureBuilder(
-                future: ClassInfoApi().getClassInfo(schoolInfo.officeCode, schoolInfo.standardSchoolCode),
+                future: ClassInfoApi().getClassInfo(schoolInfo.officeCode, schoolInfo.standardSchoolCode, targetYear: DateTime.now().year),
                 builder: (context, AsyncSnapshot<ClassInfoApiResult> snapshot) {
                   if (!snapshot.hasData) {
                     return SizedBox(
@@ -349,6 +368,8 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
 
                                     classList = getClassList(result, value); // 학반 정보를 초기화함.
                                     selectedClass = null;
+
+                                    selectedClassInfo = null;
                                   });
                                 },
                               ),
@@ -369,6 +390,7 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
                                 onChanged: (String value) {
                                   setState(() {
                                     selectedClass = value;
+
                                     selectedClassInfo = getSelectedClassInfo(result, selectedGrade, selectedClass);
                                   });
                                 },
@@ -387,17 +409,34 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
             TextButton(
               child: Text('확인'),
               onPressed: () {
-                // SharedAssets에 학반 정보 저장.
-                SharedAssets.getInstance().selectedClass = selectedClassInfo;
+                if (selectedClass == null || selectedClassInfo == null) {
+                  // Toast 메시지 호출.
+                  Fluttertoast.showToast(
+                    msg: "학년 또는 반을 선택해주세요.",
+                    toastLength: Toast.LENGTH_SHORT,
+                  );
 
-                if (!SharedAssets.getInstance().classList.contains(selectedClassInfo)) {
-                  SharedAssets.getInstance().classList.insert(0, selectedClassInfo);
+                  return;
                 }
 
-                // ClassChangeNotifier를 통해 이벤트 호출.
-                final notifier = Provider.of<ClassChangeNotifier>(context, listen: false);
-                notifier.notifyClassListChanged(SharedAssets.getInstance().classList);
-                notifier.notifySelectedClassChanged(SharedAssets.getInstance().selectedClass);
+                if (SharedAssets.getInstance().addClass(selectedClassInfo)) {
+                  // ClassChangeNotifier를 통해 이벤트 호출.
+                  final notifier = Provider.of<ClassChangeNotifier>(context, listen: false);
+                  notifier.notifyClassChanged();
+
+                  // Toast 메시지 호출.
+                  Fluttertoast.showToast(
+                    msg: "${selectedClassInfo.schoolName} $selectedGrade학년 $selectedClass반이 추가되었습니다.",
+                    toastLength: Toast.LENGTH_SHORT,
+                  );
+                }
+                else {
+                  // Toast 메시지 호출.
+                  Fluttertoast.showToast(
+                    msg: "이미 추가되어있습니다.",
+                    toastLength: Toast.LENGTH_SHORT,
+                  );
+                }
 
                 Navigator.pop(context);
               },

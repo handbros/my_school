@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:my_school/SharedAssets.dart';
+import 'package:my_school/notifiers/ClassChangeNotifier.dart';
 import 'package:my_school/pages/tools/TextViewerPage.dart';
 import 'package:package_info/package_info.dart';
+import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -183,7 +186,17 @@ class _SettingsPageState extends State<SettingsPage> {
                 SharedAssets.getInstance().resetPreferences();
                 SharedAssets.writeSharedAssets();
 
+                // ClassChangeNotifier 초기화.
+                final notifier = Provider.of<ClassChangeNotifier>(context, listen: false);
+                notifier.notifyClassChanged();
+
                 Navigator.pop(context);
+
+                // Toast 메시지 호출.
+                Fluttertoast.showToast(
+                  msg: "개인 설정이 초기화되었습니다.",
+                  toastLength: Toast.LENGTH_SHORT,
+                );
               },
             ),
             TextButton(

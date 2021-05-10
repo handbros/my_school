@@ -13,9 +13,9 @@ class _SplashScreenState extends State<SplashScreen> {
   _loadDatas() async {
     await SharedAssets.readSharedAssets(); // SharedAssets 불러오기.
 
+    // ClassChangeNotifier 초기화.
     final notifier = Provider.of<ClassChangeNotifier>(context, listen: false);
-    notifier.notifyClassListChanged(SharedAssets.getInstance().classList);
-    notifier.notifySelectedClassChanged(SharedAssets.getInstance().selectedClass);
+    notifier.notifyClassChanged();
 
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => MainScreen()));
   }

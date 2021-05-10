@@ -7,7 +7,7 @@ part 'SharedAssets.g.dart';
 
 /// 공유 자원 관리를 위한 클래스입니다.
 @JsonSerializable(explicitToJson: true)
-class SharedAssets {
+class SharedAssets{
   // 싱글톤 패턴 구현을 위한 정적 클래스.
   static SharedAssets _instance = new SharedAssets.initial();
 
@@ -92,6 +92,72 @@ class SharedAssets {
   List<String> classSearchHistory;
   List<ClassInfo> classList;
   ClassInfo selectedClass;
+
+  // 공통 변수 관련 함수
+  /// classList에 새 반을 추가합니다. 작업이 성공했을 경우 true를 반환합니다.
+  bool addClass(ClassInfo classInfo) {
+    if (!isAlreadyExistClass(classInfo)) {
+      // SharedAssets에 학반 정보 저장.
+      classList.insert(0, classInfo);
+      selectedClass = classInfo;
+
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  void removeClass(int index) {
+    if (index > 0 && index <= classList.length) {
+      // SharedAssets에 학반 정보 저장.
+      classList.removeAt(index);
+
+      if (classList.length > 0) {
+        selectedClass = classList[0];
+      }
+      else {
+        selectedClass = null;
+      }
+    }
+  }
+
+  void selectClass(int index) {
+    if (index > 0 && index <= classList.length) {
+      ClassInfo temp = classList[index];
+      classList.removeAt(index);
+      classList.insert(0, temp);
+
+      selectedClass = classList[0];
+    }
+  }
+
+  /// classList에서 입력된 반의 인덱스를 반환합니다.
+  int getClassIndex(ClassInfo classInfo) {
+    int index = 0;
+
+    for (ClassInfo target in SharedAssets.getInstance().classList) {
+      if (target.standardSchoolCode == classInfo.standardSchoolCode && target.grade == classInfo.grade && target.className == classInfo.className) {
+        return index;
+      }
+      index++;
+    }
+
+    return -1;
+  }
+
+  /// classList에 해당 반이 존재하는지에 대한 여부를 반환합니다.
+  bool isAlreadyExistClass(ClassInfo classInfo) {
+    bool result = false;
+
+    for (ClassInfo target in SharedAssets.getInstance().classList) {
+      if (target.standardSchoolCode == classInfo.standardSchoolCode && target.grade == classInfo.grade && target.className == classInfo.className) {
+        result = true;
+      }
+    }
+
+    return result;
+  }
 
   // IO 관련 함수.
   SharedAssets({this.acceptUsingDeviceStorage, this.useOfflineMode, this.acceptTransferringDeviceInformation, this.classSearchHistory, this.classList, this.selectedClass});

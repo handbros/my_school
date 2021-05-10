@@ -15,19 +15,19 @@ import 'package:my_school/pages/tabs/SettingsPage.dart';
 
 class MainScreen extends StatefulWidget {
   @override
-  _MainScreenState createState() => _MainScreenState();
+  MainScreenState createState() => MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class MainScreenState extends State<MainScreen> {
   List<Widget> pages = [HomePage(), ExplorerPage(), TimeTablePage(), MealPage(), SettingsPage()];
-  int _currentIndex = 0;
+  int _tabIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     // 반 정보 변경을 알리기 위한 ChangeNotifierProvider.
     return Scaffold(
       body: IndexedStack(
-        index: _currentIndex,
+        index: _tabIndex,
         children: pages,
       ),
       bottomNavigationBar: Container(
@@ -95,10 +95,10 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                 ),
               ],
-              selectedIndex: _currentIndex,
+              selectedIndex: _tabIndex,
               onTabChange: (index) {
                 setState(() {
-                  _currentIndex = index;
+                  _tabIndex = index;
                 });
               },
             ),
