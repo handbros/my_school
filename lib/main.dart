@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:my_school/notifiers/ClassChangeNotifier.dart';
 import 'package:my_school/screens/SplashScreen.dart';
+import 'package:my_school/objects/classInfo/ClassInfo.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => ClassChangeNotifier(List<ClassInfo>.empty(), new ClassInfo()),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

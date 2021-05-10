@@ -40,17 +40,31 @@ class _ExplorerPageState extends State<ExplorerPage> {
             }),
         ],
       ),
-      body: ListView.builder(
+      body: notifier.getClassList().isEmpty
+          ? Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Center(
+              child: Icon(LineIcons.smilingFace, size: 40,)
+          ),
+          Center(
+            child: Text(
+              "새로운 반을 추가해주세요!",
+            ),
+          )
+        ],
+      )
+          : ListView.builder(
         itemCount: notifier.getClassList().length,
         itemBuilder: (context, index) {
-          var result = notifier.getClassList()[index];
+          var result = notifier.getClassList()[index] as ClassInfo;
 
           return ListTile(
             onTap: () {
               print(result.schoolName);
             },
             title: Text(result.schoolName),
-            subtitle: Text(result.address),
+            subtitle: Text("${result.grade}학년 ${result.className}반"),
           );
         },
       ),
@@ -127,7 +141,7 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Center(
-            child: Icon(LineIcons.exclamationCircle, size: 30,)
+            child: Icon(LineIcons.exclamationCircle, size: 40,)
           ),
           Center(
             child: Text(
@@ -158,7 +172,7 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Center(
-                    child: Icon(LineIcons.exclamationCircle, size: 30,)
+                    child: Icon(LineIcons.exclamationCircle, size: 40,)
                 ),
                 Center(
                   child: Text(
@@ -373,8 +387,19 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
             TextButton(
               child: Text('확인'),
               onPressed: () {
+                // SharedAssets에 학반 정보 저장.
+                SharedAssets.getInstance().selectedClass = selectedClassInfo;
 
-                //Navigator.pop(context);
+                if (!SharedAssets.getInstance().classList.contains(selectedClassInfo)) {
+                  SharedAssets.getInstance().classList.insert(0, selectedClassInfo);
+                }
+
+                // ClassChangeNotifier를 통해 이벤트 호출.
+                final notifier = Provider.of<ClassChangeNotifier>(context, listen: false);
+                notifier.notifyClassListChanged(SharedAssets.getInstance().classList);
+                notifier.notifySelectedClassChanged(SharedAssets.getInstance().selectedClass);
+
+                Navigator.pop(context);
               },
             ),
             TextButton(

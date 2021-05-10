@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:my_school/SharedAssets.dart';
+import 'package:my_school/notifiers/ClassChangeNotifier.dart';
 import 'package:my_school/screens/MainScreen.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -10,7 +11,12 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   _loadDatas() async {
-    await SharedAssets.readSharedAssets();
+    await SharedAssets.readSharedAssets(); // SharedAssets 불러오기.
+
+    final notifier = Provider.of<ClassChangeNotifier>(context, listen: false);
+    notifier.notifyClassListChanged(SharedAssets.getInstance().classList);
+    notifier.notifySelectedClassChanged(SharedAssets.getInstance().selectedClass);
+
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => MainScreen()));
   }
 
