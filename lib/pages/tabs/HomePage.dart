@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icons.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -18,7 +19,12 @@ class _HomePageState extends State<HomePage> {
         elevation: 2,
         backgroundColor: Theme.of(context).bottomAppBarColor,
         centerTitle: true,
-      )
+      ),
+      body: Column(
+        children: [
+
+        ],
+      ),
     );
   }
 }

@@ -20,7 +20,7 @@ class MainScreen extends StatefulWidget {
 
 class MainScreenState extends State<MainScreen> {
   final _pageViewController = PageController();
-  final List<Widget> _pages = [HomePage(), TimeTablePage(), MealPage(), ExplorerPage(), SettingsPage()];
+  final List<Widget> _pages = [HomePage(), ExplorerPage(), TimeTablePage(), MealPage(), SettingsPage()];
   int _tabIndex = 0;
 
   @override
@@ -69,6 +69,14 @@ class MainScreenState extends State<MainScreen> {
                   ),
                 ),
                 GButton(
+                  icon: LineIcons.thList,
+                  text: '탐색',
+                  textStyle: TextStyle(
+                      fontSize: 14,
+                      color: Theme.of(context).hintColor
+                  ),
+                ),
+                GButton(
                   icon: LineIcons.calendar,
                   text: '시간표',
                   textStyle: TextStyle(
@@ -79,14 +87,6 @@ class MainScreenState extends State<MainScreen> {
                 GButton(
                   icon: LineIcons.utensils,
                   text: '식단표',
-                  textStyle: TextStyle(
-                      fontSize: 14,
-                      color: Theme.of(context).hintColor
-                  ),
-                ),
-                GButton(
-                  icon: LineIcons.thList,
-                  text: '탐색',
                   textStyle: TextStyle(
                       fontSize: 14,
                       color: Theme.of(context).hintColor
