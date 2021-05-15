@@ -34,56 +34,53 @@ class _ExplorerPageState extends State<ExplorerPage> {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(LineIcons.search),
-            color: Theme.of(context).hintColor,
-            onPressed: () {
-              showSearch(context: context, delegate: SchoolSearchDelegate()); // SchoolSearch SearchDelegate 을(를) 호출.
-            }),
+              icon: Icon(LineIcons.search),
+              color: Theme.of(context).hintColor,
+              onPressed: () {
+                showSearch(context: context, delegate: SchoolSearchDelegate()); // SchoolSearch SearchDelegate 을(를) 호출.
+              }),
         ],
       ),
-      body: notifier.getClassList().isEmpty // 반 목록이 비어있는지 확인.
-          ? Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Center(
-              child: Icon(LineIcons.smilingFace, size: 40,)
-          ),
-          Center(
-            child: Text(
-              "새로운 반을 추가해주세요!",
-            ),
-          )
-        ],
-      )
-          : ListView.builder(
+      body: ListView.builder(
         itemCount: notifier.getClassList().length,
         itemBuilder: (context, index) {
           var result = notifier.getClassList()[index] as ClassInfo;
 
-          return ListTile(
-            onTap: () {
-              if (SharedAssets.getInstance().selectedClass != SharedAssets.getInstance().classList[index]) {
-                SharedAssets.getInstance().selectClass(index);
-                notifier.notifyClassChanged();
+          return Padding(
+            padding: EdgeInsets.only(left: 20, right: 20, top: 10),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              elevation: 4,
+              child: Padding(
+                padding: EdgeInsets.all(0),
+                child: ListTile(
+                  onTap: () {
+                    if (SharedAssets.getInstance().selectedClass != SharedAssets.getInstance().classList[index]) {
+                      SharedAssets.getInstance().selectClass(index);
+                      notifier.notifyClassChanged();
 
-                // Toast 메시지 호출.
-                ClassInfo classInfo = SharedAssets.getInstance().classList[0];
+                      // Toast 메시지 호출.
+                      ClassInfo classInfo = SharedAssets.getInstance().classList[0];
 
-                Fluttertoast.showToast(
-                  msg: "${classInfo.schoolName} ${classInfo.grade}학년 ${classInfo.className}반으로 변경되었습니다.",
-                  toastLength: Toast.LENGTH_SHORT,
-                );
-              }
-              else {
-                Fluttertoast.showToast(
-                  msg: "이미 선택되어 있는 반입니다.",
-                  toastLength: Toast.LENGTH_SHORT,
-                );
-              }
-            },
-            title: index == 0 ? Text("${result.schoolName} (현재)") : Text(result.schoolName),
-            subtitle: Text("${result.grade}학년 ${result.className}반"),
-            tileColor: index == 0 ? Theme.of(context).hoverColor : null,
+                      Fluttertoast.showToast(
+                        msg: "${classInfo.schoolName} ${classInfo.grade}학년 ${classInfo.className}반으로 변경되었습니다.",
+                        toastLength: Toast.LENGTH_SHORT,
+                      );
+                    }
+                    else {
+                      Fluttertoast.showToast(
+                        msg: "이미 선택되어 있는 반입니다.",
+                        toastLength: Toast.LENGTH_SHORT,
+                      );
+                    }
+                  },
+                  title: index == 0 ? Text("${result.schoolName} (현재)") : Text(result.schoolName),
+                  subtitle: Text("${result.grade}학년 ${result.className}반"),
+                ),
+              ),
+            ),
           );
         },
       ),

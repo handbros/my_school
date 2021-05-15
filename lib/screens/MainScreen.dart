@@ -1,15 +1,6 @@
-/*
- * Original Code
- * https://github.com/sooxt98/google_nav_bar/blob/master/example/lib/main.dart
- * modified by my_school
- */
-
 import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:my_school/pages/tabs/HomePage.dart';
-import 'package:my_school/pages/tabs/TimeTablePage.dart';
-import 'package:my_school/pages/tabs/MealPage.dart';
 import 'package:my_school/pages/tabs/ExplorerPage.dart';
 import 'package:my_school/pages/tabs/SettingsPage.dart';
 
@@ -19,9 +10,9 @@ class MainScreen extends StatefulWidget {
 }
 
 class MainScreenState extends State<MainScreen> {
-  final _pageViewController = PageController();
-  final List<Widget> _pages = [HomePage(), ExplorerPage(), TimeTablePage(), MealPage(), SettingsPage()];
-  int _tabIndex = 0;
+  final _pageViewController = PageController(initialPage: 1);
+  final List<Widget> _pages = [ExplorerPage(), HomePage(), SettingsPage()];
+  int _tabIndex = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -46,71 +37,31 @@ class MainScreenState extends State<MainScreen> {
             )
           ],
         ),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
-            child: GNav(
-              gap: 4,
-              tabMargin: EdgeInsets.zero,
-              iconSize: 22,
-              padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-              duration: Duration(milliseconds: 400),
-              color: Theme.of(context).hintColor,
-              activeColor: Theme.of(context).hintColor,
-              tabActiveBorder: Border.all(color: Theme.of(context).hintColor, width: 1), // tab button border
-              tabBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              tabs: [
-                GButton(
-                  icon: LineIcons.home,
-                  text: '홈',
-                  textStyle: TextStyle(
-                      fontSize: 14,
-                      color: Theme.of(context).hintColor
-                  ),
-                ),
-                GButton(
-                  icon: LineIcons.thList,
-                  text: '탐색',
-                  textStyle: TextStyle(
-                      fontSize: 14,
-                      color: Theme.of(context).hintColor
-                  ),
-                ),
-                GButton(
-                  icon: LineIcons.calendar,
-                  text: '시간표',
-                  textStyle: TextStyle(
-                      fontSize: 14,
-                      color: Theme.of(context).hintColor
-                  ),
-                ),
-                GButton(
-                  icon: LineIcons.utensils,
-                  text: '식단표',
-                  textStyle: TextStyle(
-                      fontSize: 14,
-                      color: Theme.of(context).hintColor
-                  ),
-                ),
-                GButton(
-                  icon: LineIcons.cog,
-                  text: '설정',
-                  textStyle: TextStyle(
-                      fontSize: 14,
-                      color: Theme.of(context).hintColor
-                  ),
-                ),
-              ],
-              selectedIndex: _tabIndex,
-              onTabChange: (index) {
-                setState(() {
-                  _pageViewController.animateToPage(index, duration: Duration(milliseconds: 200), curve: Curves.bounceOut);
-                });
-              },
+        child: BottomNavigationBar(
+          showUnselectedLabels: false,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(LineIcons.search),
+              label: '탐색',
+            ), BottomNavigationBarItem(
+              icon: Icon(LineIcons.home),
+              label: '홈',
             ),
-          ),
+            BottomNavigationBarItem(
+              icon: Icon(LineIcons.cog),
+              label: '설정',
+            ),
+          ],
+          currentIndex: _tabIndex,
+          selectedItemColor: Theme.of(context).primaryColor,
+          unselectedItemColor: Theme.of(context).hintColor,
+          onTap: (int index) {
+            setState(() {
+              _pageViewController.animateToPage(index, duration: Duration(milliseconds: 200), curve: Curves.bounceOut);
+            });
+          },
         ),
-      ),
+      )
     );
   }
 }

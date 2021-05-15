@@ -4,6 +4,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:my_school/SharedAssets.dart';
 import 'package:my_school/notifiers/ClassChangeNotifier.dart';
 import 'package:my_school/pages/tools/TextViewerPage.dart';
+import 'package:my_school/widgets/EmptyAppBar.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
@@ -45,16 +46,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("설정", style: TextStyle(
-            color: Theme.of(context).hintColor,
-            fontSize: 18,
-            fontWeight: FontWeight.w200
-        )),
-        elevation: 2,
-        backgroundColor: Theme.of(context).bottomAppBarColor,
-        centerTitle: true,
-      ),
+      appBar: EmptyAppBar(),
       body: SettingsList(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         contentPadding: EdgeInsets.only(top: 20),
@@ -78,9 +70,18 @@ class _SettingsPageState extends State<SettingsPage> {
                   });
                 },
               ),
+            ],
+          ),
+          SettingsSection(
+            title: '오프라인 모드',
+            titleTextStyle: TextStyle(
+                color: Theme.of(context).hintColor
+            ),
+            tiles: [
+              // TODO: 오프라인 모드 기능 추가하기.
               SettingsTile.switchTile(
                 title: '오프라인 모드 사용',
-                leading: Icon(LineIcons.wiredNetwork),
+                leading: Icon(LineIcons.powerOff),
                 switchValue: _useOfflineMode,
                 enabled: _acceptUsingDeviceStorage,
                 onToggle: (bool value) async {
@@ -90,6 +91,43 @@ class _SettingsPageState extends State<SettingsPage> {
                   setState(() {
                     _useOfflineMode = value;
                   });
+                },
+              ),
+              SettingsTile.switchTile(
+                title: '데이터 자동 수집 허용',
+                leading: Icon(LineIcons.robot),
+                switchValue: _useOfflineMode,
+                enabled: _acceptUsingDeviceStorage,
+                onToggle: (bool value) async {
+                  SharedAssets.getInstance().useOfflineMode = value;
+                  SharedAssets.writeSharedAssets();
+
+                  setState(() {
+                    _useOfflineMode = value;
+                  });
+                },
+              ),
+              SettingsTile(
+                title: '데이터 자동 수집 대상 지정',
+                leading: Icon(LineIcons.cogs),
+                onPressed: (BuildContext context) {
+                  showResetPreferencesDialog(context); // 다이얼로그 호출.
+                },
+              ),
+            ],
+          ),
+          SettingsSection(
+            title: '네트워크',
+            titleTextStyle: TextStyle(
+                color: Theme.of(context).hintColor
+            ),
+            tiles: [
+              // TODO: VPN 기능 추가하기.
+              SettingsTile(
+                title: 'VPN',
+                leading: Icon(LineIcons.wiredNetwork),
+                onPressed: (BuildContext context) {
+                  showResetPreferencesDialog(context); // 다이얼로그 호출.
                 },
               ),
             ],
