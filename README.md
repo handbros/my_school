@@ -1,16 +1,13 @@
 # my_school
 
-A new Flutter application.
+## Introductio
+나이스 교육 정보 개방 포털에서 제공하는 Open API를 이용한 앱입니다.
 
-## Getting Started
+## Description
 
-This project is a starting point for a Flutter application.
+## Contribution
 
-A few resources to get you started if this is your first Flutter project:
+## License
+이 프로젝트는 MIT License에 기반하여 공개 배포됩니다. 이 프로젝트에서 사용된 라이브러리에 대해서는 각 라이센스를 참조해주시기 바랍니다.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Contact
