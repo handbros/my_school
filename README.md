@@ -22,7 +22,7 @@ my_school(은)는 Flutter을(를) 이용하여 제작된 크로스 플랫폼 애
  * main.dart : 애플리케이션의 진입점(Entry Point, EP)이자 모든 UI 구성요소들의 부모가 되는 MaterialApp이(가) 생성되는 클래스입니다.
 
 ## 기여
-my_school은(는) 프로젝트에 대한 모든 기여를 환영합니다. 자세한 기여 방법은 master 브랜치의 컨트리뷰팅 문서(CONTRIBUTING.md)를 참조해주시기 바랍니다.
+my_school은(는) 프로젝트에 대한 모든 기여를 환영합니다. 기여 전에는 반드시 master 브랜치의 컨트리뷰팅 문서(CONTRIBUTING.md)를 읽어주시기 바랍니다.
 
 ## 라이센스
 이 프로젝트는 MIT 라이센스에 의거하여 공개 배포됩니다. 이 프로젝트에서 사용된 제 3자 라이브러리에 대해서는 master 브랜치의 오픈소스 라이센스 문서(OPENSOURCES.md)를 참조해주시기 바랍니다.
