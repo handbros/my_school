@@ -9,6 +9,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // TODO: 디자인 스타일 통일시키기.
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

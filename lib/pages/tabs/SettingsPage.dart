@@ -122,7 +122,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 color: Theme.of(context).hintColor
             ),
             tiles: [
-              // TODO: VPN 기능 추가하기.
+              // TODO: VPN 기능 추가하기.(유의 : 반드시 필요한 기능인가?)
               SettingsTile(
                 title: 'VPN',
                 leading: Icon(LineIcons.wiredNetwork),
@@ -200,6 +200,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 onPressed: (BuildContext context) {
                   Navigator.of(context).push(MaterialPageRoute(builder: (context) => TextViewerPage("오픈소스 라이센스", "assets/open_source_licenses.txt")));
                   // TODO: 배포 전에 오픈소스 라이센스 누락된 것 없나 확인하기.
+                  // TODO: 오픈소스 라이센스 확인 방법을 깃허브 내 마크다운 파일 열람 방식으로 변경하기.
                 },
               ),
             ],
