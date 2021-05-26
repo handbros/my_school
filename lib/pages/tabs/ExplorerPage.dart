@@ -173,7 +173,7 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
 
       // 검색 결과 처리.
       return FutureBuilder(
-        future: SchoolInfoApi().getSchoolInfo(query.trim()),
+        future: SchoolInfoApi().getApiResult(query.trim()),
         builder: (context, AsyncSnapshot<SchoolInfoApiResult> snapshot) {
           if (!snapshot.hasData) {
             return Column(
@@ -303,7 +303,7 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
             builder: (BuildContext context, StateSetter setState) {
               // 반 정보를 받아오기 위한 Future Builder.
               return FutureBuilder(
-                future: ClassInfoApi().getClassInfo(schoolInfo.officeCode, schoolInfo.standardSchoolCode, targetYear: DateTime.now().year),
+                future: ClassInfoApi().getApiResult(schoolInfo.officeCode, schoolInfo.standardSchoolCode, targetYear: DateTime.now().year),
                 builder: (context, AsyncSnapshot<ClassInfoApiResult> snapshot) {
                   if (!snapshot.hasData) {
                     return SizedBox(

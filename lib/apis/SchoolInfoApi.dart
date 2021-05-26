@@ -6,8 +6,9 @@ import 'package:my_school/objects/schoolInfo/SchoolInfoApiResult.dart';
 import 'package:my_school/objects/ResultCode.dart';
 import 'package:my_school/utilities/StringFormatter.dart';
 
+/// 학교 정보를 확인하기 위한 API을(를) 제공하는 클래스입니다. API 호출에는 [getApiResult]을(를) 사용해주십시오.
 class SchoolInfoApi {
-  Future<SchoolInfoApiResult> getSchoolInfo(String schoolName, {int index = 1, int size = 100, String officeCode, String schoolKind} ) async {
+  Future<SchoolInfoApiResult> getApiResult(String schoolName, {int index = 1, int size = 100, String officeCode, String schoolKind} ) async {
     // API 호출을 위한 쿼리 값들을 초기화.
     var queryParameters = {
       'KEY': SharedAssets.apiKey,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
+/// 텍스트 뷰어 위젯을 제공합니다.
 class TextViewerPage extends StatefulWidget {
   final String title;
   final String textAssetKey;
