@@ -51,6 +51,10 @@ The following sets forth attribution notices for third party software that may b
  * MIT License
  * Copyright (c) 2020 Karthik Ponnam
 
+### url_launcher
+ * BSD 3-Clause "New" or "Revised" license
+ * Copyright 2013 The Flutter Authors. All rights reserved.
+
  * * *
  
 # Apache License 2.0

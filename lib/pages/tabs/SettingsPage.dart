@@ -8,6 +8,7 @@ import 'package:my_school/widgets/EmptyAppBar.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -35,6 +36,18 @@ class _SettingsPageState extends State<SettingsPage> {
       version = packageInfo.version;
       buildNumber = packageInfo.buildNumber;
     });
+  }
+
+  void launchUrl(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      // Toast 메시지 호출.
+      Fluttertoast.showToast(
+        msg: "$url을(를) 열 수 없습니다.",
+        toastLength: Toast.LENGTH_SHORT,
+      );
+    }
   }
 
   @override
@@ -110,22 +123,6 @@ class _SettingsPageState extends State<SettingsPage> {
               SettingsTile(
                 title: '데이터 자동 수집 대상 지정',
                 leading: Icon(LineIcons.cogs),
-                onPressed: (BuildContext context) {
-                  showResetPreferencesDialog(context); // 다이얼로그 호출.
-                },
-              ),
-            ],
-          ),
-          SettingsSection(
-            title: '네트워크',
-            titleTextStyle: TextStyle(
-                color: Theme.of(context).hintColor
-            ),
-            tiles: [
-              // TODO: VPN 기능 추가하기.(유의 : 반드시 필요한 기능인가?)
-              SettingsTile(
-                title: 'VPN',
-                leading: Icon(LineIcons.wiredNetwork),
                 onPressed: (BuildContext context) {
                   showResetPreferencesDialog(context); // 다이얼로그 호출.
                 },
