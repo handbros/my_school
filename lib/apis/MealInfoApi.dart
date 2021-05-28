@@ -22,6 +22,11 @@ class MealInfoApi {
     };
 
     MealInfoApiResult result = new MealInfoApiResult();
+    result.requestUrl = "";
+    result.resultCode = ResultCode.None;
+    result.resultMessage = "";
+    result.itemsTotalCount = 0;
+    result.items = List<MealInfo>.empty(growable: true);
 
     try {
       var response = await http.get(Uri.https(SharedAssets.apiDomain, SharedAssets.mealInfoApiPath, queryParameters)); // API 호출 후 데이터 저장.

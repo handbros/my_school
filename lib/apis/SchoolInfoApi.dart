@@ -21,6 +21,11 @@ class SchoolInfoApi {
     };
 
     SchoolInfoApiResult result = new SchoolInfoApiResult();
+    result.requestUrl = "";
+    result.resultCode = ResultCode.None;
+    result.resultMessage = "";
+    result.itemsTotalCount = 0;
+    result.items = List<SchoolInfo>.empty(growable: true);
 
     try {
       var response = await http.get(Uri.https(SharedAssets.apiDomain, SharedAssets.schoolInfoApiPath, queryParameters)); // API 호출 후 데이터 저장.

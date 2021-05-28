@@ -28,6 +28,12 @@ class TimeTableApi {
     };
 
     TimeTableApiResult result = new TimeTableApiResult();
+    result.requestUrl = "";
+    result.resultCode = ResultCode.None;
+    result.resultMessage = "";
+    result.itemsTotalCount = 0;
+    result.schoolType = SchoolType.None;
+    result.items = List<GeneralTimeTable>.empty(growable: true);
 
     try {
       // SchoolType 열거형을 사용하여 각급 학교 별 API PATH 및 루트 명을 초기화.

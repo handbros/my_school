@@ -23,6 +23,11 @@ class ClassInfoApi {
     };
 
     ClassInfoApiResult result = new ClassInfoApiResult();
+    result.requestUrl = "";
+    result.resultCode = ResultCode.None;
+    result.resultMessage = "";
+    result.itemsTotalCount = 0;
+    result.items = List<ClassInfo>.empty(growable: true);
 
     try {
       var response = await http.get(Uri.https(SharedAssets.apiDomain, SharedAssets.classInfoApiPath, queryParameters)); // API 호출 후 데이터 저장.

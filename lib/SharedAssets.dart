@@ -25,7 +25,6 @@ class SharedAssets{
     // 클래스 초기화 코드
     acceptUsingDeviceStorage = false;
     useOfflineMode = false;
-    acceptTransferringDeviceInformation = false;
     classSearchHistory = List<String>.empty(growable: true);
     classList = List<ClassInfo>.empty(growable: true);
     selectedClass = new ClassInfo();
@@ -88,7 +87,6 @@ class SharedAssets{
   // 공통 변수
   bool acceptUsingDeviceStorage;
   bool useOfflineMode;
-  bool acceptTransferringDeviceInformation;
   List<String> classSearchHistory;
   List<ClassInfo> classList;
   ClassInfo selectedClass;
@@ -166,7 +164,7 @@ class SharedAssets{
   }
 
   // IO 관련 함수.
-  SharedAssets({this.acceptUsingDeviceStorage, this.useOfflineMode, this.acceptTransferringDeviceInformation, this.classSearchHistory, this.classList, this.selectedClass});
+  SharedAssets({this.acceptUsingDeviceStorage, this.useOfflineMode, this.classSearchHistory, this.classList, this.selectedClass});
 
   factory SharedAssets.fromJson(Map<String, dynamic> json) => _$SharedAssetsFromJson(json);
   Map<String, dynamic> toJson() => _$SharedAssetsToJson(this);

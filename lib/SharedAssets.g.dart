@@ -10,8 +10,6 @@ SharedAssets _$SharedAssetsFromJson(Map<String, dynamic> json) {
   return SharedAssets(
     acceptUsingDeviceStorage: json['acceptUsingDeviceStorage'] as bool,
     useOfflineMode: json['useOfflineMode'] as bool,
-    acceptTransferringDeviceInformation:
-        json['acceptTransferringDeviceInformation'] as bool,
     classSearchHistory:
         (json['classSearchHistory'] as List)?.map((e) => e as String)?.toList(),
     classList: (json['classList'] as List)
@@ -28,8 +26,6 @@ Map<String, dynamic> _$SharedAssetsToJson(SharedAssets instance) =>
     <String, dynamic>{
       'acceptUsingDeviceStorage': instance.acceptUsingDeviceStorage,
       'useOfflineMode': instance.useOfflineMode,
-      'acceptTransferringDeviceInformation':
-          instance.acceptTransferringDeviceInformation,
       'classSearchHistory': instance.classSearchHistory,
       'classList': instance.classList?.map((e) => e?.toJson())?.toList(),
       'selectedClass': instance.selectedClass?.toJson(),

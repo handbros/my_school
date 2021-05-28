@@ -18,7 +18,6 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   bool _acceptUsingDeviceStorage = false;
   bool _useOfflineMode = false;
-  bool _acceptTransferringDeviceInformation = false;
 
   String version = "1.0.0";
   String buildNumber = "1";
@@ -29,7 +28,6 @@ class _SettingsPageState extends State<SettingsPage> {
 
     _acceptUsingDeviceStorage = assets.acceptUsingDeviceStorage ?? false;
     _useOfflineMode = assets.useOfflineMode ?? false;
-    _acceptTransferringDeviceInformation = assets.acceptTransferringDeviceInformation ?? false;
 
     // Initialize package info.
     PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
@@ -60,149 +58,155 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: EmptyAppBar(),
-      body: SettingsList(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        contentPadding: EdgeInsets.only(top: 20),
-        sections: [
-          SettingsSection(
-            title: '기본',
-            titleTextStyle: TextStyle(
-                color: Theme.of(context).hintColor
-            ),
-            tiles: [
-              SettingsTile.switchTile(
-                title: '장치에 데이터 저장 허용',
-                leading: Icon(LineIcons.download),
-                switchValue: _acceptUsingDeviceStorage,
-                onToggle: (bool value) async {
-                  SharedAssets.getInstance().acceptUsingDeviceStorage = value;
-                  SharedAssets.writeSharedAssets();
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Card(
+                elevation: 2,
+                margin: EdgeInsets.fromLTRB(14, 14, 14, 0),
+                child: Padding(
+                  padding: EdgeInsets.only(top: 10, bottom: 8),
+                  child: SettingsSection(
+                    title: '기본',
+                    titleTextStyle: TextStyle(
+                        color: Theme.of(context).hintColor
+                    ),
+                    tiles: [
+                      SettingsTile.switchTile(
+                        title: '장치에 데이터 저장 허용',
+                        leading: Icon(LineIcons.download),
+                        switchValue: _acceptUsingDeviceStorage,
+                        onToggle: (bool value) async {
+                          SharedAssets.getInstance().acceptUsingDeviceStorage = value;
+                          SharedAssets.writeSharedAssets();
 
-                  setState(() {
-                    _acceptUsingDeviceStorage = value;
-                  });
-                },
-              ),
-            ],
-          ),
-          SettingsSection(
-            title: '오프라인 모드',
-            titleTextStyle: TextStyle(
-                color: Theme.of(context).hintColor
+                          setState(() {
+                            _acceptUsingDeviceStorage = value;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                )
             ),
-            tiles: [
-              // TODO: 오프라인 모드 기능 추가하기.
-              SettingsTile.switchTile(
-                title: '오프라인 모드 사용',
-                leading: Icon(LineIcons.powerOff),
-                switchValue: _useOfflineMode,
-                enabled: _acceptUsingDeviceStorage,
-                onToggle: (bool value) async {
-                  SharedAssets.getInstance().useOfflineMode = value;
-                  SharedAssets.writeSharedAssets();
+            Card(
+                elevation: 2,
+                margin: EdgeInsets.fromLTRB(14, 14, 14, 0),
+                child: Padding(
+                  padding: EdgeInsets.only(top: 10, bottom: 8),
+                  child: SettingsSection(
+                    title: '오프라인 모드',
+                    titleTextStyle: TextStyle(
+                        color: Theme.of(context).hintColor
+                    ),
+                    tiles: [
+                      // TODO: 오프라인 모드 기능 추가하기.
+                      SettingsTile.switchTile(
+                        title: '오프라인 모드 사용',
+                        leading: Icon(LineIcons.powerOff),
+                        switchValue: _useOfflineMode,
+                        enabled: _acceptUsingDeviceStorage,
+                        onToggle: (bool value) async {
+                          SharedAssets.getInstance().useOfflineMode = value;
+                          SharedAssets.writeSharedAssets();
 
-                  setState(() {
-                    _useOfflineMode = value;
-                  });
-                },
-              ),
-              SettingsTile.switchTile(
-                title: '데이터 자동 수집 허용',
-                leading: Icon(LineIcons.robot),
-                switchValue: _useOfflineMode,
-                enabled: _acceptUsingDeviceStorage,
-                onToggle: (bool value) async {
-                  SharedAssets.getInstance().useOfflineMode = value;
-                  SharedAssets.writeSharedAssets();
+                          setState(() {
+                            _useOfflineMode = value;
+                          });
+                        },
+                      ),
+                      SettingsTile.switchTile(
+                        title: '데이터 자동 수집 허용',
+                        leading: Icon(LineIcons.robot),
+                        switchValue: _useOfflineMode,
+                        enabled: _acceptUsingDeviceStorage,
+                        onToggle: (bool value) async {
+                          SharedAssets.getInstance().useOfflineMode = value;
+                          SharedAssets.writeSharedAssets();
 
-                  setState(() {
-                    _useOfflineMode = value;
-                  });
-                },
-              ),
-              SettingsTile(
-                title: '데이터 자동 수집 대상 지정',
-                leading: Icon(LineIcons.cogs),
-                onPressed: (BuildContext context) {
-                  showResetPreferencesDialog(context); // 다이얼로그 호출.
-                },
-              ),
-            ],
-          ),
-          SettingsSection(
-            title: '개인정보',
-            titleTextStyle: TextStyle(
-                color: Theme.of(context).hintColor
+                          setState(() {
+                            _useOfflineMode = value;
+                          });
+                        },
+                      ),
+                      SettingsTile(
+                        title: '데이터 자동 수집 대상 지정',
+                        leading: Icon(LineIcons.cogs),
+                        onPressed: (BuildContext context) {
+                          showResetPreferencesDialog(context); // 다이얼로그 호출.
+                        },
+                      ),
+                    ],
+                  ),
+                )
             ),
-            tiles: [
-              SettingsTile.switchTile(
-                title: '기기정보 수집 허용',
-                leading: Icon(LineIcons.flag),
-                switchValue: _acceptTransferringDeviceInformation,
-                onToggle: (bool value) async {
-                  SharedAssets.getInstance().acceptTransferringDeviceInformation = value;
-                  SharedAssets.writeSharedAssets();
-
-                  setState(() {
-                    _acceptTransferringDeviceInformation = value;
-                  });
-                },
-              ),
-              SettingsTile(
-                title: '개인 설정 초기화',
-                subtitle: '개인 설정을 초기화합니다.',
-                leading: Icon(LineIcons.userCog),
-                onPressed: (BuildContext context) {
-                  showResetPreferencesDialog(context); // 다이얼로그 호출.
-                },
-              ),
-            ],
-          ),
-          SettingsSection(
-            title: '고객지원',
-            titleTextStyle: TextStyle(
-                color: Theme.of(context).hintColor
+            Card(
+                elevation: 2,
+                margin: EdgeInsets.fromLTRB(14, 14, 14, 0),
+                child: Padding(
+                  padding: EdgeInsets.only(top: 10, bottom: 8),
+                  child: SettingsSection(
+                    title: '지원',
+                    titleTextStyle: TextStyle(
+                        color: Theme.of(context).hintColor
+                    ),
+                    tiles: [
+                      SettingsTile(
+                        title: '개선사항 및 오류 제보',
+                        subtitle: '이용 중 겪은 불편한 점을 제보합니다.',
+                        leading: Icon(LineIcons.envelopeOpenText),
+                        onPressed: (BuildContext context) {
+                          launchUrl("https://github.com/handbros/my_school/issues");
+                        },
+                      ),
+                      SettingsTile(
+                        title: 'GitHub 저장소',
+                        subtitle: '프로젝트의 GitHub 저장소에 방문합니다.',
+                        leading: Icon(LineIcons.github),
+                        onPressed: (BuildContext context) {
+                          launchUrl("https://github.com/handbros/my_school");
+                        },
+                      ),
+                    ],
+                  ),
+                )
             ),
-            tiles: [
-              SettingsTile(
-                title: '개선사항 및 오류 제보',
-                subtitle: '이용 시 겪은 불편한 점을 제보합니다.',
-                leading: Icon(LineIcons.envelopeOpenText),
-                onPressed: (BuildContext context) {
-                  // TODO: FireBase를 이용한 오류 제보 시스템 구축하기.
-                },
-              ),
-            ],
-          ),
-          SettingsSection(
-            title: '정보',
-            titleTextStyle: TextStyle(
-                color: Theme.of(context).hintColor
-            ),
-            tiles: [
-              SettingsTile(
-                title: '애플리케이션 버전',
-                subtitle: 'version $version build $buildNumber (dev)',
-                onPressed: (BuildContext context) {},
-              ),
-              SettingsTile(
-                title: '개인정보 처리방침',
-                onPressed: (BuildContext context) {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => TextViewerPage("개인정보 처리방침", "assets/privacy_policy.txt")));
-                  // TODO: 배포 전에 개인정보 처리방침 시행 일자 변경하기.
-                },
-              ),
-              SettingsTile(
-                title: '오픈소스 라이센스',
-                onPressed: (BuildContext context) {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => TextViewerPage("오픈소스 라이센스", "assets/open_source_licenses.txt")));
-                  // TODO: 배포 전에 오픈소스 라이센스 누락된 것 없나 확인하기.
-                  // TODO: 오픈소스 라이센스 확인 방법을 깃허브 내 마크다운 파일 열람 방식으로 변경하기.
-                },
-              ),
-            ],
-          ),
-        ],
+            Card(
+                elevation: 2,
+                margin: EdgeInsets.fromLTRB(14, 14, 14, 14),
+                child: Padding(
+                  padding: EdgeInsets.only(top: 10, bottom: 8),
+                  child: SettingsSection(
+                    title: '정보',
+                    titleTextStyle: TextStyle(
+                        color: Theme.of(context).hintColor
+                    ),
+                    tiles: [
+                      SettingsTile(
+                        title: '애플리케이션 버전',
+                        subtitle: 'version $version build $buildNumber (dev)',
+                        onPressed: (BuildContext context) {},
+                      ),
+                      SettingsTile(
+                        title: '개인정보 처리방침',
+                        onPressed: (BuildContext context) {
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => TextViewerPage("개인정보 처리방침", "assets/privacy_policy.txt")));
+                          // TODO: 배포 전에 개인정보 처리방침 시행 일자 변경하기.
+                        },
+                      ),
+                      SettingsTile(
+                        title: '오픈소스 라이센스',
+                        onPressed: (BuildContext context) {
+                          // TODO: 배포 전에 오픈소스 라이센스 누락된 것 없나 확인하기.
+                          launchUrl("https://github.com/handbros/my_school/blob/master/OPENSOURCES.md");
+                        },
+                      ),
+                    ],
+                  ),
+                )
+            )
+          ],
+        ),
       ),
     );
   }

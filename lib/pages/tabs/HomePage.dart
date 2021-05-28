@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:my_school/notifiers/ClassChangeNotifier.dart';
+import 'package:my_school/objects/classInfo/ClassInfo.dart';
 import 'package:my_school/widgets/EmptyAppBar.dart';
-import 'package:styled_widget/styled_widget.dart';
+import 'package:my_school/widgets/MenuButton.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -13,101 +16,106 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final notifier = Provider.of<ClassChangeNotifier>(context);
+    var classInfo = (notifier.getClassList() as List<ClassInfo>).length > 0 ? notifier.getClassList()[0] as ClassInfo : null;
+
     return Scaffold(
-        appBar: EmptyAppBar(),
-      body: Padding(
-        padding: EdgeInsets.all(20),
-        child: Column(
-          children: [
-            // TODO: 로고 추가하기.
-            UserCard(),
-            Padding(padding: EdgeInsets.only(top: 10)),
-            ActionsRow(),
-            // TODO: 각 페이지별 진입 버튼 추가하기.
-          ],
+      appBar: EmptyAppBar(),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // TODO: 로고 추가하기.
+
+              // 반 정보 카드
+              Card(
+                color: Color(0xff3977ff),
+                elevation: 2,
+                child: Padding(
+                  padding: EdgeInsets.only(top: 8, bottom: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: 20, top: 8, bottom: 8),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              LineIcons.graduationCap,
+                              size: 20,
+                              color: Colors.white,
+                            ),
+                            Padding(padding: EdgeInsets.only(left: 8)),
+                            Text(
+                              "${classInfo.schoolName}",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Divider(color: Colors.white, thickness: 0.4),
+                      Padding(
+                        padding: EdgeInsets.only(left: 20, top: 8, bottom: 8),
+                        child: Text(
+                          "${classInfo.grade}학년 ${classInfo.className}반",
+                          style: TextStyle(
+                            color: Colors.white.withOpacity(0.8),
+                            fontSize: 24,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              // 메뉴 버튼
+              Padding(
+                padding: EdgeInsets.only(left: 4, top: 10, right: 4),
+                child: Column(
+                  children: [
+                    MenuButton(
+                      icon: LineIcons.info,
+                      iconBackgroundColor: Color(0xff3977ff),
+                      title: "학교 정보",
+                      description: "학교 정보를 확인합니다.",
+                    ),
+                    Padding(padding: EdgeInsets.only(top: 14)),
+                    MenuButton(
+                      icon: LineIcons.calendar,
+                      iconBackgroundColor: Color(0xff3977ff),
+                      title: "학사일정",
+                      description: "학사일정을 확인합니다.",
+                    ),
+                    Padding(padding: EdgeInsets.only(top: 14)),
+                    MenuButton(
+                      icon: LineIcons.clock,
+                      iconBackgroundColor: Color(0xff3977ff),
+                      title: "시간표",
+                      description: "시간표를 확인합니다.",
+                    ),
+                    Padding(padding: EdgeInsets.only(top: 14)),
+                    MenuButton(
+                      icon: LineIcons.utensils,
+                      iconBackgroundColor: Color(0xff3977ff),
+                      title: "식단표",
+                      description: "식단표를 확인합니다.",
+                    )
+                  ],
+                ),
+              ),
+              // TODO: 각 페이지별 진입 버튼 추가하기.
+            ],
+          ),
         ),
       )
     );
   }
-}
-
-class UserCard extends StatelessWidget {
-  // TODO: StatefulWidget으로 전환하기.
-  Widget _buildUserRow(BuildContext context) {
-    return <Widget>[
-      Icon(Icons.school_outlined, color: Theme.of(context).primaryColor,)
-          .constrained(height: 50, width: 50)
-          .padding(right: 16),
-      <Widget>[
-        Text(
-          '강북고등학교',
-          style: TextStyle(
-            color: Theme.of(context).hintColor,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
-        ).padding(bottom: 4),
-        Text(
-          '2학년 10반',
-          style: TextStyle(
-            color: Theme.of(context).hintColor.withOpacity(0.6),
-            fontSize: 14,
-          ),
-        ),
-      ].toColumn(crossAxisAlignment: CrossAxisAlignment.start),
-    ].toRow();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return <Widget>[_buildUserRow(context)]
-        .toColumn(mainAxisAlignment: MainAxisAlignment.spaceAround)
-        .padding(horizontal: 20, vertical: 10)
-        .decorated(
-        color: Theme.of(context).bottomAppBarColor, borderRadius: BorderRadius.circular(20))
-        .elevation(
-      5,
-      shadowColor: Theme.of(context).shadowColor,
-      borderRadius: BorderRadius.circular(20),
-    )
-        .height(100)
-        .alignment(Alignment.center);
-  }
-}
-
-class ActionsRow extends StatelessWidget {
-  Widget _buildActionItem(String name, IconData icon) {
-    final Widget actionIcon = Icon(icon, size: 20, color: Color(0xFF42526F))
-        .alignment(Alignment.center)
-        .constrained(width: 50, height: 50)
-        .backgroundColor(Color(0xfff6f5f8))
-        .clipOval()
-        .padding(bottom: 5);
-
-    final Widget actionText = Text(
-      name,
-      style: TextStyle(
-        color: Colors.black.withOpacity(0.8),
-        fontSize: 13,
-      ),
-    );
-
-    return InkWell(
-      onTap: () {
-        print("click");
-      },
-      child: <Widget>[
-        actionIcon,
-        actionText,
-      ].toColumn().padding(all: 10),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) => <Widget>[
-    _buildActionItem('학교 정보', LineIcons.info),
-    _buildActionItem('학사일정', LineIcons.book),
-    _buildActionItem('시간표', LineIcons.calendarTimes),
-    _buildActionItem('급식표', LineIcons.goodreads),
-  ].toRow(mainAxisAlignment: MainAxisAlignment.spaceAround);
 }
