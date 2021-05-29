@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
+class SchoolInfoPage extends StatefulWidget {
+  const SchoolInfoPage({Key key}) : super(key: key);
 
-class TimeTablePage extends StatefulWidget {
   @override
-  _TimeTablePageState createState() => _TimeTablePageState();
+  _SchoolInfoPageState createState() => _SchoolInfoPageState();
 }
 
-class _TimeTablePageState extends State<TimeTablePage> {
+class _SchoolInfoPageState extends State<SchoolInfoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("시간표", style: TextStyle(
+        title: Text("학교 정보", style: TextStyle(
             color: Theme.of(context).hintColor,
             fontSize: 18,
             fontWeight: FontWeight.w200
@@ -28,7 +29,6 @@ class _TimeTablePageState extends State<TimeTablePage> {
             }
         ),
       ),
-      body: Column(),
     );
   }
 }

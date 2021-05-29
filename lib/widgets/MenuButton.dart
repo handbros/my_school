@@ -7,8 +7,9 @@ class MenuButton extends StatefulWidget {
   final Color iconBackgroundColor;
   final String title;
   final String description;
+  final Function onTap;
 
-  MenuButton({this.icon, this.iconColor, this.iconBackgroundColor, this.title, this.description});
+  MenuButton({this.icon, this.iconColor, this.iconBackgroundColor, this.title, this.description, this.onTap});
 
   @override
   _MenuButtonState createState() => _MenuButtonState();
@@ -32,9 +33,7 @@ class _MenuButtonState extends State<MenuButton> {
     ) // shadow borderRadius
         .constrained(height: 80)
         .gestures(
-      onTapChange: (tapStatus) => setState(() => pressed = tapStatus),
-      onTapDown: (details) => print('tapDown'),
-      onTap: () => print('onTap'),
+      onTap: () => widget.onTap.call(),
     )
         .scale(all: pressed ? 0.95 : 1.0, animate: true)
         .animate(Duration(milliseconds: 150), Curves.easeOut);

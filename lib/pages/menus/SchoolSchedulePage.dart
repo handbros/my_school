@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icons.dart';
 
 class SchoolSchedulePage extends StatefulWidget {
   @override
@@ -18,6 +19,13 @@ class _SchoolSchedulePageState extends State<SchoolSchedulePage> {
           elevation: 2,
           backgroundColor: Theme.of(context).bottomAppBarColor,
           centerTitle: true,
+          leading: IconButton(
+              icon: Icon(LineIcons.arrowLeft),
+              color: Theme.of(context).hintColor,
+              onPressed: () {
+                Navigator.pop(context);
+              }
+          ),
         )
     );
   }

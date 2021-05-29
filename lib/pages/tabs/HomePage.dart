@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:my_school/notifiers/ClassChangeNotifier.dart';
 import 'package:my_school/objects/classInfo/ClassInfo.dart';
+import 'package:my_school/pages/menus/MealPage.dart';
+import 'package:my_school/pages/menus/SchoolInfoPage.dart';
+import 'package:my_school/pages/menus/SchoolSchedulePage.dart';
+import 'package:my_school/pages/menus/TimeTablePage.dart';
 import 'package:my_school/widgets/EmptyAppBar.dart';
 import 'package:my_school/widgets/MenuButton.dart';
 import 'package:provider/provider.dart';
@@ -52,8 +56,6 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // TODO: 로고 추가하기.
-
             // 반 정보 카드
             Card(
               color: Color(0xff3977ff),
@@ -111,6 +113,9 @@ class _HomePageState extends State<HomePage> {
                     iconBackgroundColor: Color(0xff3977ff),
                     title: "학교 정보",
                     description: "학교 정보를 확인합니다.",
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SchoolInfoPage()));
+                    },
                   ),
                   Padding(padding: EdgeInsets.only(top: 14)),
                   MenuButton(
@@ -118,6 +123,9 @@ class _HomePageState extends State<HomePage> {
                     iconBackgroundColor: Color(0xff3977ff),
                     title: "학사일정",
                     description: "학사일정을 확인합니다.",
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SchoolSchedulePage()));
+                    },
                   ),
                   Padding(padding: EdgeInsets.only(top: 14)),
                   MenuButton(
@@ -125,6 +133,9 @@ class _HomePageState extends State<HomePage> {
                     iconBackgroundColor: Color(0xff3977ff),
                     title: "시간표",
                     description: "시간표를 확인합니다.",
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => TimeTablePage()));
+                    },
                   ),
                   Padding(padding: EdgeInsets.only(top: 14)),
                   MenuButton(
@@ -132,11 +143,13 @@ class _HomePageState extends State<HomePage> {
                     iconBackgroundColor: Color(0xff3977ff),
                     title: "식단표",
                     description: "식단표를 확인합니다.",
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => MealPage()));
+                    },
                   )
                 ],
               ),
             ),
-            // TODO: 각 페이지별 진입 버튼 추가하기.
           ],
         ),
       ),
