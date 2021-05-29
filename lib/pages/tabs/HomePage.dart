@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: EmptyAppBar(),
-      body: (notifier.getClassList() as List<ClassInfo>).length <= 0 ? nullContent() : homePageContent(context)
+      body: (notifier.getSelectedClass() as ClassInfo)?.schoolName == null ? nullContent() : homePageContent(context)
     );
   }
 

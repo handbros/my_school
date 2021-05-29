@@ -107,7 +107,7 @@ class SharedAssets{
   }
 
   /// 최근 검색 목록에서 아이템을 제거합니다.
-  void popRecentSearch(int index) async {
+  void removeRecentSearch(int index) async {
     if (classSearchHistory.length > index) {
       classSearchHistory.removeAt(index);
       writeSharedAssets();
@@ -132,7 +132,7 @@ class SharedAssets{
 
   /// classList 에서 지정된 반을 제거합니다.
   void removeClass(int index) {
-    if (index > 0 && index <= classList.length) {
+    if (index >= 0 && index <= classList.length) {
       // SharedAssets에 학반 정보 저장.
       classList.removeAt(index);
 

@@ -61,6 +61,8 @@ class _ExplorerPageState extends State<ExplorerPage> {
                     child: Padding(
                       padding: EdgeInsets.all(0),
                       child: ListTile(
+                        title: index == 0 ? Text("${result.schoolName} (현재)") : Text(result.schoolName),
+                        subtitle: Text("${result.grade}학년 ${result.className}반"),
                         onTap: () {
                           if (SharedAssets.getInstance().selectedClass != SharedAssets.getInstance().classList[index]) {
                             SharedAssets.getInstance().selectClass(index);
@@ -81,8 +83,11 @@ class _ExplorerPageState extends State<ExplorerPage> {
                             );
                           }
                         },
-                        title: index == 0 ? Text("${result.schoolName} (현재)") : Text(result.schoolName),
-                        subtitle: Text("${result.grade}학년 ${result.className}반"),
+                        onLongPress: () {
+                          setState(() {
+                            showRemoveClassDialog(context, index);
+                          });
+                        },
                       ),
                     ),
                   ),
@@ -92,6 +97,37 @@ class _ExplorerPageState extends State<ExplorerPage> {
           )
         ],
       )
+    );
+  }
+
+  /// 반 정보 삭제 대화상자를 표시합니다.
+  void showRemoveClassDialog(BuildContext context, int index) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        final notifier = Provider.of<ClassChangeNotifier>(context);
+
+        return AlertDialog(
+          title: Text("학반", style: Theme.of(context).textTheme.headline6.copyWith(color: Theme.of(context).hintColor)),
+          content: Text("학반 정보를 삭제하시겠습니까?"),
+          actions: <Widget>[
+            TextButton(
+              child: Text('확인'),
+              onPressed: () {
+                SharedAssets.getInstance().removeClass(index);
+                notifier.notifyClassChanged();
+                Navigator.pop(context);
+              },
+            ),
+            TextButton(
+              child: Text('취소'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

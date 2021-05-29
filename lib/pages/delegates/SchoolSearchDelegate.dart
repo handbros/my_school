@@ -372,7 +372,7 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
             TextButton(
               child: Text('확인'),
               onPressed: () {
-                SharedAssets.getInstance().popRecentSearch(index);
+                SharedAssets.getInstance().removeRecentSearch(index);
                 Navigator.pop(context);
               },
             ),
