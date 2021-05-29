@@ -18,16 +18,19 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   bool _acceptUsingDeviceStorage = false;
   bool _useOfflineMode = false;
+  bool _acceptTransferringDeviceInformation = false;
 
   String version = "1.0.0";
   String buildNumber = "1";
 
+  /// 설정 페이지에서 필요한 변수를 초기화합니다.
   void initialize() async {
     // Initialize shared assets.
     SharedAssets assets = SharedAssets.getInstance();
 
     _acceptUsingDeviceStorage = assets.acceptUsingDeviceStorage ?? false;
     _useOfflineMode = assets.useOfflineMode ?? false;
+    _acceptTransferringDeviceInformation = assets.acceptTransferringDeviceInformation ?? false;
 
     // Initialize package info.
     PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
@@ -36,6 +39,7 @@ class _SettingsPageState extends State<SettingsPage> {
     });
   }
 
+  /// 지정된 외부 URL 을(를) 실행합니다.
   void launchUrl(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
@@ -130,8 +134,44 @@ class _SettingsPageState extends State<SettingsPage> {
                         },
                       ),
                       SettingsTile(
-                        title: '데이터 자동 수집 대상 지정',
+                        title: '데이터 수집',
                         leading: Icon(LineIcons.cogs),
+                        onPressed: (BuildContext context) {
+                          showResetPreferencesDialog(context); // 다이얼로그 호출.
+                        },
+                      ),
+                    ],
+                  ),
+                )
+            ),
+            Card(
+                elevation: 2,
+                margin: EdgeInsets.fromLTRB(14, 14, 14, 0),
+                child: Padding(
+                  padding: EdgeInsets.only(top: 10, bottom: 8),
+                  child: SettingsSection(
+                    title: '개인정보',
+                    titleTextStyle: TextStyle(
+                        color: Theme.of(context).hintColor
+                    ),
+                    tiles: [
+                      SettingsTile.switchTile(
+                        title: '기기정보 수집 허용',
+                        leading: Icon(LineIcons.flag),
+                        switchValue: _acceptTransferringDeviceInformation,
+                        onToggle: (bool value) async {
+                          SharedAssets.getInstance().acceptTransferringDeviceInformation = value;
+                          SharedAssets.writeSharedAssets();
+
+                          setState(() {
+                            _acceptTransferringDeviceInformation = value;
+                          });
+                        },
+                      ),
+                      SettingsTile(
+                        title: '개인 설정 초기화',
+                        subtitle: '개인 설정을 초기화합니다.',
+                        leading: Icon(LineIcons.userCog),
                         onPressed: (BuildContext context) {
                           showResetPreferencesDialog(context); // 다이얼로그 호출.
                         },
@@ -211,6 +251,7 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
+  /// 개인 설정 초기화 대화상자를 표시합니다.
   void showResetPreferencesDialog(BuildContext context) {
     showDialog(
       context: context,

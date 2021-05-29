@@ -25,6 +25,7 @@ class SharedAssets{
     // 클래스 초기화 코드
     acceptUsingDeviceStorage = false;
     useOfflineMode = false;
+    acceptTransferringDeviceInformation = false;
     classSearchHistory = List<String>.empty(growable: true);
     classList = List<ClassInfo>.empty(growable: true);
     selectedClass = new ClassInfo();
@@ -87,12 +88,33 @@ class SharedAssets{
   // 공통 변수
   bool acceptUsingDeviceStorage;
   bool useOfflineMode;
+  bool acceptTransferringDeviceInformation;
   List<String> classSearchHistory;
   List<ClassInfo> classList;
   ClassInfo selectedClass;
 
   // 공통 변수 관련 함수
-  /// classList에 새 반을 추가합니다. 작업이 성공했을 경우 true를 반환합니다.
+
+  /// 최근 검색 목록에 아이템을 추가합니다.
+  void addRecentSearch(String query) async {
+    // 최근 검색 목록 불러온 후 아이템 추가하기.
+    if (classSearchHistory.contains(query)) {
+      classSearchHistory.remove(query);
+    }
+
+    classSearchHistory.insert(0, query);
+    writeSharedAssets();
+  }
+
+  /// 최근 검색 목록에서 아이템을 제거합니다.
+  void popRecentSearch(int index) async {
+    if (classSearchHistory.length > index) {
+      classSearchHistory.removeAt(index);
+      writeSharedAssets();
+    }
+  }
+
+  /// classList 에 새 반을 추가합니다. 작업이 성공했을 경우 true를 반환합니다.
   bool addClass(ClassInfo classInfo) {
     if (!isAlreadyExistClass(classInfo)) {
       // SharedAssets에 학반 정보 저장.
@@ -108,6 +130,7 @@ class SharedAssets{
     }
   }
 
+  /// classList 에서 지정된 반을 제거합니다.
   void removeClass(int index) {
     if (index > 0 && index <= classList.length) {
       // SharedAssets에 학반 정보 저장.
@@ -124,6 +147,7 @@ class SharedAssets{
     }
   }
 
+  /// 지정된 반을 선택합니다.
   void selectClass(int index) {
     if (index > 0 && index <= classList.length) {
       ClassInfo temp = classList[index];
@@ -164,7 +188,7 @@ class SharedAssets{
   }
 
   // IO 관련 함수.
-  SharedAssets({this.acceptUsingDeviceStorage, this.useOfflineMode, this.classSearchHistory, this.classList, this.selectedClass});
+  SharedAssets({this.acceptUsingDeviceStorage, this.useOfflineMode, this.acceptTransferringDeviceInformation, this.classSearchHistory, this.classList, this.selectedClass});
 
   factory SharedAssets.fromJson(Map<String, dynamic> json) => _$SharedAssetsFromJson(json);
   Map<String, dynamic> toJson() => _$SharedAssetsToJson(this);
