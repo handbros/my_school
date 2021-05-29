@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:my_school/SharedAssets.dart';
 import 'package:my_school/notifiers/ClassChangeNotifier.dart';
+import 'package:my_school/pages/tools/ReportViewerPage.dart';
 import 'package:my_school/pages/tools/TextViewerPage.dart';
 import 'package:my_school/widgets/EmptyAppBar.dart';
 import 'package:package_info/package_info.dart';
@@ -205,6 +206,29 @@ class _SettingsPageState extends State<SettingsPage> {
                         leading: Icon(LineIcons.github),
                         onPressed: (BuildContext context) {
                           launchUrl("https://github.com/handbros/my_school");
+                        },
+                      ),
+                    ],
+                  ),
+                )
+            ),
+            Card(
+                elevation: 2,
+                margin: EdgeInsets.fromLTRB(14, 14, 14, 0),
+                child: Padding(
+                  padding: EdgeInsets.only(top: 10, bottom: 8),
+                  child: SettingsSection(
+                    title: '개발',
+                    titleTextStyle: TextStyle(
+                        color: Theme.of(context).hintColor
+                    ),
+                    tiles: [
+                      SettingsTile(
+                        title: '보고서',
+                        subtitle: '애플리케이션의 로그를 확인합니다.',
+                        leading: Icon(LineIcons.book),
+                        onPressed: (BuildContext context) {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ReportViewerPage()));
                         },
                       ),
                     ],

@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:my_school/SharedAssets.dart';
+import 'package:my_school/ReportBox.dart';
+import 'package:my_school/objects/reports/ReportItem.dart';
+import 'package:my_school/objects/reports/ReportType.dart';
 import 'package:my_school/objects/schoolInfo/SchoolInfo.dart';
 import 'package:my_school/objects/schoolInfo/SchoolInfoApiResult.dart';
 import 'package:my_school/objects/ResultCode.dart';
@@ -85,10 +88,17 @@ class SchoolInfoApi {
 
           result.items.add(temp);
         });
+
+        ReportBox.getInstance().addReport(new ReportItem(ReportType.SUCCEED, "SCHOOL INFO API", "CODE : ${result.resultCode}\nMESSAGE : ${result.resultMessage}\nREQUEST URL : ${result.requestUrl}"));
+      }
+      else {
+        ReportBox.getInstance().addReport(new ReportItem(ReportType.EXCEPTION, "SCHOOL INFO API", "CODE : ${result.resultCode}\nMESSAGE : ${result.resultMessage}\nREQUEST URL : ${result.requestUrl}"));
       }
     } catch (e) {
       result.resultCode = ResultCode.Exception;
       result.resultMessage = e.toString();
+
+      ReportBox.getInstance().addReport(new ReportItem(ReportType.ERROR, "SCHOOL INFO API", "CODE : ${result.resultCode}\nMESSAGE : ${result.resultMessage}\nREQUEST URL : ${result.requestUrl}"));
     }
 
     return result;

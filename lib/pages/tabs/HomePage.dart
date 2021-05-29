@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           Padding(padding: EdgeInsets.only(left: 8)),
                           Text(
-                            "${classInfo.schoolName}",
+                            classInfo.schoolName.length > 16 ? "${classInfo.schoolName.substring(0, 16)}..." : "${classInfo.schoolName}",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,

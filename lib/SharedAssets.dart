@@ -1,5 +1,7 @@
 import 'dart:convert';
-
+import 'package:my_school/ReportBox.dart';
+import 'package:my_school/objects/reports/ReportItem.dart';
+import 'package:my_school/objects/reports/ReportType.dart';
 import 'package:my_school/objects/classInfo/ClassInfo.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -195,27 +197,41 @@ class SharedAssets{
 
   /// SharedAssets를 불러옵니다.
   static Future<void> readSharedAssets() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    String sharedAssetsJson = prefs.getString("SHARED_ASSETS") ?? null;
+      String sharedAssetsJson = prefs.getString("SHARED_ASSETS") ?? null;
 
-    if (sharedAssetsJson == null) {
-      SharedAssets.setInstance(SharedAssets.initial());
+      if (sharedAssetsJson == null) {
+        SharedAssets.setInstance(SharedAssets.initial());
+      }
+      else {
+        Map sharedAssetsMap = jsonDecode(sharedAssetsJson);
+        SharedAssets.setInstance(SharedAssets.fromJson(sharedAssetsMap));
+      }
+
+      ReportBox.getInstance().addReport(new ReportItem(ReportType.SUCCEED, "SHARED ASSETS", "Shared assets are loaded."));
     }
-    else {
-      Map sharedAssetsMap = jsonDecode(sharedAssetsJson);
-      SharedAssets.setInstance(SharedAssets.fromJson(sharedAssetsMap));
+    catch (e) {
+      ReportBox.getInstance().addReport(new ReportItem(ReportType.ERROR, "SHARED ASSETS", "An error occurred while loading data.\n${e.toString()}"));
     }
   }
 
   /// SharedAssets를 저장합니다.
   static Future<void> writeSharedAssets() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    Map<String, dynamic> json = _instance.toJson();
-    String jsonString = jsonEncode(json);
+      Map<String, dynamic> json = _instance.toJson();
+      String jsonString = jsonEncode(json);
 
-    prefs.setString("SHARED_ASSETS", jsonString);
+      prefs.setString("SHARED_ASSETS", jsonString);
+
+      ReportBox.getInstance().addReport(new ReportItem(ReportType.SUCCEED, "SHARED ASSETS", "Shared assets are saved."));
+    }
+    catch (e) {
+      ReportBox.getInstance().addReport(new ReportItem(ReportType.ERROR, "SHARED ASSETS", "An error occurred while saving data.\n${e.toString()}"));
+    }
   }
 
   /// 개인 설정을 초기화합니다.
@@ -225,5 +241,7 @@ class SharedAssets{
     selectedClass = new ClassInfo();
 
     writeSharedAssets();
+
+    ReportBox.getInstance().addReport(new ReportItem(ReportType.SUCCEED, "SHARED ASSETS", "Preferences are reset."));
   }
 }

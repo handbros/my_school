@@ -49,7 +49,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
             child: ListView.builder(
               itemCount: notifier.getClassList().length,
               itemBuilder: (context, index) {
-                var result = notifier.getSelectedClass() as ClassInfo;
+                var result = notifier.getClassList()[index] as ClassInfo;
 
                 return Padding(
                   padding: EdgeInsets.only(left: 10, right: 10, bottom: 6),

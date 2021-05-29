@@ -5,6 +5,7 @@ import 'package:my_school/SharedAssets.dart';
 import 'package:my_school/apis/ClassInfoApi.dart';
 import 'package:my_school/apis/SchoolInfoApi.dart';
 import 'package:my_school/notifiers/ClassChangeNotifier.dart';
+import 'package:my_school/objects/ResultCode.dart';
 import 'package:my_school/objects/classInfo/ClassInfo.dart';
 import 'package:my_school/objects/classInfo/ClassInfoApiResult.dart';
 import 'package:my_school/objects/schoolInfo/SchoolInfo.dart';
@@ -92,19 +93,36 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
               ],
             );
           } else if (snapshot.data.items.length == 0) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Center(
-                    child: Icon(LineIcons.exclamationCircle, size: 40,)
-                ),
-                Center(
-                  child: Text(
-                    "검색 결과가 없습니다.",
+            if (snapshot.data.resultCode != ResultCode.Okay) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Center(
+                      child: Icon(LineIcons.exclamationCircle, size: 30,)
                   ),
-                )
-              ],
-            );
+                  Center(
+                    child: Text(
+                      "오류가 발생했습니다.",
+                    ),
+                  )
+                ],
+              );
+            }
+            else {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Center(
+                      child: Icon(LineIcons.exclamationCircle, size: 40,)
+                  ),
+                  Center(
+                    child: Text(
+                      "검색 결과가 없습니다.",
+                    ),
+                  )
+                ],
+              );
+            }
           } else {
             // Future 작업의 결과 snapshot이 반환되었을 경우.
             var results = snapshot.data;

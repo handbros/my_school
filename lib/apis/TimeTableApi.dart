@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:my_school/SharedAssets.dart';
+import 'package:my_school/ReportBox.dart';
+import 'package:my_school/objects/reports/ReportItem.dart';
+import 'package:my_school/objects/reports/ReportType.dart';
 import 'package:my_school/objects/timeTable/GeneralTimeTable.dart';
 import 'package:my_school/objects/timeTable/TimeTableApiResult.dart';
 import 'package:my_school/objects/ResultCode.dart';
@@ -111,10 +114,17 @@ class TimeTableApi {
 
           result.items.add(temp);
         });
+
+        ReportBox.getInstance().addReport(new ReportItem(ReportType.SUCCEED, "TIME TABLE API", "CODE : ${result.resultCode}\nMESSAGE : ${result.resultMessage}\nREQUEST URL : ${result.requestUrl}"));
+      }
+      else {
+        ReportBox.getInstance().addReport(new ReportItem(ReportType.EXCEPTION, "TIME TABLE API", "CODE : ${result.resultCode}\nMESSAGE : ${result.resultMessage}\nREQUEST URL : ${result.requestUrl}"));
       }
     } catch (e) {
       result.resultCode = ResultCode.Exception;
       result.resultMessage = e.toString();
+
+      ReportBox.getInstance().addReport(new ReportItem(ReportType.ERROR, "TIME TABLE API", "CODE : ${result.resultCode}\nMESSAGE : ${result.resultMessage}\nREQUEST URL : ${result.requestUrl}\n"));
     }
 
     return result;

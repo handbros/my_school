@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_school/SharedAssets.dart';
+import 'package:my_school/ReportBox.dart';
+import 'package:my_school/objects/reports/ReportItem.dart';
+import 'package:my_school/objects/reports/ReportType.dart';
 import 'package:my_school/notifiers/ClassChangeNotifier.dart';
 import 'package:my_school/screens/MainScreen.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +19,8 @@ class _SplashScreenState extends State<SplashScreen> {
     // ClassChangeNotifier 초기화.
     final notifier = Provider.of<ClassChangeNotifier>(context, listen: false);
     notifier.notifyClassChanged();
+
+    ReportBox.getInstance().addReport(new ReportItem(ReportType.SUCCEED, "SPLASH", "Loading is completed."));
 
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => MainScreen()));
   }

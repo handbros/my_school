@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:my_school/SharedAssets.dart';
+import 'package:my_school/ReportBox.dart';
+import 'package:my_school/objects/reports/ReportItem.dart';
+import 'package:my_school/objects/reports/ReportType.dart';
 import 'package:my_school/objects/schoolSchedule/SchoolSchedule.dart';
 import 'package:my_school/objects/schoolSchedule/SchoolScheduleApiResult.dart';
 import 'package:my_school/objects/ResultCode.dart';
@@ -82,10 +85,17 @@ class SchoolScheduleApi {
 
           result.items.add(temp);
         });
+
+        ReportBox.getInstance().addReport(new ReportItem(ReportType.SUCCEED, "SCHOOL SCHEDULE INFO API", "CODE : ${result.resultCode}\nMESSAGE : ${result.resultMessage}\nREQUEST URL : ${result.requestUrl}"));
+      }
+      else {
+        ReportBox.getInstance().addReport(new ReportItem(ReportType.EXCEPTION, "SCHOOL SCHEDULE API", "CODE : ${result.resultCode}\nMESSAGE : ${result.resultMessage}\nREQUEST URL : ${result.requestUrl}"));
       }
     } catch (e) {
       result.resultCode = ResultCode.Exception;
       result.resultMessage = e.toString();
+
+      ReportBox.getInstance().addReport(new ReportItem(ReportType.ERROR, "SCHOOL SCHEDULE INFO API", "CODE : ${result.resultCode}\nMESSAGE : ${result.resultMessage}\nREQUEST URL : ${result.requestUrl}"));
     }
 
     return result;

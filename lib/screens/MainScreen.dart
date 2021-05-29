@@ -16,7 +16,6 @@ class MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // 반 정보 변경을 알리기 위한 ChangeNotifierProvider.
     return Scaffold(
       body: PageView(
         controller: _pageViewController,
