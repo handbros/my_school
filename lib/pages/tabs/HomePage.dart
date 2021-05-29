@@ -26,7 +26,19 @@ class _HomePageState extends State<HomePage> {
 
   /// 탐색 가능한 반이 없을 경우 표시되는 컨텐츠입니다.
   Widget nullContent() {
-    return Text("비었음.");
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Center(
+            child: Icon(LineIcons.exclamationCircle, size: 30,)
+        ),
+        Center(
+          child: Text(
+            "탐색 탭에서 학반 정보를 추가해주세요.",
+          ),
+        )
+      ],
+    );
   }
 
   /// 탐색 가능한 반이 있을 경우 표시되는 컨텐츠입니다.
