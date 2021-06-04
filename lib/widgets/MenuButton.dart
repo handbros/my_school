@@ -22,14 +22,14 @@ class _MenuButtonState extends State<MenuButton> {
   Widget build(BuildContext context) {
     final menuButton = ({Widget child}) => Styled.widget(child: child)
         .alignment(Alignment.center)
-        .borderRadius(all: 25)
+        .borderRadius(all: 5)
         .ripple()
         .backgroundColor(Colors.white, animate: true)
-        .clipRRect(all: 25) // clip ripple
-        .borderRadius(all: 25, animate: true)
+        .clipRRect(all: 5) // clip ripple
+        .borderRadius(all: 5, animate: true)
         .elevation(
       pressed ? 0 : 2,
-      borderRadius: BorderRadius.circular(25),
+      borderRadius: BorderRadius.circular(5),
     ) // shadow borderRadius
         .constrained(height: 80)
         .gestures(
