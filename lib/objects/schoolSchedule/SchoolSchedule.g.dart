@@ -8,24 +8,22 @@ part of 'SchoolSchedule.dart';
 
 SchoolSchedule _$SchoolScheduleFromJson(Map<String, dynamic> json) {
   return SchoolSchedule(
-    officeCode: json['officeCode'] as String,
-    officeName: json['officeName'] as String,
-    standardSchoolCode: json['standardSchoolCode'] as int,
-    schoolName: json['schoolName'] as String,
-    targetYear: json['targetYear'] as int,
-    feature: json['feature'] as String,
-    date: json['date'] == null ? null : DateTime.parse(json['date'] as String),
-    eventName: json['eventName'] as String,
-    eventDetails: json['eventDetails'] as String,
-    isFirstGradeEvent: json['isFirstGradeEvent'] as bool,
-    isSecondGradeEvent: json['isSecondGradeEvent'] as bool,
-    isThirdGradeEvent: json['isThirdGradeEvent'] as bool,
-    isFourthGradeEvent: json['isFourthGradeEvent'] as bool,
-    isFifthGradeEvent: json['isFifthGradeEvent'] as bool,
-    isSixthGradeEvent: json['isSixthGradeEvent'] as bool,
-    uploadTime: json['uploadTime'] == null
-        ? null
-        : DateTime.parse(json['uploadTime'] as String),
+    json['officeCode'] as String,
+    json['officeName'] as String,
+    json['standardSchoolCode'] as int,
+    json['schoolName'] as String,
+    json['targetYear'] as int,
+    json['feature'] as String,
+    DateTime.parse(json['date'] as String),
+    json['eventName'] as String,
+    json['eventDetails'] as String,
+    json['isFirstGradeEvent'] as bool,
+    json['isSecondGradeEvent'] as bool,
+    json['isThirdGradeEvent'] as bool,
+    json['isFourthGradeEvent'] as bool,
+    json['isFifthGradeEvent'] as bool,
+    json['isSixthGradeEvent'] as bool,
+    DateTime.parse(json['uploadTime'] as String),
   );
 }
 
@@ -37,7 +35,7 @@ Map<String, dynamic> _$SchoolScheduleToJson(SchoolSchedule instance) =>
       'schoolName': instance.schoolName,
       'targetYear': instance.targetYear,
       'feature': instance.feature,
-      'date': instance.date?.toIso8601String(),
+      'date': instance.date.toIso8601String(),
       'eventName': instance.eventName,
       'eventDetails': instance.eventDetails,
       'isFirstGradeEvent': instance.isFirstGradeEvent,
@@ -46,5 +44,5 @@ Map<String, dynamic> _$SchoolScheduleToJson(SchoolSchedule instance) =>
       'isFourthGradeEvent': instance.isFourthGradeEvent,
       'isFifthGradeEvent': instance.isFifthGradeEvent,
       'isSixthGradeEvent': instance.isSixthGradeEvent,
-      'uploadTime': instance.uploadTime?.toIso8601String(),
+      'uploadTime': instance.uploadTime.toIso8601String(),
     };

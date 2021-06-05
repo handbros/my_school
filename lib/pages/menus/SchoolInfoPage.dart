@@ -10,8 +10,6 @@ import 'package:my_school/objects/schoolInfo/SchoolInfoApiResult.dart';
 import 'package:my_school/widgets/InformationRow.dart';
 
 class SchoolInfoPage extends StatefulWidget {
-  const SchoolInfoPage({Key key}) : super(key: key);
-
   @override
   _SchoolInfoPageState createState() => _SchoolInfoPageState();
 }
@@ -55,8 +53,8 @@ class _SchoolInfoPageState extends State<SchoolInfoPage> {
               Center(child: CircularProgressIndicator()),
             ],
           );
-        } else if (snapshot.data.items.length == 0) {
-          if (snapshot.data.resultCode != ResultCode.Okay) {
+        } else if (snapshot.data!.items.length == 0) {
+          if (snapshot.data!.resultCode != ResultCode.Okay) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -88,7 +86,7 @@ class _SchoolInfoPageState extends State<SchoolInfoPage> {
           }
         } else {
           // Future 작업의 결과 snapshot이 반환되었을 경우.
-          var result = snapshot.data.items[0];
+          var result = snapshot.data!.items[0];
 
           return schoolInfoContent(result);
         }

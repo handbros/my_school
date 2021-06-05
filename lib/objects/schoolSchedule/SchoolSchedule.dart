@@ -5,44 +5,47 @@ part 'SchoolSchedule.g.dart';
 @JsonSerializable()
 class SchoolSchedule {
   /// 시도교육청코드
-  String officeCode;
+  late String officeCode = "";
   /// 시도교육청명
-  String officeName;
+  late String officeName = "";
   /// 표준학교코드
-  int standardSchoolCode;
+  late int standardSchoolCode = 0;
   /// 학교명
-  String schoolName;
+  late String schoolName = "";
 
   /// 학년도
-  int targetYear;
+  late int targetYear = 0;
 
   /// 수업공제일명
-  String feature;
+  late String feature = "";
   /// 학사일자
-  DateTime date;
+  late DateTime date = DateTime.utc(2000, 1, 1);
 
   /// 행사명
-  String eventName;
+  late String eventName = "";
   /// 행사내용
-  String eventDetails;
+  late String eventDetails = "";
   /// 1학년행사여부
-  bool isFirstGradeEvent;
+  late bool isFirstGradeEvent = false;
   /// 2학년행사여부
-  bool isSecondGradeEvent;
+  late bool isSecondGradeEvent = false;
   /// 3학년행사야부
-  bool isThirdGradeEvent;
+  late bool isThirdGradeEvent = false;
   /// 4학년행사여부
-  bool isFourthGradeEvent;
+  late bool isFourthGradeEvent = false;
   /// 5학년행사여부
-  bool isFifthGradeEvent;
+  late bool isFifthGradeEvent = false;
   /// 6학년행사여부
-  bool isSixthGradeEvent;
+  late bool isSixthGradeEvent = false;
 
   /// 적재일시
-  DateTime uploadTime;
+  late DateTime uploadTime = DateTime.utc(2000, 1, 1);
+
+  // Constructor
+  SchoolSchedule.initial();
 
   // JSON Serializer/Deserializer
-  SchoolSchedule({this.officeCode, this.officeName, this.standardSchoolCode, this.schoolName, this.targetYear, this.feature, this.date, this.eventName, this.eventDetails, this.isFirstGradeEvent, this.isSecondGradeEvent, this.isThirdGradeEvent, this.isFourthGradeEvent, this.isFifthGradeEvent, this.isSixthGradeEvent, this.uploadTime});
+  SchoolSchedule(this.officeCode, this.officeName, this.standardSchoolCode, this.schoolName, this.targetYear, this.feature, this.date, this.eventName, this.eventDetails, this.isFirstGradeEvent, this.isSecondGradeEvent, this.isThirdGradeEvent, this.isFourthGradeEvent, this.isFifthGradeEvent, this.isSixthGradeEvent, this.uploadTime);
 
   factory SchoolSchedule.fromJson(Map<String, dynamic> json) => _$SchoolScheduleFromJson(json);
   Map<String, dynamic> toJson() => _$SchoolScheduleToJson(this);

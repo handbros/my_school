@@ -5,36 +5,39 @@ part 'ClassInfo.g.dart';
 @JsonSerializable()
 class ClassInfo {
   /// 시도교육청코드
-  String officeCode;
+  late String officeCode = "";
   /// 시도교육청명
-  String officeName;
+  late String officeName = "";
   /// 표준학교코드
-  int standardSchoolCode;
+  late int standardSchoolCode = 0;
   /// 학교명
-  String schoolName;
+  late String schoolName = "";
 
   /// 학년도
-  int targetYear;
+  late int targetYear = 0;
   /// 학년
-  int grade;
+  late int grade = 0;
 
   /// 주야과정명
-  String dayOrNight;
+  late String dayOrNight = "";
   /// 학교과정명
-  String schoolType;
+  late String schoolType = "";
 
   /// 계열명
-  String fieldName;
+  late String fieldName = "";
   /// 학과명
-  String departmentName;
+  late String departmentName = "";
   /// 반명
-  String className;
+  late String className = "";
 
   /// 적재일시
-  DateTime uploadTime;
+  late DateTime uploadTime = DateTime.utc(2000, 1, 1);
+
+  // Constructor
+  ClassInfo.initial();
 
   // JSON Serializer/Deserializer
-  ClassInfo({this.officeCode, this.officeName, this.standardSchoolCode, this.schoolName, this.targetYear, this.grade, this.dayOrNight, this.schoolType, this.fieldName, this.departmentName, this.className, this.uploadTime});
+  ClassInfo(this.officeCode, this.officeName, this.standardSchoolCode, this.schoolName, this.targetYear, this.grade, this.dayOrNight, this.schoolType, this.fieldName, this.departmentName, this.className, this.uploadTime);
 
   factory ClassInfo.fromJson(Map<String, dynamic> json) => _$ClassInfoFromJson(json);
   Map<String, dynamic> toJson() => _$ClassInfoToJson(this);

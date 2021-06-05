@@ -12,7 +12,7 @@ import 'package:my_school/utilities/StringFormatter.dart';
 
 /// 시간표를 확인하기 위한 API을(를) 제공하는 클래스입니다. API 호출에는 [getApiResult]을(를) 사용해주십시오.
 class TimeTableApi {
-  Future<TimeTableApiResult> getApiResult(String officeCode, int standardSchoolCode, SchoolType schoolType, {int index = 1, int size = 100, int targetYear, int semester, int grade, String className, String date, String from, String to} ) async {
+  Future<TimeTableApiResult> getApiResult(String officeCode, int standardSchoolCode, SchoolType schoolType, {int index = 1, int size = 100, int? targetYear, int? semester, int? grade, String? className, String? date, String? from, String? to} ) async {
     // API 호출을 위한 쿼리 값들을 초기화.
     var queryParameters = {
       'KEY': SharedAssets.apiKey,
@@ -30,7 +30,7 @@ class TimeTableApi {
       'TI_TO_YMD': to,
     };
 
-    TimeTableApiResult result = new TimeTableApiResult();
+    TimeTableApiResult result = new TimeTableApiResult.initial();
     result.requestUrl = "";
     result.resultCode = ResultCode.None;
     result.resultMessage = "";
@@ -70,7 +70,7 @@ class TimeTableApi {
       var response = await http.get(Uri.https(SharedAssets.apiDomain, apiPath, queryParameters)); // API 호출 후 데이터 저장.
       final json = jsonDecode(response.body); // 응답 받은 정보를 JSON 포맷으로 변환.
 
-      result.requestUrl = response.request.url.toString();
+      result.requestUrl = response.request!.url.toString();
 
       // API 호출 결과 코드를 가져옴.
       try {
@@ -94,7 +94,7 @@ class TimeTableApi {
         List<dynamic> items = json[apiRootName][1]["row"];
 
         items.forEach((item) {
-          GeneralTimeTable temp = new GeneralTimeTable();
+          GeneralTimeTable temp = new GeneralTimeTable.initial();
           temp.officeCode = item["ATPT_OFCDC_SC_CODE"];
           temp.officeName = item["ATPT_OFCDC_SC_NM"];
 

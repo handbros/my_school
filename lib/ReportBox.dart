@@ -9,13 +9,10 @@ class ReportBox {
   }
 
   /// ReportBox 의 초기 인스턴스를 반환합니다.
-  ReportBox.initial() {
-    // 클래스 초기화 코드
-    _reports = List<ReportItem>.empty(growable: true);
-  }
+  ReportBox.initial();
 
   // 리포트 관련 변수
-  List<ReportItem> _reports;
+  List<ReportItem> _reports = List<ReportItem>.empty(growable: true);
 
   /// 보고서 리스트를 가져옵니다.
   List<ReportItem> get getReports => _reports;

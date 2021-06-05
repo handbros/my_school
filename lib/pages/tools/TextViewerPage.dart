@@ -56,7 +56,7 @@ class _TextViewerPageState extends State<TextViewerPage> {
                 padding: EdgeInsets.all(10),
                 child: Column(
                   children: [
-                    Text(result, textAlign: TextAlign.left)
+                    Text(result!, textAlign: TextAlign.left)
                   ],
                 ),
               ),

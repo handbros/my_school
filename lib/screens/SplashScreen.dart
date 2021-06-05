@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
 
     // 페이지가 빌드되기 전에 작업이 끝나면 예외가 발생함. 아래 코드를 사용하여 이를 방지함.
-    WidgetsBinding.instance.addPostFrameCallback((_) => _loadDatas());
+    WidgetsBinding.instance!.addPostFrameCallback((_) => _loadDatas());
   }
 
   @override

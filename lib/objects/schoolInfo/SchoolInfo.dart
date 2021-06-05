@@ -5,51 +5,54 @@ part 'SchoolInfo.g.dart';
 @JsonSerializable()
 class SchoolInfo {
   /// 시도교육청코드
-  String officeCode;
+  late String officeCode = "";
   /// 시도교육청명
-  String officeName;
+  late String officeName = "";
   /// 표준학교코드
-  int standardSchoolCode;
+  late int standardSchoolCode = 0;
   /// 학교명
-  String schoolName;
+  late String schoolName = "";
   /// 영문학교명
-  String schoolEnglishName;
+  late String schoolEnglishName = "";
 
   /// 학교종류명
-  String schoolKind;
+  late String schoolKind = "";
   /// 소재지명
-  String location;
+  late String location = "";
 
   /// 관할조직명
-  String districtOfficeName;
+  late String districtOfficeName = "";
 
   /// 도로명우편번호
-  String postalCode;
+  late String postalCode = "";
   /// 도로명주소
-  String address;
+  late String address = "";
   /// 도로명상세주소
-  String detailedAddress;
+  late String detailedAddress = "";
 
   /// 전화번호
-  String telephoneNumber;
+  late String telephoneNumber = "";
   /// 홈페이지주소
-  String homepageAddress;
+  late String homepageAddress = "";
   /// 남녀공학구분명
-  String isCoeduSchool;
+  late String isCoeduSchool = "";
 
   /// 팩스번호
-  String faxNumber;
+  late String faxNumber = "";
 
   /// 설립일자
-  DateTime foundedDate;
+  late DateTime foundedDate = DateTime.utc(2000, 1, 1);
   /// 개교기념일
-  DateTime anniversary;
+  late DateTime anniversary = DateTime.utc(2000, 1, 1);
 
   /// 적재일시
-  DateTime uploadTime;
+  late DateTime uploadTime = DateTime.utc(2000, 1, 1);
+
+  // Constructor
+  SchoolInfo.initial();
 
   // JSON Serializer/Deserializer
-  SchoolInfo({this.officeCode, this.officeName, this.standardSchoolCode, this.schoolName, this.schoolEnglishName, this.schoolKind, this.location, this.districtOfficeName, this.postalCode, this.address, this.detailedAddress, this.telephoneNumber, this.homepageAddress, this.isCoeduSchool, this.faxNumber, this.foundedDate, this.anniversary, this.uploadTime});
+  SchoolInfo(this.officeCode, this.officeName, this.standardSchoolCode, this.schoolName, this.schoolEnglishName, this.schoolKind, this.location, this.districtOfficeName, this.postalCode, this.address, this.detailedAddress, this.telephoneNumber, this.homepageAddress, this.isCoeduSchool, this.faxNumber, this.foundedDate, this.anniversary, this.uploadTime);
 
   factory SchoolInfo.fromJson(Map<String, dynamic> json) => _$SchoolInfoFromJson(json);
   Map<String, dynamic> toJson() => _$SchoolInfoToJson(this);

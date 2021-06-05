@@ -5,33 +5,36 @@ part 'MealInfo.g.dart';
 @JsonSerializable()
 class MealInfo {
   /// 시도교육청코드
-  String officeCode;
+  late String officeCode = "";
   /// 시도교육청명
-  String officeName;
+  late String officeName = "";
   /// 표준학교코드
-  int standardSchoolCode;
+  late int standardSchoolCode;
   /// 학교명
-  String schoolName;
+  late String schoolName = "";
 
   /// 식사코드
-  int mealCode;
+  late int mealCode = 0;
   /// 식사명
-  String mealName;
+  late String mealName = "";
 
   /// 급식일자
-  DateTime date;
+  late DateTime date = DateTime.utc(2000, 1, 1);
 
   /// 요리명
-  String menu;
+  late String menu = "";
   /// 칼로리정보
-  String calorie;
+  late String calorie = "";
   /// 원산지정보
-  String origins;
+  late String origins = "";
   /// 영양정보
-  String nutrients;
+  late String nutrients = "";
+
+  // Constructor
+  MealInfo.initial();
 
   // JSON Serializer/Deserializer
-  MealInfo({this.officeCode, this.officeName, this.standardSchoolCode, this.schoolName, this.mealCode, this.mealName, this.date, this.menu, this.calorie, this.origins, this.nutrients});
+  MealInfo(this.officeCode, this.officeName, this.standardSchoolCode, this.schoolName, this.mealCode, this.mealName, this.date, this.menu, this.calorie, this.origins, this.nutrients);
 
   factory MealInfo.fromJson(Map<String, dynamic> json) => _$MealInfoFromJson(json);
   Map<String, dynamic> toJson() => _$MealInfoToJson(this);

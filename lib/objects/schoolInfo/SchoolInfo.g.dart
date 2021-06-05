@@ -8,30 +8,24 @@ part of 'SchoolInfo.dart';
 
 SchoolInfo _$SchoolInfoFromJson(Map<String, dynamic> json) {
   return SchoolInfo(
-    officeCode: json['officeCode'] as String,
-    officeName: json['officeName'] as String,
-    standardSchoolCode: json['standardSchoolCode'] as int,
-    schoolName: json['schoolName'] as String,
-    schoolEnglishName: json['schoolEnglishName'] as String,
-    schoolKind: json['schoolKind'] as String,
-    location: json['location'] as String,
-    districtOfficeName: json['districtOfficeName'] as String,
-    postalCode: json['postalCode'] as String,
-    address: json['address'] as String,
-    detailedAddress: json['detailedAddress'] as String,
-    telephoneNumber: json['telephoneNumber'] as String,
-    homepageAddress: json['homepageAddress'] as String,
-    isCoeduSchool: json['isCoeduSchool'] as String,
-    faxNumber: json['faxNumber'] as String,
-    foundedDate: json['foundedDate'] == null
-        ? null
-        : DateTime.parse(json['foundedDate'] as String),
-    anniversary: json['anniversary'] == null
-        ? null
-        : DateTime.parse(json['anniversary'] as String),
-    uploadTime: json['uploadTime'] == null
-        ? null
-        : DateTime.parse(json['uploadTime'] as String),
+    json['officeCode'] as String,
+    json['officeName'] as String,
+    json['standardSchoolCode'] as int,
+    json['schoolName'] as String,
+    json['schoolEnglishName'] as String,
+    json['schoolKind'] as String,
+    json['location'] as String,
+    json['districtOfficeName'] as String,
+    json['postalCode'] as String,
+    json['address'] as String,
+    json['detailedAddress'] as String,
+    json['telephoneNumber'] as String,
+    json['homepageAddress'] as String,
+    json['isCoeduSchool'] as String,
+    json['faxNumber'] as String,
+    DateTime.parse(json['foundedDate'] as String),
+    DateTime.parse(json['anniversary'] as String),
+    DateTime.parse(json['uploadTime'] as String),
   );
 }
 
@@ -52,7 +46,7 @@ Map<String, dynamic> _$SchoolInfoToJson(SchoolInfo instance) =>
       'homepageAddress': instance.homepageAddress,
       'isCoeduSchool': instance.isCoeduSchool,
       'faxNumber': instance.faxNumber,
-      'foundedDate': instance.foundedDate?.toIso8601String(),
-      'anniversary': instance.anniversary?.toIso8601String(),
-      'uploadTime': instance.uploadTime?.toIso8601String(),
+      'foundedDate': instance.foundedDate.toIso8601String(),
+      'anniversary': instance.anniversary.toIso8601String(),
+      'uploadTime': instance.uploadTime.toIso8601String(),
     };

@@ -8,17 +8,17 @@ part of 'MealInfo.dart';
 
 MealInfo _$MealInfoFromJson(Map<String, dynamic> json) {
   return MealInfo(
-    officeCode: json['officeCode'] as String,
-    officeName: json['officeName'] as String,
-    standardSchoolCode: json['standardSchoolCode'] as int,
-    schoolName: json['schoolName'] as String,
-    mealCode: json['mealCode'] as int,
-    mealName: json['mealName'] as String,
-    date: json['date'] == null ? null : DateTime.parse(json['date'] as String),
-    menu: json['menu'] as String,
-    calorie: json['calorie'] as String,
-    origins: json['origins'] as String,
-    nutrients: json['nutrients'] as String,
+    json['officeCode'] as String,
+    json['officeName'] as String,
+    json['standardSchoolCode'] as int,
+    json['schoolName'] as String,
+    json['mealCode'] as int,
+    json['mealName'] as String,
+    DateTime.parse(json['date'] as String),
+    json['menu'] as String,
+    json['calorie'] as String,
+    json['origins'] as String,
+    json['nutrients'] as String,
   );
 }
 
@@ -29,7 +29,7 @@ Map<String, dynamic> _$MealInfoToJson(MealInfo instance) => <String, dynamic>{
       'schoolName': instance.schoolName,
       'mealCode': instance.mealCode,
       'mealName': instance.mealName,
-      'date': instance.date?.toIso8601String(),
+      'date': instance.date.toIso8601String(),
       'menu': instance.menu,
       'calorie': instance.calorie,
       'origins': instance.origins,

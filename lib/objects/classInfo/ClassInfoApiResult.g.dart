@@ -8,14 +8,13 @@ part of 'ClassInfoApiResult.dart';
 
 ClassInfoApiResult _$ClassInfoApiResultFromJson(Map<String, dynamic> json) {
   return ClassInfoApiResult(
-    requestUrl: json['requestUrl'] as String,
-    resultCode: _$enumDecodeNullable(_$ResultCodeEnumMap, json['resultCode']),
-    resultMessage: json['resultMessage'] as String,
-    itemsTotalCount: json['itemsTotalCount'] as int,
-    items: (json['items'] as List)
-        ?.map((e) =>
-            e == null ? null : ClassInfo.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    json['requestUrl'] as String,
+    _$enumDecode(_$ResultCodeEnumMap, json['resultCode']),
+    json['resultMessage'] as String,
+    json['itemsTotalCount'] as int,
+    (json['items'] as List<dynamic>)
+        .map((e) => ClassInfo.fromJson(e as Map<String, dynamic>))
+        .toList(),
   );
 }
 
@@ -25,39 +24,33 @@ Map<String, dynamic> _$ClassInfoApiResultToJson(ClassInfoApiResult instance) =>
       'resultCode': _$ResultCodeEnumMap[instance.resultCode],
       'resultMessage': instance.resultMessage,
       'itemsTotalCount': instance.itemsTotalCount,
-      'items': instance.items?.map((e) => e?.toJson())?.toList(),
+      'items': instance.items.map((e) => e.toJson()).toList(),
     };
 
-T _$enumDecode<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
+K _$enumDecode<K, V>(
+  Map<K, V> enumValues,
+  Object? source, {
+  K? unknownValue,
 }) {
   if (source == null) {
-    throw ArgumentError('A value must be provided. Supported values: '
-        '${enumValues.values.join(', ')}');
+    throw ArgumentError(
+      'A value must be provided. Supported values: '
+      '${enumValues.values.join(', ')}',
+    );
   }
 
-  final value = enumValues.entries
-      .singleWhere((e) => e.value == source, orElse: () => null)
-      ?.key;
-
-  if (value == null && unknownValue == null) {
-    throw ArgumentError('`$source` is not one of the supported values: '
-        '${enumValues.values.join(', ')}');
-  }
-  return value ?? unknownValue;
-}
-
-T _$enumDecodeNullable<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
-}) {
-  if (source == null) {
-    return null;
-  }
-  return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
+  return enumValues.entries.singleWhere(
+    (e) => e.value == source,
+    orElse: () {
+      if (unknownValue == null) {
+        throw ArgumentError(
+          '`$source` is not one of the supported values: '
+          '${enumValues.values.join(', ')}',
+        );
+      }
+      return MapEntry(unknownValue, enumValues.values.first);
+    },
+  ).key;
 }
 
 const _$ResultCodeEnumMap = {

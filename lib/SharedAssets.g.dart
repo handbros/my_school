@@ -8,25 +8,22 @@ part of 'SharedAssets.dart';
 
 SharedAssets _$SharedAssetsFromJson(Map<String, dynamic> json) {
   return SharedAssets(
-    acceptTransferringDeviceInformation:
     json['acceptTransferringDeviceInformation'] as bool,
-    classSearchHistory:
-    (json['classSearchHistory'] as List)?.map((e) => e as String)?.toList(),
-    classList: (json['classList'] as List)
-        ?.map((e) =>
-    e == null ? null : ClassInfo.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    selectedClass: json['selectedClass'] == null
-        ? null
-        : ClassInfo.fromJson(json['selectedClass'] as Map<String, dynamic>),
+    (json['classSearchHistory'] as List<dynamic>)
+        .map((e) => e as String)
+        .toList(),
+    (json['classList'] as List<dynamic>)
+        .map((e) => ClassInfo.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    ClassInfo.fromJson(json['selectedClass'] as Map<String, dynamic>),
   );
 }
 
 Map<String, dynamic> _$SharedAssetsToJson(SharedAssets instance) =>
     <String, dynamic>{
       'acceptTransferringDeviceInformation':
-      instance.acceptTransferringDeviceInformation,
+          instance.acceptTransferringDeviceInformation,
       'classSearchHistory': instance.classSearchHistory,
-      'classList': instance.classList?.map((e) => e?.toJson())?.toList(),
-      'selectedClass': instance.selectedClass?.toJson(),
+      'classList': instance.classList.map((e) => e.toJson()).toList(),
+      'selectedClass': instance.selectedClass.toJson(),
     };

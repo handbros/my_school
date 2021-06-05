@@ -8,16 +8,14 @@ part of 'TimeTableApiResult.dart';
 
 TimeTableApiResult _$TimeTableApiResultFromJson(Map<String, dynamic> json) {
   return TimeTableApiResult(
-    requestUrl: json['requestUrl'] as String,
-    resultCode: _$enumDecodeNullable(_$ResultCodeEnumMap, json['resultCode']),
-    resultMessage: json['resultMessage'] as String,
-    itemsTotalCount: json['itemsTotalCount'] as int,
-    items: (json['items'] as List)
-        ?.map((e) => e == null
-            ? null
-            : GeneralTimeTable.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-  )..schoolType = _$enumDecodeNullable(_$SchoolTypeEnumMap, json['schoolType']);
+    json['requestUrl'] as String,
+    _$enumDecode(_$ResultCodeEnumMap, json['resultCode']),
+    json['resultMessage'] as String,
+    json['itemsTotalCount'] as int,
+    (json['items'] as List<dynamic>)
+        .map((e) => GeneralTimeTable.fromJson(e as Map<String, dynamic>))
+        .toList(),
+  )..schoolType = _$enumDecode(_$SchoolTypeEnumMap, json['schoolType']);
 }
 
 Map<String, dynamic> _$TimeTableApiResultToJson(TimeTableApiResult instance) =>
@@ -27,39 +25,33 @@ Map<String, dynamic> _$TimeTableApiResultToJson(TimeTableApiResult instance) =>
       'resultMessage': instance.resultMessage,
       'itemsTotalCount': instance.itemsTotalCount,
       'schoolType': _$SchoolTypeEnumMap[instance.schoolType],
-      'items': instance.items?.map((e) => e?.toJson())?.toList(),
+      'items': instance.items.map((e) => e.toJson()).toList(),
     };
 
-T _$enumDecode<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
+K _$enumDecode<K, V>(
+  Map<K, V> enumValues,
+  Object? source, {
+  K? unknownValue,
 }) {
   if (source == null) {
-    throw ArgumentError('A value must be provided. Supported values: '
-        '${enumValues.values.join(', ')}');
+    throw ArgumentError(
+      'A value must be provided. Supported values: '
+      '${enumValues.values.join(', ')}',
+    );
   }
 
-  final value = enumValues.entries
-      .singleWhere((e) => e.value == source, orElse: () => null)
-      ?.key;
-
-  if (value == null && unknownValue == null) {
-    throw ArgumentError('`$source` is not one of the supported values: '
-        '${enumValues.values.join(', ')}');
-  }
-  return value ?? unknownValue;
-}
-
-T _$enumDecodeNullable<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
-}) {
-  if (source == null) {
-    return null;
-  }
-  return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
+  return enumValues.entries.singleWhere(
+    (e) => e.value == source,
+    orElse: () {
+      if (unknownValue == null) {
+        throw ArgumentError(
+          '`$source` is not one of the supported values: '
+          '${enumValues.values.join(', ')}',
+        );
+      }
+      return MapEntry(unknownValue, enumValues.values.first);
+    },
+  ).key;
 }
 
 const _$ResultCodeEnumMap = {

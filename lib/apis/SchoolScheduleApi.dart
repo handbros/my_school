@@ -11,7 +11,7 @@ import 'package:my_school/utilities/StringFormatter.dart';
 
 /// 학사일정을 확인하기 위한 API을(를) 제공하는 클래스입니다. API 호출에는 [getApiResult]을(를) 사용해주십시오.
 class SchoolScheduleApi {
-  Future<SchoolScheduleApiResult> getApiResult(String officeCode, int standardSchoolCode, {int index = 1, int size = 100, String date, String from, String to} ) async {
+  Future<SchoolScheduleApiResult> getApiResult(String officeCode, int standardSchoolCode, {int index = 1, int size = 100, String? date, String? from, String? to} ) async {
     // API 호출을 위한 쿼리 값들을 초기화.
     var queryParameters = {
       'KEY': SharedAssets.apiKey,
@@ -25,7 +25,7 @@ class SchoolScheduleApi {
       'AA_TO_YMD': to
     };
 
-    SchoolScheduleApiResult result = new SchoolScheduleApiResult();
+    SchoolScheduleApiResult result = new SchoolScheduleApiResult.initial();
     result.requestUrl = "";
     result.resultCode = ResultCode.None;
     result.resultMessage = "";
@@ -36,7 +36,7 @@ class SchoolScheduleApi {
       var response = await http.get(Uri.https(SharedAssets.apiDomain, SharedAssets.schoolScheduleApiPath, queryParameters)); // API 호출 후 데이터 저장.
       final json = jsonDecode(response.body); // 응답 받은 정보를 JSON 포맷으로 변환.
 
-      result.requestUrl = response.request.url.toString();
+      result.requestUrl = response.request!.url.toString();
 
       // API 호출 결과 코드를 가져옴.
       try {
@@ -60,7 +60,7 @@ class SchoolScheduleApi {
         List<dynamic> items = json["SchoolSchedule"][1]["row"];
 
         items.forEach((item) {
-          SchoolSchedule temp = new SchoolSchedule();
+          SchoolSchedule temp = new SchoolSchedule.initial();
           temp.officeCode = item["ATPT_OFCDC_SC_CODE"];
           temp.officeName = item["ATPT_OFCDC_SC_NM"];
 

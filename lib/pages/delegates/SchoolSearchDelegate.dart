@@ -52,7 +52,7 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
     return IconButton(
         icon: Icon(LineIcons.arrowLeft),
         onPressed: () {
-          close(context, null);
+          close(context, "");
         }
     );
   }
@@ -92,8 +92,8 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
                 Center(child: CircularProgressIndicator()),
               ],
             );
-          } else if (snapshot.data.items.length == 0) {
-            if (snapshot.data.resultCode != ResultCode.Okay) {
+          } else if (snapshot.data!.items.length == 0) {
+            if (snapshot.data!.resultCode != ResultCode.Okay) {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -128,7 +128,7 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
             var results = snapshot.data;
 
             return ListView.builder(
-              itemCount: results.items.length,
+              itemCount: results!.items.length,
               itemBuilder: (context, index) {
                 var result = results.items[index];
 
@@ -209,23 +209,23 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
       }
     }
 
-    return new ClassInfo();
+    return new ClassInfo.initial();
   }
 
   /// 학반 선택 대화상자를 표시합니다.
   void showSelectClassDialog(BuildContext context, SchoolInfo schoolInfo) async {
     List<int> gradeList = List<int>.empty(growable: true);
     List<String> classList = List<String>.empty(growable: true);
-    int selectedGrade;
-    String selectedClass;
-    ClassInfo selectedClassInfo;
+    int selectedGrade = 1;
+    String selectedClass = "";
+    ClassInfo selectedClassInfo = ClassInfo.initial();
 
     // Alert Dialog 호출.
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("학반", style: Theme.of(context).textTheme.headline6.copyWith(color: Theme.of(context).hintColor)),
+          title: Text("학반", style: Theme.of(context).textTheme.headline6!.copyWith(color: Theme.of(context).hintColor)),
           // AlertDialog 내에서 상태 변경을 하기 위해 StatefulBuilder를 사용함.
           content: StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) {
@@ -245,7 +245,7 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
                       width: 100,
                       height: 100,
                     );
-                  } else if (snapshot.data.items.length == 0) {
+                  } else if (snapshot.data!.items.length == 0) {
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -264,7 +264,7 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
                     var result = snapshot.data;
 
                     // 학년 정보를 초기화함.
-                    gradeList = getGradeList(result);
+                    gradeList = getGradeList(result!);
 
                     return Column(
                       mainAxisSize: MainAxisSize.min,
@@ -287,14 +287,14 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
                                     return DropdownMenuItem<int>(value: value, child: Text("$value학년"));
                                   },
                                 ).toList(),
-                                onChanged: (int value) {
+                                onChanged: (int? value) {
                                   setState(() {
-                                    selectedGrade = value;
+                                    selectedGrade = value!;
 
                                     classList = getClassList(result, value); // 학반 정보를 초기화함.
-                                    selectedClass = null;
+                                    selectedClass = "";
 
-                                    selectedClassInfo = null;
+                                    selectedClassInfo = ClassInfo.initial();
                                   });
                                 },
                               ),
@@ -312,9 +312,9 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
                                     return DropdownMenuItem<String>(value: value, child: Text("$value반"));
                                   },
                                 ).toList(),
-                                onChanged: (String value) {
+                                onChanged: (String? value) {
                                   setState(() {
-                                    selectedClass = value;
+                                    selectedClass = value!;
 
                                     selectedClassInfo = getSelectedClassInfo(result, selectedGrade, selectedClass);
                                   });
@@ -334,7 +334,7 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
             TextButton(
               child: Text('확인'),
               onPressed: () {
-                if (selectedClass == null || selectedClassInfo == null) {
+                if (selectedClass == "" || selectedClassInfo == ClassInfo.initial()) {
                   // Toast 메시지 호출.
                   Fluttertoast.showToast(
                     msg: "학년 또는 반을 선택해주세요.",
@@ -384,7 +384,7 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("검색 기록", style: Theme.of(context).textTheme.headline6.copyWith(color: Theme.of(context).hintColor)),
+          title: Text("검색 기록", style: Theme.of(context).textTheme.headline6!.copyWith(color: Theme.of(context).hintColor)),
           content: Text("최근 검색 기록을 삭제하시겠습니까?"),
           actions: <Widget>[
             TextButton(

@@ -28,7 +28,7 @@ class SharedAssets{
     acceptTransferringDeviceInformation = false;
     classSearchHistory = List<String>.empty(growable: true);
     classList = List<ClassInfo>.empty(growable: true);
-    selectedClass = new ClassInfo();
+    selectedClass = new ClassInfo.initial();
   }
 
   // API 관련 상수
@@ -44,10 +44,10 @@ class SharedAssets{
   static const String specialSchoolTimeTableApiPath = "/hub/spsTimetable";
 
   // 공통 변수
-  bool acceptTransferringDeviceInformation;
-  List<String> classSearchHistory;
-  List<ClassInfo> classList;
-  ClassInfo selectedClass;
+  late bool acceptTransferringDeviceInformation;
+  late List<String> classSearchHistory;
+  late List<ClassInfo> classList;
+  late ClassInfo selectedClass;
 
   // 공통 변수 관련 함수
 
@@ -96,7 +96,7 @@ class SharedAssets{
         selectedClass = classList[0];
       }
       else {
-        selectedClass = null;
+        selectedClass = ClassInfo.initial();
       }
 
       writeSharedAssets();
@@ -144,7 +144,7 @@ class SharedAssets{
   }
 
   // IO 관련 함수.
-  SharedAssets({this.acceptTransferringDeviceInformation, this.classSearchHistory, this.classList, this.selectedClass});
+  SharedAssets(this.acceptTransferringDeviceInformation, this.classSearchHistory, this.classList, this.selectedClass);
 
   factory SharedAssets.fromJson(Map<String, dynamic> json) => _$SharedAssetsFromJson(json);
   Map<String, dynamic> toJson() => _$SharedAssetsToJson(this);
@@ -154,15 +154,10 @@ class SharedAssets{
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
 
-      String sharedAssetsJson = prefs.getString("SHARED_ASSETS") ?? null;
+      String sharedAssetsJson = (prefs.getString("SHARED_ASSETS") ?? null)!;
 
-      if (sharedAssetsJson == null) {
-        SharedAssets.setInstance(SharedAssets.initial());
-      }
-      else {
-        Map sharedAssetsMap = jsonDecode(sharedAssetsJson);
-        SharedAssets.setInstance(SharedAssets.fromJson(sharedAssetsMap));
-      }
+      Map<String, dynamic> sharedAssetsMap = jsonDecode(sharedAssetsJson);
+      SharedAssets.setInstance(SharedAssets.fromJson(sharedAssetsMap));
 
       ReportBox.getInstance().addReport(new ReportItem(ReportType.SUCCEED, "SHARED ASSETS", "Shared assets are loaded."));
     }
@@ -192,7 +187,7 @@ class SharedAssets{
   void resetPreferences() {
     classSearchHistory = List<String>.empty(growable: true);
     classList = List<ClassInfo>.empty(growable: true);
-    selectedClass = new ClassInfo();
+    selectedClass = new ClassInfo.initial();
 
     writeSharedAssets();
 

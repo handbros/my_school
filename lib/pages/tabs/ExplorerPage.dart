@@ -108,7 +108,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
         final notifier = Provider.of<ClassChangeNotifier>(context);
 
         return AlertDialog(
-          title: Text("학반", style: Theme.of(context).textTheme.headline6.copyWith(color: Theme.of(context).hintColor)),
+          title: Text("학반", style: Theme.of(context).textTheme.headline6!.copyWith(color: Theme.of(context).hintColor)),
           content: Text("학반 정보를 삭제하시겠습니까?"),
           actions: <Widget>[
             TextButton(

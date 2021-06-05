@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 class MenuButton extends StatefulWidget {
-  final IconData icon;
-  final Color iconColor;
-  final Color iconBackgroundColor;
-  final String title;
-  final String description;
-  final Function onTap;
+  IconData icon;
+  Color iconColor = Colors.white;
+  Color iconBackgroundColor;
+  String title;
+  String description;
+  Function onTap;
 
-  MenuButton({this.icon, this.iconColor, this.iconBackgroundColor, this.title, this.description, this.onTap});
+  MenuButton({this.icon = Icons.grade, this.iconColor = Colors.white, this.iconBackgroundColor = Colors.white, this.title = "", this.description = "", required this.onTap});
 
   @override
   _MenuButtonState createState() => _MenuButtonState();
@@ -20,7 +20,7 @@ class _MenuButtonState extends State<MenuButton> {
 
   @override
   Widget build(BuildContext context) {
-    final menuButton = ({Widget child}) => Styled.widget(child: child)
+    final menuButton = ({required Widget child}) => Styled.widget(child: child)
         .alignment(Alignment.center)
         .borderRadius(all: 5)
         .ripple()

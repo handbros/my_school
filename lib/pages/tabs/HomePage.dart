@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: EmptyAppBar(),
-      body: (notifier.getSelectedClass() as ClassInfo)?.schoolName == null ? nullContent() : homePageContent(context)
+      body: (notifier.getSelectedClass() as ClassInfo).schoolName == "" ? nullContent() : homePageContent(context)
     );
   }
 
@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           Padding(padding: EdgeInsets.only(left: 8)),
                           Text(
-                            classInfo.schoolName.length > 16 ? "${classInfo.schoolName.substring(0, 16)}..." : "${classInfo.schoolName}",
+                            classInfo!.schoolName.length > 16 ? "${classInfo.schoolName.substring(0, 16)}..." : "${classInfo.schoolName}",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,

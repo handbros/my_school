@@ -26,7 +26,7 @@ class _SettingsPageState extends State<SettingsPage> {
   void initialize() async {
     // Initialize shared assets.
     SharedAssets assets = SharedAssets.getInstance();
-    _acceptTransferringDeviceInformation = assets.acceptTransferringDeviceInformation ?? false;
+    _acceptTransferringDeviceInformation = assets.acceptTransferringDeviceInformation;
 
     // Initialize package info.
     PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
@@ -197,7 +197,7 @@ class _SettingsPageState extends State<SettingsPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("개인 설정", style: Theme.of(context).textTheme.headline6.copyWith(color: Theme.of(context).hintColor)),
+          title: Text("개인 설정", style: Theme.of(context).textTheme.headline6!.copyWith(color: Theme.of(context).hintColor)),
           content: Text("모든 개인 설정을 초기화하시겠습니까? 초기화 이후에는 다시 복구할 수 없습니다."),
           actions: <Widget>[
             TextButton(
