@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final notifier = Provider.of<ClassChangeNotifier>(context, listen: false);
     notifier.notifyClassChanged();
 
-    ReportBox.getInstance().addReport(new ReportItem(ReportType.SUCCEED, "SPLASH", "Loading is completed."));
+    ReportBox.getInstance().addReport(new ReportItem(ReportType.SUCCEED, "SPLASH SCREEN", "Loading is completed."));
 
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => MainScreen()));
   }

@@ -25,8 +25,6 @@ class SharedAssets{
   /// SharedAssets의 초기 인스턴스를 반환합니다.
   SharedAssets.initial() {
     // 클래스 초기화 코드
-    acceptUsingDeviceStorage = false;
-    useOfflineMode = false;
     acceptTransferringDeviceInformation = false;
     classSearchHistory = List<String>.empty(growable: true);
     classList = List<ClassInfo>.empty(growable: true);
@@ -45,51 +43,7 @@ class SharedAssets{
   static const String highSchoolTimeTableApiPath = "/hub/hisTimetable";
   static const String specialSchoolTimeTableApiPath = "/hub/spsTimetable";
 
-  // 공통 상수
-  final List<String> officeNameList = List<String>.from([
-    '서울특별시교육청',
-    '부산광역시교육청',
-    '대구광역시교육청',
-    '인천광역시교육청',
-    '광주광역시교육청',
-    '대전광역시교육청',
-    '울산광역시교육청',
-    '세종특별자치시교육청',
-    '경기도교육청',
-    '강원도교육청',
-    '충청북도교육청',
-    '충청남도교육청',
-    '전라북도교육청',
-    '전라남도교육청',
-    '경상북도교육청',
-    '경상남도교육청',
-    '제주특별자치도교육청',
-    '재외한국학교교육청'
-  ]);
-  final List<String> officeCodeList = List<String>.from([
-    'B10',
-    'C10',
-    'D10',
-    'E10',
-    'F10',
-    'G10',
-    'H10',
-    'I10',
-    'J10',
-    'K10',
-    'M10',
-    'N10',
-    'P10',
-    'Q10',
-    'R10',
-    'S10',
-    'T10',
-    'V10'
-  ]);
-
   // 공통 변수
-  bool acceptUsingDeviceStorage;
-  bool useOfflineMode;
   bool acceptTransferringDeviceInformation;
   List<String> classSearchHistory;
   List<ClassInfo> classList;
@@ -190,7 +144,7 @@ class SharedAssets{
   }
 
   // IO 관련 함수.
-  SharedAssets({this.acceptUsingDeviceStorage, this.useOfflineMode, this.acceptTransferringDeviceInformation, this.classSearchHistory, this.classList, this.selectedClass});
+  SharedAssets({this.acceptTransferringDeviceInformation, this.classSearchHistory, this.classList, this.selectedClass});
 
   factory SharedAssets.fromJson(Map<String, dynamic> json) => _$SharedAssetsFromJson(json);
   Map<String, dynamic> toJson() => _$SharedAssetsToJson(this);

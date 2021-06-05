@@ -17,8 +17,6 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  bool _acceptUsingDeviceStorage = false;
-  bool _useOfflineMode = false;
   bool _acceptTransferringDeviceInformation = false;
 
   String version = "1.0.0";
@@ -28,9 +26,6 @@ class _SettingsPageState extends State<SettingsPage> {
   void initialize() async {
     // Initialize shared assets.
     SharedAssets assets = SharedAssets.getInstance();
-
-    _acceptUsingDeviceStorage = assets.acceptUsingDeviceStorage ?? false;
-    _useOfflineMode = assets.useOfflineMode ?? false;
     _acceptTransferringDeviceInformation = assets.acceptTransferringDeviceInformation ?? false;
 
     // Initialize package info.
@@ -66,85 +61,6 @@ class _SettingsPageState extends State<SettingsPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Card(
-                elevation: 2,
-                margin: EdgeInsets.fromLTRB(14, 14, 14, 0),
-                child: Padding(
-                  padding: EdgeInsets.only(top: 10, bottom: 8),
-                  child: SettingsSection(
-                    title: '기본',
-                    titleTextStyle: TextStyle(
-                        color: Theme.of(context).hintColor
-                    ),
-                    tiles: [
-                      SettingsTile.switchTile(
-                        title: '장치에 데이터 저장 허용',
-                        leading: Icon(LineIcons.download),
-                        switchValue: _acceptUsingDeviceStorage,
-                        onToggle: (bool value) async {
-                          SharedAssets.getInstance().acceptUsingDeviceStorage = value;
-                          SharedAssets.writeSharedAssets();
-
-                          setState(() {
-                            _acceptUsingDeviceStorage = value;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                )
-            ),
-            Card(
-                elevation: 2,
-                margin: EdgeInsets.fromLTRB(14, 14, 14, 0),
-                child: Padding(
-                  padding: EdgeInsets.only(top: 10, bottom: 8),
-                  child: SettingsSection(
-                    title: '오프라인 모드',
-                    titleTextStyle: TextStyle(
-                        color: Theme.of(context).hintColor
-                    ),
-                    tiles: [
-                      // TODO: 오프라인 모드 기능 추가하기.
-                      SettingsTile.switchTile(
-                        title: '오프라인 모드 사용',
-                        leading: Icon(LineIcons.powerOff),
-                        switchValue: _useOfflineMode,
-                        enabled: _acceptUsingDeviceStorage,
-                        onToggle: (bool value) async {
-                          SharedAssets.getInstance().useOfflineMode = value;
-                          SharedAssets.writeSharedAssets();
-
-                          setState(() {
-                            _useOfflineMode = value;
-                          });
-                        },
-                      ),
-                      SettingsTile.switchTile(
-                        title: '데이터 자동 수집 허용',
-                        leading: Icon(LineIcons.robot),
-                        switchValue: _useOfflineMode,
-                        enabled: _acceptUsingDeviceStorage,
-                        onToggle: (bool value) async {
-                          SharedAssets.getInstance().useOfflineMode = value;
-                          SharedAssets.writeSharedAssets();
-
-                          setState(() {
-                            _useOfflineMode = value;
-                          });
-                        },
-                      ),
-                      SettingsTile(
-                        title: '데이터 수집',
-                        leading: Icon(LineIcons.cogs),
-                        onPressed: (BuildContext context) {
-                          showResetPreferencesDialog(context); // 다이얼로그 호출.
-                        },
-                      ),
-                    ],
-                  ),
-                )
-            ),
             Card(
                 elevation: 2,
                 margin: EdgeInsets.fromLTRB(14, 14, 14, 0),

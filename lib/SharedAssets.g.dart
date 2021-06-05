@@ -8,8 +8,6 @@ part of 'SharedAssets.dart';
 
 SharedAssets _$SharedAssetsFromJson(Map<String, dynamic> json) {
   return SharedAssets(
-    acceptUsingDeviceStorage: json['acceptUsingDeviceStorage'] as bool,
-    useOfflineMode: json['useOfflineMode'] as bool,
     acceptTransferringDeviceInformation:
     json['acceptTransferringDeviceInformation'] as bool,
     classSearchHistory:
@@ -26,8 +24,6 @@ SharedAssets _$SharedAssetsFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$SharedAssetsToJson(SharedAssets instance) =>
     <String, dynamic>{
-      'acceptUsingDeviceStorage': instance.acceptUsingDeviceStorage,
-      'useOfflineMode': instance.useOfflineMode,
       'acceptTransferringDeviceInformation':
       instance.acceptTransferringDeviceInformation,
       'classSearchHistory': instance.classSearchHistory,
