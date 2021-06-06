@@ -217,7 +217,7 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
     List<int> gradeList = List<int>.empty(growable: true);
     List<String> classList = List<String>.empty(growable: true);
     int selectedGrade = 1;
-    String selectedClass = "";
+    String selectedClass = "1";
     ClassInfo selectedClassInfo = ClassInfo.initial();
 
     // Alert Dialog 호출.
@@ -292,6 +292,7 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
                                     selectedGrade = value!;
 
                                     classList = getClassList(result, value); // 학반 정보를 초기화함.
+
                                     selectedClass = "";
 
                                     selectedClassInfo = ClassInfo.initial();
@@ -303,13 +304,14 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
                               padding: EdgeInsets.only(left: 10),
                             ),
                             Expanded(
+                              // TODO: NULL REFERENCE EXCEPTION 해결하기.
                               child: DropdownButton<String>(
                                 hint: Text("반"),
                                 isExpanded: true,
                                 value: selectedClass,
                                 items: classList.map(
                                       (String value) {
-                                    return DropdownMenuItem<String>(value: value, child: Text("$value반"));
+                                    return DropdownMenuItem<String>(value: value, child: Text("$value!반"));
                                   },
                                 ).toList(),
                                 onChanged: (String? value) {

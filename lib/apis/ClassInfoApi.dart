@@ -21,8 +21,8 @@ class ClassInfoApi {
       'pSize': size.toString(),
       'ATPT_OFCDC_SC_CODE': officeCode,
       'SD_SCHUL_CODE': standardSchoolCode.toString(),
-      'AY': targetYear.toString(),
-      'GRADE': grade.toString()
+      'AY': targetYear?.toString(),
+      'GRADE': grade?.toString()
     };
 
     ClassInfoApiResult result = new ClassInfoApiResult.initial();
@@ -87,9 +87,11 @@ class ClassInfoApi {
       else {
         ReportBox.getInstance().addReport(new ReportItem(ReportType.EXCEPTION, "CLASS INFO API", "CODE : ${result.resultCode}\nMESSAGE : ${result.resultMessage}\nREQUEST URL : ${result.requestUrl}"));
       }
-    } catch (e) {
+    } catch (e, stackTrace) {
       result.resultCode = ResultCode.Exception;
-      result.resultMessage = e.toString();
+      result.resultMessage = "${e.toString()}\n${stackTrace.toString()}";
+      print( result.resultMessage);
+      print(result.requestUrl);
 
       ReportBox.getInstance().addReport(new ReportItem(ReportType.ERROR, "CLASS INFO API", "CODE : ${result.resultCode}\nMESSAGE : ${result.resultMessage}\nREQUEST URL : ${result.requestUrl}"));
     }

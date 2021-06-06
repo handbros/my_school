@@ -26,17 +26,17 @@ class SchoolSchedule {
   /// 행사내용
   late String eventDetails = "";
   /// 1학년행사여부
-  late bool isFirstGradeEvent = false;
+  late bool? isFirstGradeEvent = false;
   /// 2학년행사여부
-  late bool isSecondGradeEvent = false;
+  late bool? isSecondGradeEvent = false;
   /// 3학년행사야부
-  late bool isThirdGradeEvent = false;
+  late bool? isThirdGradeEvent = false;
   /// 4학년행사여부
-  late bool isFourthGradeEvent = false;
+  late bool? isFourthGradeEvent = false;
   /// 5학년행사여부
-  late bool isFifthGradeEvent = false;
+  late bool? isFifthGradeEvent = false;
   /// 6학년행사여부
-  late bool isSixthGradeEvent = false;
+  late bool? isSixthGradeEvent = false;
 
   /// 적재일시
   late DateTime uploadTime = DateTime.utc(2000, 1, 1);

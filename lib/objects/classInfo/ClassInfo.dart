@@ -19,14 +19,14 @@ class ClassInfo {
   late int grade = 0;
 
   /// 주야과정명
-  late String dayOrNight = "";
+  late String? dayOrNight = "";
   /// 학교과정명
-  late String schoolType = "";
+  late String? schoolType = "";
 
   /// 계열명
-  late String fieldName = "";
+  late String? fieldName = "";
   /// 학과명
-  late String departmentName = "";
+  late String? departmentName = "";
   /// 반명
   late String className = "";
 
