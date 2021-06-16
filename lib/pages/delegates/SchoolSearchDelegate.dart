@@ -265,6 +265,7 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
 
                     // 학년 정보를 초기화함.
                     gradeList = getGradeList(result!);
+                    classList = getClassList(result, 1);
 
                     return Column(
                       mainAxisSize: MainAxisSize.min,
@@ -293,7 +294,7 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
 
                                     classList = getClassList(result, value); // 학반 정보를 초기화함.
 
-                                    selectedClass = "";
+                                    selectedClass = "1"; // 1로 초기화하지 않을 시 Null Reference Exception 발생.
 
                                     selectedClassInfo = ClassInfo.initial();
                                   });
@@ -304,14 +305,13 @@ class SchoolSearchDelegate extends SearchDelegate<String> {
                               padding: EdgeInsets.only(left: 10),
                             ),
                             Expanded(
-                              // TODO: NULL REFERENCE EXCEPTION 해결하기.
                               child: DropdownButton<String>(
                                 hint: Text("반"),
                                 isExpanded: true,
                                 value: selectedClass,
                                 items: classList.map(
                                       (String value) {
-                                    return DropdownMenuItem<String>(value: value, child: Text("$value!반"));
+                                    return DropdownMenuItem<String>(value: value, child: Text("$value반"));
                                   },
                                 ).toList(),
                                 onChanged: (String? value) {
