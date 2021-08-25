@@ -27,6 +27,34 @@ class _MealPageState extends State<MealPage> {
             }
         ),
       ),
+      body: mealContent(context),
+    );
+  }
+
+  Widget mealContent(BuildContext context) {
+    return Column(
+      children: [
+        Expanded(
+          flex: 1,
+          child: Row(
+
+          ),
+        ),
+        Divider(),
+        Expanded(
+          flex: 10,
+          child: Column(
+
+          ),
+        ),
+        Divider(),
+        Expanded(
+          flex: 1,
+          child: Row(
+
+          ),
+        ),
+      ],
     );
   }
 }

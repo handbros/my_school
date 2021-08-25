@@ -17,8 +17,6 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  bool _acceptTransferringDeviceInformation = false;
-
   String version = "1.0.0";
   String buildNumber = "1";
 
@@ -26,7 +24,6 @@ class _SettingsPageState extends State<SettingsPage> {
   void initialize() async {
     // Initialize shared assets.
     SharedAssets assets = SharedAssets.getInstance();
-    _acceptTransferringDeviceInformation = assets.acceptTransferringDeviceInformation;
 
     // Initialize package info.
     PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
@@ -72,19 +69,6 @@ class _SettingsPageState extends State<SettingsPage> {
                         color: Theme.of(context).hintColor
                     ),
                     tiles: [
-                      SettingsTile.switchTile(
-                        title: '기기정보 수집 허용',
-                        leading: Icon(LineIcons.flag),
-                        switchValue: _acceptTransferringDeviceInformation,
-                        onToggle: (bool value) async {
-                          SharedAssets.getInstance().acceptTransferringDeviceInformation = value;
-                          SharedAssets.writeSharedAssets();
-
-                          setState(() {
-                            _acceptTransferringDeviceInformation = value;
-                          });
-                        },
-                      ),
                       SettingsTile(
                         title: '개인 설정 초기화',
                         subtitle: '개인 설정을 초기화합니다.',

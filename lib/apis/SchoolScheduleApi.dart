@@ -73,7 +73,7 @@ class SchoolScheduleApi {
           temp.date = DateTime.parse(item["AA_YMD"]);
 
           temp.eventName = item["EVENT_NM"];
-          temp.eventDetails = item["EVENT_CNTNT"];
+          //temp.eventDetails = item["EVENT_CNTNT"];
           temp.isFirstGradeEvent = StringFormatter.stringToBool(item["ONE_GRADE_EVENT_YN"]);
           temp.isSecondGradeEvent = StringFormatter.stringToBool(item["TW_GRADE_EVENT_YN"]);
           temp.isThirdGradeEvent = StringFormatter.stringToBool(item["THREE_GRADE_EVENT_YN"]);
@@ -91,11 +91,11 @@ class SchoolScheduleApi {
       else {
         ReportBox.getInstance().addReport(new ReportItem(ReportType.EXCEPTION, "SCHOOL SCHEDULE API", "CODE : ${result.resultCode}\nMESSAGE : ${result.resultMessage}\nREQUEST URL : ${result.requestUrl}"));
       }
-    } catch (e) {
+    } catch (e, stackTrace) {
       result.resultCode = ResultCode.Exception;
       result.resultMessage = e.toString();
 
-      ReportBox.getInstance().addReport(new ReportItem(ReportType.ERROR, "SCHOOL SCHEDULE INFO API", "CODE : ${result.resultCode}\nMESSAGE : ${result.resultMessage}\nREQUEST URL : ${result.requestUrl}"));
+      ReportBox.getInstance().addReport(new ReportItem(ReportType.ERROR, "SCHOOL SCHEDULE INFO API", "CODE : ${result.resultCode}\nMESSAGE : ${result.resultMessage}\nREQUEST URL : ${result.requestUrl}\n${stackTrace.toString()}"));
     }
 
     return result;
