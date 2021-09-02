@@ -1,4 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
+
+import '../SchoolType.dart';
 part 'ClassInfo.g.dart';
 
 /// 반 정보를 저장하는 클래스입니다.
@@ -21,7 +23,7 @@ class ClassInfo {
   /// 주야과정명
   late String? dayOrNight = "";
   /// 학교과정명
-  late String? schoolType = "";
+  late SchoolType schoolType = SchoolType.Elementary;
 
   /// 계열명
   late String? fieldName = "";

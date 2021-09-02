@@ -15,7 +15,7 @@ ClassInfo _$ClassInfoFromJson(Map<String, dynamic> json) {
     json['targetYear'] as int,
     json['grade'] as int,
     json['dayOrNight'] as String,
-    json['schoolType'] as String,
+    json['schoolType'] as SchoolType,
     json['fieldName'] as String,
     json['departmentName'] as String,
     json['className'] as String,

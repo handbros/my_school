@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:my_school/SharedAssets.dart';
 import 'package:my_school/ReportBox.dart';
+import 'package:my_school/objects/SchoolType.dart';
 import 'package:my_school/objects/reports/ReportItem.dart';
 import 'package:my_school/objects/reports/ReportType.dart';
 import 'package:my_school/objects/classInfo/ClassInfo.dart';
@@ -71,7 +72,19 @@ class ClassInfoApi {
           temp.grade = int.parse(item["GRADE"]);
 
           temp.dayOrNight = item["DGHT_CRSE_SC_NM"];
-          temp.schoolType = item["SCHUL_CRSE_SC_NM"];
+
+          if (item["SCHUL_CRSE_SC_NM"] == "초등학교") {
+            temp.schoolType = SchoolType.Elementary;
+          }
+          else if (item["SCHUL_CRSE_SC_NM"] == "중학교") {
+            temp.schoolType = SchoolType.Middle;
+          }
+          else if (item["SCHUL_CRSE_SC_NM"] == "고등학교") {
+            temp.schoolType = SchoolType.High;
+          }
+          else {
+            temp.schoolType = SchoolType.Special;
+          }
 
           temp.fieldName = item["ORD_SC_NM"];
           temp.departmentName = item["DDDEP_NM"];
