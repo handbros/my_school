@@ -34,5 +34,4 @@ my_school은(는) 프로젝트에 대한 모든 기여를 환영합니다. 기�
 이 프로젝트는 MIT 라이센스에 의거하여 공개 배포됩니다. 이 프로젝트에서 사용된 제 3자 라이브러리에 대해서는 master 브랜치의 [오픈소스 라이센스 문서(OPENSOURCES.md)](OPENSOURCES.md)를 참조해주시기 바랍니다.
 
 ## 연락처
-이 프로젝트에 대한 문의 사항이 있다면 GitHub Issues(이)나 아래 연락처로 연락주시기 바랍니다.
- * e-mail : [junimiso04@naver.com](mailto:junimiso04@naver.com)
+이 프로젝트에 대한 문의 사항이 있다면 GitHub Issues을(를) 통해 연락해주시기 바랍니다. 
